@@ -1,20 +1,26 @@
 This file contains a detailed desctiption of the pipeline.
 
+
 ## Project structure:
 
+```
+# directory with software
 /nobackup/ummz/tools
 
+# directory with reference genome
 /nobackup/ummz/reference_genome
 
+# directory with data
 /nobackup/ummz/analysis_nov19/data
 
-~/RNA-seq
-    description.md
-    LICENSE
-    README.md
-    /results
-    /scripts
-    /submission_files
+~/RNA-seq  
+    description.md  
+    LICENSE  
+    README.md  
+    /results  
+    /scripts  
+    /submission_files  
+```
     
     
     
