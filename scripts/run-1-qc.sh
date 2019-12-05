@@ -25,5 +25,5 @@ fi
 fastqFile=$(ls $data_dir/*_001.fastq.gz | sed -n -e "$SGE_TASK_ID p")
 
 # run the fastqc command for each fastq.gz file
-echo "fastqc -o $out_dir/report --threads 4 --dir $out_dir/temp $fastqFile"
+fastqc -o $out_dir/report --threads 4 --dir $out_dir/temp $fastqFile
 
