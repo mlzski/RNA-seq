@@ -4,7 +4,7 @@
 ######################################################################################################
 
 if [ $# != 2 ] ; then
-    echo -e "ERROR: 3 arguments are required: (1) Path to data folder and (2) path to output folder ... Exiting"
+    echo -e "ERROR: 2 arguments are required: (1) Path to data folder and (2) path to output folder ... Exiting"
     exit 1
 fi	
 
