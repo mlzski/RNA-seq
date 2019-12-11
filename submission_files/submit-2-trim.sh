@@ -7,7 +7,5 @@
 #$ -l np=4
 #$ -t 1-41
 
-
-
-/nobackup/ummz/analysis_nov19/RNA-seq/scripts/run-2-trim.sh /nobackup/ummz/analysis_nov19/data /nobackup/ummz/analysis_nov19/results/2_trimming ${SGE_TASK_ID} >> output.$JOB_ID.txt
+/nobackup/ummz/analysis_nov19/RNA-seq/scripts/run-2-trim.sh /nobackup/ummz/analysis_nov19/data /nobackup/ummz/analysis_nov19/results/2_trimming ${SGE_TASK_ID} >> /nobackup/ummz/analysis_nov19/results/2_trimming/arc_files/output.$JOB_ID.txt
 

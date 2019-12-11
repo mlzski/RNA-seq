@@ -3,8 +3,8 @@
 # this script runs trimming (on raw fastq files) for all files (pairs) at once
 #################################################################################
 
-if [ $# != 2 ] ; then
-    echo -e "ERROR: 2 arguments are required: (1) Path to data folder and (2) path to output folder ... Exiting"
+if [ $# != 3 ] ; then
+    echo -e "ERROR: 3 arguments are required: (1) Path to data folder, (2) path to output folder and (3) SGE_TASK_ID argument for array jobs ... Exiting"
     exit 1
 fi	
 
