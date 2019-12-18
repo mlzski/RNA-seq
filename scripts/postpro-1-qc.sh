@@ -6,7 +6,7 @@
 results_dir=$1
 
 # concatenate all summary.txt files
-
+for d in */; do cat $d/summary.txt >> summaries_all.txt ; done
  
 
 
