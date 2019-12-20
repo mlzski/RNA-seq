@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+# TODO: doesn't work when running twice with same in out directories (e.g paired and unpaired), there's a problem in unzipped folder
+
+
 # TO BE EXECUTED BEFORE THIS SCRIPT: module load anaconda/2019.10
 
 # usage: postpro_qc.py <inputfile_directory> <outputfile_directory>
