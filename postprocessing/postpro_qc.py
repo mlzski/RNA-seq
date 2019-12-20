@@ -11,11 +11,13 @@ import zipfile
 import pandas as pd
 import numpy as np
 
-#dir_in = sys.argv[1]
-#dir_out = sys.argv[2]
+# running from terminal
+dir_in = sys.argv[1]
+dir_out = sys.argv[2]
 
-dir_in = '/nobackup/ummz/analysis_nov19/results/1_quality_control'
-dir_out = '/nobackup/ummz/analysis_nov19/results/1_quality_control/postprocessed' 
+# running in consol 
+#dir_in = '/nobackup/ummz/analysis_nov19/results/1_quality_control'
+#dir_out = '/nobackup/ummz/analysis_nov19/results/1_quality_control/postprocessed' 
 
 print('Input directory: ', dir_in)
 print('Output directory: ', dir_out)
@@ -28,11 +30,11 @@ if not os.path.exists(dir_out):
 # create a directory for unzipped files, then unzip all files
 print(dir_out + '/unzipped')
 if not os.path.exists(dir_out + '/unzipped'):
-    print('Creating new folder for unzipped files: ', dir_out + '/unzipped')
+    #print('Creating new folder for unzipped files: ', dir_out + '/unzipped')
     os.makedirs(dir_out + '/unzipped')
 
 # unzip all files and place them in new directory
-print('Unzipping files ...')
+#print('Unzipping files ...')
 for files in os.listdir(dir_in):
     if files.endswith(".zip"):
         name = os.path.join(dir_in, files)
@@ -71,90 +73,61 @@ lista_r2 = [df_1.iloc[1::2, :], df_2.iloc[1::2, :], df_3.iloc[1::2, :], df_4.ilo
             df_6.iloc[1::2, :], df_7.iloc[1::2, :], df_8.iloc[1::2, :], df_9.iloc[1::2, :], df_10.iloc[1::2, :], 
             df_11.iloc[1::2, :]]
 
-
+print()
 warned_r1 = []
-warned_r2 = []
-failed_r1 = []
-failed_r2 = []
 idx_w_r1 = []
-idx_f_r1 = []
-idx_w_r2 = []
-idx_f_r2 = []
+#list_out_warned_r1 = list()
 
-list_out_warned_r1 = list()
-list_out_failed_r1 = list()
-
-list_out_warned_r2 = list()
-list_out_failed_r2 = list()
-
-#pd.concat([df1, df2])
-
-print('Summary for Read 1')
+print('Metrics flagged with WARN in Read 1:')
 for i in range(len(lista_r1)):
+	warned_r1 = lista_r1[i]['res'] == 'WARN'
+	if any(lista_r1[i]['res'] == 'WARN') == True:
+		print(str(np.sum(warned_r1)) + ' samples were flagged with WARN => ' + np.unique(lista_r1[i]['metric']))
+		idx_w_r1 = np.where(warned_r1)[0]
+		#list_out_warned_r1.append(lista_r1[i].iloc[idx_w_r1,2])	
+		print(lista_r1[i].iloc[idx_w_r1,2].to_string(index=False))
 
-    warned_r1 = lista_r1[i]['res'] == 'WARN'	
-    failed_r1 = lista_r1[i]['res'] == 'FAIL'
+print()
+failed_r1 = []
+idx_f_r1 = []
+#list_out_failed_r1 = list()
 
-    if any(lista_r1[i]['res'] == 'WARN') == False:
-        print(np.unique(lista_r1[i]['metric']) + ' => ' + 'no samples with WARN' )
-    else:
-        print(np.unique(lista_r1[i]['metric']) + ' => ' + str(np.sum(warned_r1)) + ' samples were flagged with WARN')
-        idx_w_r1 = np.where(warned_r1)[0]
-        list_out_warned_r1.append(lista_r1[i].iloc[idx_w_r1,2])	
-	
-    if any(lista_r1[i]['res'] == 'FAIL') == False:
-        print(np.unique(lista_r1[i]['metric']) + ' => ' + 'no samples with FAIL')
-    else:
-        print(np.unique(lista_r1[i]['metric']) + ' => '+ str(np.sum(failed_r1)) + ' samples were flagged with FAIL')	
-        idx_f_r1 = np.where(failed_r1)[0]
-        list_out_failed_r1.append(lista_r1[i].iloc[idx_f_r1,2])
+print('Metrics flagged with FAIL in Read 1:')
+for i in range(len(lista_r1)):
+	failed_r1 = lista_r1[i]['res'] == 'FAIL'
+	if any(lista_r1[i]['res'] == 'FAIL') == True:
+		print(str(np.sum(failed_r1)) + ' samples were flagged with FAIL => ' + np.unique(lista_r1[i]['metric']))
+		idx_f_r1 = np.where(failed_r1)[0]
+		#list_out_failed_r1.append(lista_r1[i].iloc[idx_f_r1,2])
+		print(lista_r1[i].iloc[idx_f_r1,2].to_string(index=False))
 
+print()
+warned_r2 = []
+idx_w_r2 = []
+#list_out_warned_r2 = list()
 
-print('Summary for Read 2')
+print('Metrics flagged with WARN in Read 2:')
 for i in range(len(lista_r2)):
+	warned_r2 = lista_r2[i]['res'] == 'WARN'
+	if any(lista_r2[i]['res'] == 'WARN') == True:
+		print(str(np.sum(warned_r2)) + ' samples were flagged with WARN => ' + np.unique(lista_r2[i]['metric']))
+		idx_w_r2 = np.where(warned_r2)[0]
+		#list_out_warned_r2.append(lista_r2[i].iloc[idx_w_r2,2])	
+		print(lista_r2[i].iloc[idx_w_r2,2].to_string(index=False))
 
-    warned_r2 = lista_r2[i]['res'] == 'WARN'	
-    failed_r2 = lista_r2[i]['res'] == 'FAIL'
+print()
+failed_r2 = []
+idx_f_r2 = []
+#list_out_failed_r2 = list()
 
-    if any(lista_r2[i]['res'] == 'WARN') == False:
-        print(np.unique(lista_r2[i]['metric']) + ' => ' + 'no samples with WARN' )
-    else:
-        print(np.unique(lista_r2[i]['metric']) + ' => ' + str(np.sum(warned_r2)) + ' samples were flagged with WARN')
-        idx_w_r2 = np.where(warned_r2)[0]
-        list_out_warned_r2.append(lista_r2[i].iloc[idx_w_r2,2])	
-	
-    if any(lista_r2[i]['res'] == 'FAIL') == False:
-        print(np.unique(lista_r2[i]['metric']) + ' => ' + 'no samples with FAIL')
-    else:
-        print(np.unique(lista_r2[i]['metric']) + ' => '+ str(np.sum(failed_r2)) + ' samples were flagged with FAIL')	
-        idx_f_r2 = np.where(failed_r2)[0]
-        list_out_failed_r2.append(lista_r2[i].iloc[idx_f_r2,2])
-
-
-# create tables for: read1 and read2 outputs
-
-init = pd.DataFrame(list_out_warned_r1[0])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print('Metrics flagged with FAIL in Read 2:')
+for i in range(len(lista_r2)):
+	failed_r2 = lista_r2[i]['res'] == 'FAIL'
+	if any(lista_r2[i]['res'] == 'FAIL') == True:
+		print(str(np.sum(failed_r2)) + ' samples were flagged with FAIL => ' + np.unique(lista_r2[i]['metric']))
+		idx_f_r2 = np.where(failed_r2)[0]
+		#list_out_failed_r2.append(lista_r2[i].iloc[idx_f_r2,2])
+		print(lista_r2[i].iloc[idx_f_r2,2].to_string(index=False))
 
 
 
