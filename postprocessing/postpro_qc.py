@@ -3,7 +3,7 @@
 # TO BE EXECUTED BEFORE THIS SCRIPT: module load anaconda/2019.10
 
 # usage: postpro_qc.py <inputfile_directory> <outputfile_directory>
-# EXAMPLE: python postpro_qc.py /nobackup/ummz/analysis_nov19/results/1_quality_control/ /nobackup/ummz/analysis_nov19/results/1_quality_control/postprocessed
+# EXAMPLE: python postpro_qc.py /nobackup/ummz/analysis_nov19/results/1_quality_control/ /nobackup/ummz/analysis_nov19/results/1_quality_control/postprocessed > /nobackup/ummz/analysis_nov19/results/1_quality_control/postprocessed/qc_metrics_out.txt
 
 import sys
 import os
