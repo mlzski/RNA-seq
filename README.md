@@ -43,11 +43,11 @@ wget "http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic
 
 unzip Trimmomatic-0.39.zip
 ```
-- STAR (version ) [source:]
+- STAR (version ) [source: https://github.com/alexdobin/STAR/archive/2.7.3a.tar.gz]
 
 - samtools (version ) [source:]
 
-- Cufflinks () [source:]
+- Cufflinks () [source: http://cole-trapnell-lab.github.io/cufflinks/assets/downloads/cufflinks-2.2.1.OSX_x86_64.tar.gz]
 
 
 ## Getting started
