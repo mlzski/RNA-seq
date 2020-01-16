@@ -2,7 +2,7 @@ This file contains a detailed desctiption of the pipeline.
 
 ## Project structure:
 
-All permanent files (i.e scripts, tools, readmes, etc.) should be stored in my home directory (/home/home02/ummz).
+All permanent files (i.e scripts, tools, readmes, etc.) should be stored in my home directory (/home/home02/ummz).  
 All temporary files (i.e. data, reference geome and results) should be placed on /nobackup/ummz, but cannot be stored for a long time. They should be created either before or during the analysis and then removed right after, once they are not needed anymore.  
 
 ```
