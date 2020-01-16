@@ -71,11 +71,13 @@ TO BE COMPLETED
 ## Running example 
 All the steps were ran on a set of 41 samples.
 
-/1_quality_control          {145 M}
-/2_trimming                 {381 G}
-/3_quality_control_trimmed  {422 M}
-/4_alignment                {111 G}
-/5_counting                 { 15 G}
+```
+/1_quality_control          => 145 M
+/2_trimming                 => 381 G
+/3_quality_control_trimmed  => 422 M
+/4_alignment                => 111 G
+/5_counting                 =>  15 G
+```
 
 Files to be backuped:
 
