@@ -81,7 +81,9 @@ All the steps were ran on a set of 41 samples.
 
 Files to be backuped:
 
+```
 => all arc_files (from each directory)
 => /1_quality_control/report
 => /3_quality_control_trimmed/report
 => /5_counting
+```
