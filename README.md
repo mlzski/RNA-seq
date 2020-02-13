@@ -74,9 +74,32 @@ The pipeline is not automated yet. Each step needs to be launched manually.
   * create 2 new directories: *report* (for results) and *temp* (for intermediate files) 
   * modify the last line in the submission file: 
 ```
-/path/to/running/script/run-1-qc.sh /path/to/data /path/to/results/ ${SGE_TASK_ID} >> /path/to/arc_files/output.$JOB_ID.txt
+/path/to/running/script/run-1-qc.sh /path/to/data /path/to/results ${SGE_TASK_ID} >> /path/to/arc_files/output.$JOB_ID.txt
 ```
-  * launch the submission file: `qsub submit-N-nnn.sh`
+  * launch the submission file: `qsub submit-[file_name].sh`
+  
+2. Trimming (Trimmomatic):
+ * create a new directory for results *processed_fastq* and 2 sub-directories within it: *paired* and *unpaired*
+ * modify the last line in the submission file:
+```
+/path/to/running/script/run-2-trim.sh /path/to/data /path/to/results ${SGE_TASK_ID} >> /path/to/arc_files/output.$JOB_ID.txt
+```
+  * launch the submission file: `qsub submit-[file_name].sh`
+  * **NOTICE:** output files need to be moved to *paired* and *unpaired* folders manually once the running is finished
+  
+3. Quality control after trimming (FastQC):
+
+
+
+4. Alignment (STAR):
+
+
+
+
+5. Reads quantification (Cufflinks):
+
+
+
 
 ## Running example 
 All the steps were ran on a set of 41 samples.
