@@ -9,5 +9,4 @@
 #$ -m be
 #$ -M ummz-arc-records@outlook.com
 
-/nobackup/ummz/analysis_nov19/RNA-seq/scripts/run-2-trim.sh /nobackup/ummz/analysis_nov19/data /nobackup/ummz/analysis_nov19/results/2_trimming ${SGE_TASK_ID} >> /nobackup/ummz/analysis_nov19/results/2_trimming/arc_files/output.$JOB_ID.txt
-
+/path/to/running/script/run-2-trim.sh /path/to/data /path/to/results ${SGE_TASK_ID} >> /path/to/arc_files/output.$JOB_ID.txt
