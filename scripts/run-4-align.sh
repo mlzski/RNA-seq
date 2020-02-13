@@ -10,7 +10,7 @@ if [ $# != 4 ] ; then
 fi    
 
 # export software (STAR)
-export PATH=/nobackup/ummz/tools/STAR-2.7.3a/bin/Linux_x86_64_static:$PATH
+export PATH=/home/home02/ummz/tools/STAR-2.7.3a/bin/Linux_x86_64_static:$PATH
 
 # assign variables
 data_dir=$1
