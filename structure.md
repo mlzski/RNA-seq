@@ -89,8 +89,6 @@ There are 5 steps of the analysis: quality control, trimming, quality control af
 
 **NOTICE:** the cuffmerge command was used to merge together several Cufflinks assemblies
 
-source: http://cole-trapnell-lab.github.io/cufflinks/cuffmerge/index.html
-
 ```
 /5_counting {15 G}
 
