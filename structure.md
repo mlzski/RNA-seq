@@ -2,6 +2,8 @@ LAST MODIFIED: 13/02/2020
 
 There are 5 steps of the analysis: quality control, trimming, quality control after trimming, alignment and reads quantification. Each step is enclosed in one folder which includes all output files, arc records and 2 shell scripts ("run" and "submit"). The shell scripts are copied from the main directory: /home/home02/ummz/RNA-seq.
 
+
+**STEP 1: Quality control using FastQC**
 ```
 /1_quality_control {145 M} 
 
@@ -25,6 +27,8 @@ There are 5 steps of the analysis: quality control, trimming, quality control af
   /temp [empty directory]
 ```
 
+**STEP 2: Trimming using Trimmomatic**
+```
 /2_trimming {381 G}
   /arc_files [83 files]
     output.26787.txt            
@@ -39,7 +43,10 @@ There are 5 steps of the analysis: quality control, trimming, quality control af
     /unpaired [82 files]
       11026_S12_L005_R1_unpaired.fq
       11026_S12_L005_R2_unpaired.fq
+```
 
+**STEP 3: Quality control after trimming using FastQC**
+```
 /3_quality_control_trimmed {422 M}
   /arc_files [329 files]
     output.26802.txt
@@ -60,7 +67,10 @@ There are 5 steps of the analysis: quality control, trimming, quality control af
     /unpaired [164 files: 41 .html for each read; 41 .zip for each read]
   
   /temp
+```
 
+**STEP 4: Reads alignment using STAR**
+```
 /4_alignment {111 G}
   /arc_files
     Log.out
@@ -77,7 +87,10 @@ There are 5 steps of the analysis: quality control, trimming, quality control af
     11026_S12_L005_Log.out
     11026_S12_L005_Log.progress.out
     11026_S12_L005_SJ.out.tab
-    
+```
+
+**STEP 5: Reads quantification using Cufflinks**
+```
 /5_counting {15 G}
   /arc_files [166 files]
     output.27114.txt
@@ -98,6 +111,6 @@ There are 5 steps of the analysis: quality control, trimming, quality control af
     isoforms.fpkm_tracking
     skipped.gtf
     transcripts.gtf
-  
+```
   
 
