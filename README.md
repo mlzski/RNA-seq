@@ -70,33 +70,38 @@ The pipeline is not automated yet. Each step needs to be launched manually.
 
 0. Setup: create 5 new directories (one for each step) and copy in running and submission scripts from /home/home02/ummz/RNA-seq/ (e.g run-1-qc.sh & submit-1-qc.sh for the first step)
 
-1. Quality control (FastQC): 
+**1. Quality control (FastQC):** 
   * create 2 new directories: *report* (for results) and *temp* (for intermediate files) 
   * modify the last line in the submission file: 
 ```
 /path/to/running/script/run-1-qc.sh /path/to/data /path/to/results ${SGE_TASK_ID} >> /path/to/arc_files/output.$JOB_ID.txt
 ```
-  * launch the submission file: `qsub submit-[file_name].sh`
+  * launch the submission file: `qsub submit-1-qc.sh`
   
-2. Trimming (Trimmomatic):
+**2. Trimming (Trimmomatic):**
  * create a new directory for results *processed_fastq* and 2 sub-directories within it: *paired* and *unpaired*
  * modify the last line in the submission file:
 ```
 /path/to/running/script/run-2-trim.sh /path/to/data /path/to/results ${SGE_TASK_ID} >> /path/to/arc_files/output.$JOB_ID.txt
 ```
-  * launch the submission file: `qsub submit-[file_name].sh`
+  * launch the submission file: `qsub submit-2-trim.sh`
   * **NOTICE:** output files need to be moved to *paired* and *unpaired* folders manually once the running is finished
   
-3. Quality control after trimming (FastQC):
+**3. Quality control after trimming (FastQC):**
+  * create 2 new directories: *report* (for results) and *temp* (for intermediate files) and 2 sub-directories within it: *paired* and *unpaired*
+  * modify the last line in the submission file: 
+```
+/path/to/running/script/run-3-qc-trim.sh /path/to/data /path/to/results ${SGE_TASK_ID} >> /path/to/arc_files/output.$JOB_ID.txt
+```
+  * launch the submission file: `qsub submit-3-qc-trim.sh`
+  * **NOTICE:** output files need to be moved to *paired* and *unpaired* folders manually once the running is finished
+
+**4. Alignment (STAR):**
 
 
 
-4. Alignment (STAR):
 
-
-
-
-5. Reads quantification (Cufflinks):
+**5. Reads quantification (Cufflinks):**
 
 
 
