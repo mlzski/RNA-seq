@@ -8,6 +8,4 @@
 #$ -m be
 #$ -M ummz-arc-records@outlook.com
 
-/nobackup/ummz/analysis_nov19/RNA-seq/scripts/run-4-index.sh /nobackup/ummz/reference/index /nobackup/ummz/reference/genome/Homo_sapiens.GRCh38.dna.primary_assembly.fa /nobackup/ummz/reference/annotation/Homo_sapiens.GRCh38.98.gtf >> /nobackup/ummz/analysis_nov19/results/4_alignment/arc_files/output.$JOB_ID.txt
-
-
+/path/to/running/script/run-4-index.sh /nobackup/ummz/reference/index /nobackup/ummz/reference/genome/Homo_sapiens.GRCh38.dna.primary_assembly.fa /nobackup/ummz/reference/annotation/Homo_sapiens.GRCh38.98.gtf >> /path/to/arc_files/output.$JOB_ID.txt
