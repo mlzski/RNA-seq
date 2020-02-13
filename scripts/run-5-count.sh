@@ -8,7 +8,7 @@ if [ $# != 4 ] ; then
 fi    
 
 # export software (Cufflinks)
-export PATH=/nobackup/ummz/tools/cufflinks-2.2.1.Linux_x86_64:$PATH
+export PATH=/home/home02/ummz/tools/cufflinks-2.2.1.Linux_x86_64:$PATH
 
 # assign variables
 data_dir=$1
