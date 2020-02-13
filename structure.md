@@ -2,7 +2,7 @@ LAST MODIFIED: 13/02/2020
 
 There are 5 steps of the analysis: quality control, trimming, quality control after trimming, alignment and reads quantification. Each step is enclosed in one folder which includes all output files, arc records and 2 shell scripts ("run" and "submit"). The shell scripts are copied from the main directory: /home/home02/ummz/RNA-seq.
 
-NOTICE 1: each directory below includes a folder named *arc_files* where all arc output files are stored. It looks similar for each step:
+**NOTICE 1:** each directory below includes a folder named *arc_files* where all arc output files are stored. It looks similar for each step:
 ```
   /arc_files
     output.JOB_ID.txt
@@ -10,7 +10,7 @@ NOTICE 1: each directory below includes a folder named *arc_files* where all arc
     submit-[FILE_NAME].sh.oJOB_ID.N (from 1 to N; N => number of files)
  ``` 
 
-NOTICE 2: there is an estimated size of each folder in braces (e.g. {145 M}) 
+**NOTICE 2:** there is an estimated size of each folder in braces (e.g. {145 M}) 
 
 **STEP 1: Quality control using FastQC**
 ```
@@ -29,7 +29,8 @@ NOTICE 2: there is an estimated size of each folder in braces (e.g. {145 M})
 ```
 
 **STEP 2: Trimming using Trimmomatic**
-NOTICE: /paired and /unpaired directories need to be created manualy after trimming and then the files can be moved respectively
+
+**NOTICE:** */paired* and */unpaired* directories need to be created manualy after trimming and then the files can be moved respectively
 ```
 /2_trimming {381 G}
 
