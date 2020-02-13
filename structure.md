@@ -7,22 +7,17 @@ There are 5 steps of the analysis: quality control, trimming, quality control af
 ```
 /1_quality_control {145 M} 
 
-  /arc_files  [165 files]
-    output.24845.txt
-    submit-1-qc.sh.e24845.1 (from 1 to 82)
-    submit-1-qc.sh.o24845.1 (from 1 to 82)
+  /arc_files
+    output.JOB_ID.txt
+    submit-1-qc.sh.eJOB_ID.N (from 1 to N; N => number of files) 
+    submit-1-qc.sh.oJOB_ID.N (from 1 to N; N => number of files)
 
-  /postprocessed [to be changed, use ngsReports package in R]
-    all_merged.txt          => all outputs files merged together (to be removed/modified)
-    qc_metrics_out.txt      => output from postprocessing file (to be removed/modified)
+  /report [1 .html and 1 .zip for each processed file]
+    11026_S12_L005_R1_001_fastqc.html (EXAMPLE)
+    11026_S12_L005_R1_001_fastqc.zip  (EXAMPLE)
 
-  /unzipped [82 files; includes all .zip files from /report]
-    11026_S12_L005_R1_001_fastqc 
-    11026_S12_L005_R2_001_fastqc
-
-  /report [164 files: 41 .html for each read; 41 .zip for each read]
-    11026_S12_L005_R1_001_fastqc.html 
-    11026_S12_L005_R1_001_fastqc.zip 
+  run-1-qc.sh
+  submit-1-qc.sh
 
   /temp [empty directory]
 ```
