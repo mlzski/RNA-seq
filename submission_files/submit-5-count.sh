@@ -9,5 +9,4 @@
 #$ -m be
 #$ -M ummz-arc-records@outlook.com
 
-/nobackup/ummz/analysis_nov19/RNA-seq/scripts/run-5-count.sh /nobackup/ummz/analysis_nov19/results/4_alignment/bam /nobackup/ummz/analysis_nov19/results/5_counting /nobackup/ummz/reference/annotation/Homo_sapiens.GRCh38.98.gtf ${SGE_TASK_ID} >> /nobackup/ummz/analysis_nov19/results/5_counting/arc_files/output.$JOB_ID.txt
-
+/path/to/running/script/run-5-count.sh /path/to/files/bam /path/to/results /nobackup/ummz/reference/annotation/Homo_sapiens.GRCh38.98.gtf ${SGE_TASK_ID} >> /path/to/arc_files/output.$JOB_ID.txt
