@@ -86,21 +86,27 @@ There are 5 steps of the analysis: quality control, trimming, quality control af
 ```
 
 **STEP 5: Reads quantification using Cufflinks**
+**NOTICE:** the cuffmerge command was used to merge together several Cufflinks assemblies; source: http://cole-trapnell-lab.github.io/cufflinks/cuffmerge/index.html
+
 ```
 /5_counting {15 G}
+
   /arc_files
     
-  /out_11026_S12_L005 [41 directories like this (for each sample)]
-    genes.fpkm_tracking  
-    isoforms.fpkm_tracking  
-    skipped.gtf  
-    transcripts.gtf
+  /out_11026_S12_L005 (EXAMPLE) [1 directoriy for each sample (a pair of 2 files)]
+    genes.fpkm_tracking     (EXAMPLE) generic FPKM Tracking Format
+    isoforms.fpkm_tracking  (EXAMPLE) contains the estimated isoform-level expression values in the generic FPKM Tracking Format
+    skipped.gtf             (EXAMPLE) ???
+    transcripts.gtf         (EXAMPLE) contains Cufflinks’ assembled isoforms
     
-  /results_all_in_one
-    genes.fpkm_tracking
-    isoforms.fpkm_tracking
-    skipped.gtf
-    transcripts.gtf
+  /results_all_in_one (merged using cuffmerge)
+    genes.fpkm_tracking     (EXAMPLE)
+    isoforms.fpkm_tracking  (EXAMPLE)
+    skipped.gtf             (EXAMPLE)
+    transcripts.gtf         (EXAMPLE)
+   
+  run-5-count.sh
+  submit-5-count.sh
 ```
   
 
