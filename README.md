@@ -6,7 +6,7 @@
 2) Trimming (using Trimmomatic)
 3) Quality control on trimmed fastq files (using FastQC)
 4) Read alignment (using STAR)
-5) BAM manipulation (using samtools)
+5) BAM manipulation (using samtools) [TO BE IMPLEMENTED]
 6) Obtain read counts (using Cufflinks)
 
 ## Download
@@ -66,7 +66,12 @@ tar zxvf cufflinks-2.2.1.tar.gz
 
 ## Getting started
 
-TO BE COMPLETED
+The pipeline is not automated yet. Each step needs to be launched manually. 
+
+0. Setup: create 5 new directories (one for each step) and copy in running and submission scripts from /home/home02/ummz/RNA-seq/ (e.g run-1-qc.sh & submit-1-qc.sh for first step)
+
+1. Quality control (FastQC): create 
+   
 
 ## Running example 
 All the steps were ran on a set of 41 samples.
