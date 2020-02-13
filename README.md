@@ -79,7 +79,7 @@ The pipeline is not automated yet. Each step needs to be launched manually.
   * launch the submission file: `qsub submit-1-qc.sh`
   
 **2. Trimming (Trimmomatic):**
- * create a new directory for results *processed_fastq* and 2 sub-directories within it: *paired* and *unpaired*
+ * create a new directory for results *processed_fastq* and 2 sub-directories within the *report* folder: *paired* and *unpaired*
  * modify the last line in the submission file:
 ```
 /path/to/running/script/run-2-trim.sh /path/to/data /path/to/results ${SGE_TASK_ID} >> /path/to/arc_files/output.$JOB_ID.txt
@@ -97,9 +97,19 @@ The pipeline is not automated yet. Each step needs to be launched manually.
   * **NOTICE:** output files need to be moved to *paired* and *unpaired* folders manually once the running is finished
 
 **4. Alignment (STAR):**
-
-
-
+ * NOTICE: when running for the first time, follow the instruction from /home/home02/ummz/reference/README.txt (i.e. generate index first) 
+ * modify the last line in the INDEX submission file: (first time running only) 
+```
+/path/to/running/script/run-4-index.sh /nobackup/ummz/reference/index /nobackup/ummz/reference/genome/Homo_sapiens.GRCh38.dna.primary_assembly.fa /nobackup/ummz/reference/annotation/Homo_sapiens.GRCh38.98.gtf >> /path/to/arc_files/output.$JOB_ID.txt
+```
+ * launch the submission file: `qsub submit-4-index.sh` (first time running only) 
+ 
+ * create a new directory for results *bam*
+ * modify the last line in the ALIGN submission file: 
+```
+/path/to/running/script/run-4-align.sh /path/to/input/files /path/to/results /nobackup/ummz/reference/index ${SGE_TASK_ID} >> /path/to/arc_files/output.$JOB_ID.txt
+```
+ * launch the submission file: `qsub submit-4-align.sh`
 
 **5. Reads quantification (Cufflinks):**
 
