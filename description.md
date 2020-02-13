@@ -51,30 +51,43 @@ All temporary files (i.e. data, reference geome and results) should be placed on
 
 All reference genome files sholud be downloaded and placed on /nobackup every time before the analysis and then removed right after. It is because we do not want to store them permanently.
 
-## Analysis steps - parameters used in each software:
+## Analysis steps - parameters used in each software (examples):
 
-1) Quality control on raw fastq files (using FastQC) => scripts: run-1-qc.sh & submit-1-qc.sh
-
+1) Quality control on raw fastq files (using FastQC)
 ```
 fastqc 
--o /nobackup/ummz/analysis_nov19/1_quality_control/report/ 
+-o /path/to/report/
 --threads 4 
---dir /nobackup/ummz/analysis_nov19/1_quality_control/temp/ 
-/nobackup/ummz/analysis_nov19/data/data/[file_name.fastq]
+--dir /path/to/temp/ 
+/path/to/data/[file_name.fastq]
 ```
-
-NOTICE: it requires two folders: /report for .html report files and /temp for temporary files which are removed before the process ends (so no output in this folder)
 
 2) Trimming (using Trimmomatic)
-
 ```
-
+java -jar /home/home02/ummz/tools/Trimmomatic-0.39/trimmomatic-0.39.jar 
+PE 
+-threads 4 
+-phred33 
+$read1 
+$read2 
+/path/to/results/processed_fastq/${coreFile}R1_paired.fq 
+/path/to/results/processed_fastq/${coreFile}R1_unpaired.fq 
+/path/to/results/processed_fastq/${coreFile}R2_paired.fq 
+/path/to/results/processed_fastq/${coreFile}R2_unpaired.fq 
+ILLUMINACLIP:/home/home02/ummz/tools/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 
+LEADING:3 
+TRAILING:3 
+SLIDINGWINDOW:4:15 
+MINLEN:36
 ```
 
 3) Quality control on trimmed fastq files (using FastQC)
-
 ```
-
+fastqc 
+-o /path/to/report/
+--threads 4 
+--dir /path/to/temp/ 
+/path/to/data/[file_name.fastq]
 ```
 
 4) Read alignment (using STAR)
@@ -83,17 +96,18 @@ NOTICE: it requires 2 new directories to be created and genome (.gtf) and annota
 
 ```
 STAR 
---runThreadN 4 
+--runThreadN 8 
 --runMode genomeGenerate 
 --genomeDir ./index 
 --genomeFastaFiles ./genome/human_chr22.fa 
 --sjdbGTFfile ./annotation/human_chr22.gtf 
 --sjdbOverhang 150
+```
+**NOTICE:** need to unzip fq.gz beforehand
 
-# NOTICE: need to unzip fq.gz beforehand
-
+```
 STAR 
---runThreadN 4 
+--runThreadN 8 
 --runMode alignReads
 --genomeDir [/working/directory]/index 
 --readFilesIn [/data/after/trimming]/[sample]_R1_001_val_1.fq.gz [/data/after/trimming]/[sample]_R2_001_val_2.fq.gz 
@@ -101,11 +115,12 @@ STAR
 --outSAMtype BAM SortedByCoordinate 
 --outSAMattributes All 
 --outSAMstrandField intronMotif
+```
 
 # run again to produce the SAM format output
-
+```
 STAR 
---runThreadN 4 
+--runThreadN 8 
 --runMode alignReads 
 --genomeDir [/working/directory]/index 
 --readDilesIn [/data/after/trimming]/[sample]_R1_001_val_1.fq.gz [/data/after/trimming]/[sample]_R2_001_val_2.fq.gz 
@@ -117,9 +132,13 @@ STAR
 
 5) BAM manipulation (using samtools)
 
-
+TBC
 
 6) Obtain read counts (using Cufflinks)
-
-
-
+```
+cufflinks 
+-p 8 
+-G $anno_file 
+-o $out_dir/out_${core_name} 
+$bam_file
+```
