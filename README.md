@@ -68,7 +68,7 @@ tar zxvf cufflinks-2.2.1.tar.gz
 
 The pipeline is not automated yet. Each step needs to be launched manually. 
 
-0. Setup: create 5 new directories (one for each step) and copy in running and submission scripts from /home/home02/ummz/RNA-seq/ (e.g run-1-qc.sh & submit-1-qc.sh for the first step)
+**Setup:** create 5 new directories (one for each step) and copy in running and submission scripts from /home/home02/ummz/RNA-seq/ (e.g run-1-qc.sh & submit-1-qc.sh for the first step)
 
 **1. Quality control (FastQC):** 
   * create 2 new directories: *report* (for results) and *temp* (for intermediate files) 
@@ -112,8 +112,11 @@ The pipeline is not automated yet. Each step needs to be launched manually.
  * launch the submission file: `qsub submit-4-align.sh`
 
 **5. Reads quantification (Cufflinks):**
-
-
+ * modify the last line in the submission file:
+ ```
+/path/to/running/script/run-5-count.sh /path/to/files/bam /path/to/results /nobackup/ummz/reference/annotation/Homo_sapiens.GRCh38.98.gtf ${SGE_TASK_ID} >> /path/to/arc_files/output.$JOB_ID.txt
+```
+ * launch the submission file: `qsub submit-5-count.sh`
 
 
 ## Running example 
