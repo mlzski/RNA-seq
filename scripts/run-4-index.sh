@@ -14,7 +14,7 @@ ref_file=$2
 anno_file=$3
 
 # export software (STAR)
-export PATH=/nobackup/ummz/tools/STAR-2.7.3a/bin/Linux_x86_64_static:$PATH
+export PATH=/home/home02/ummz/tools/STAR-2.7.3a/bin/Linux_x86_64_static:$PATH
 
 # run STAR to generate index file
 STAR --runThreadN 8 --runMode genomeGenerate --genomeDir $index_dir --genomeFastaFiles $ref_file --sjdbGTFfile $anno_file --sjdbOverhang 150
