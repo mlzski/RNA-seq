@@ -13,7 +13,7 @@ data_dir=$1			# path to the folder with fastq files
 out_dir=$2			# path the the folder where output will be placed
 
 # export software (FastQC)
-export PATH=/nobackup/ummz/tools/FastQC:$PATH
+export PATH=/home/home02/ummz/tools/FastQC:$PATH
 
 # check if output folders exist and create them if needed
 if [ ! -d "$out_dir/report" ]; then
