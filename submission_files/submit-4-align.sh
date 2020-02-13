@@ -9,5 +9,4 @@
 #$ -m be
 #$ -M ummz-arc-records@outlook.com
 
-/nobackup/ummz/analysis_nov19/RNA-seq/scripts/run-4-align.sh /nobackup/ummz/analysis_nov19/results/2_trimming/processed_fastq/paired /nobackup/ummz/analysis_nov19/results/4_alignment /nobackup/ummz/reference/index ${SGE_TASK_ID} >> /nobackup/ummz/analysis_nov19/results/4_alignment/arc_files/output.$JOB_ID.txt
-
+/path/to/running/script/run-4-align.sh /path/to/input/files /path/to/results /nobackup/ummz/reference/index ${SGE_TASK_ID} >> /path/to/arc_files/output.$JOB_ID.txt
