@@ -8,6 +8,5 @@
 #$ -m be
 #$ -M ummz-arc-records@outlook.com
 
-/nobackup/ummz/analysis_nov19/RNA-seq/scripts/run-3-qc-trim.sh /nobackup/ummz/analysis_nov19/results/2_trimming/processed_fastq /nobackup/ummz/analysis_nov19/results/3_quality_control_trimmed ${SGE_TASK_ID} >> /nobackup/ummz/analysis_nov19/results/3_quality_control_trimmed/arc_files/output.$JOB_ID.txt
-
+/path/to/running/script/run-3-qc-trim.sh /path/to/data /path/to/results ${SGE_TASK_ID} >> /path/to/arc_files/output.$JOB_ID.txt
 
