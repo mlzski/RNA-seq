@@ -70,10 +70,13 @@ The pipeline is not automated yet. Each step needs to be launched manually.
 
 0. Setup: create 5 new directories (one for each step) and copy in running and submission scripts from /home/home02/ummz/RNA-seq/ (e.g run-1-qc.sh & submit-1-qc.sh for the first step)
 
-1. Quality control (FastQC): create 2 new directories: *report* (for results) and *temp* (for intermediate files) and modify the last line in the submission file: 
+1. Quality control (FastQC): 
+  * create 2 new directories: *report* (for results) and *temp* (for intermediate files) 
+  * modify the last line in the submission file: 
 ```
 /path/to/running/script/run-1-qc.sh /path/to/data /path/to/results/ ${SGE_TASK_ID} >> /path/to/arc_files/output.$JOB_ID.txt
 ```
+  * launch the submission file: `qsub submit-N-nnn.sh`
 
 ## Running example 
 All the steps were ran on a set of 41 samples.
