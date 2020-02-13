@@ -8,5 +8,4 @@
 #$ -m be
 #$ -M ummz-arc-records@outlook.com
 
-/nobackup/ummz/analysis_nov19/RNA-seq/scripts/run-1-qc.sh /nobackup/ummz/analysis_nov19/data /nobackup/ummz/analysis_nov19/results/1_quality_control ${SGE_TASK_ID} >> /nobackup/ummz/analysis_nov19/results/1_quality_control/arc_files/output.$JOB_ID.txt
-
+/path/to/running/script/run-1-qc.sh /path/to/data /path/to/results/ ${SGE_TASK_ID} >> /path/to/arc_files/output.$JOB_ID.txt
