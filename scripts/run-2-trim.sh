@@ -13,7 +13,7 @@ data_dir=$1			# path to the folder with fastq files
 out_dir=$2			# path the the folder where output will be placed
 
 # export software (TrimGalore and Python)
-export PATH=/nobackup/ummz/tools/Trimmomatic-0.39:$PATH
+export PATH=/home/home02/ummz/tools/Trimmomatic-0.39:$PATH
 
 # get the read1 fastq.gz file and its pair
 fastqFile=$(ls $data_dir/*_R1_001.fastq.gz | sed -n -e "$SGE_TASK_ID p")
