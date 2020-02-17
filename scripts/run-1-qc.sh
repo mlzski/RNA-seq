@@ -22,7 +22,7 @@ if [ ! -d "$out_dir/report" ]; then
 fi
  
 # get the fastq.gz files names (no need to get read1 and read2 separately)
-fastqFile=$(ls $data_dir/*_001.fastq.gz | sed -n -e "$SGE_TASK_ID p")
+fastqFile=$(ls $data_dir/*.fastq.gz | sed -n -e "$SGE_TASK_ID p")
 
 # run the fastqc command for each fastq.gz file
 fastqc -o $out_dir/report --threads 4 --dir $out_dir/temp $fastqFile
