@@ -16,12 +16,12 @@ out_dir=$2			# path the the folder where output will be placed
 export PATH=/home/home02/ummz/tools/Trimmomatic-0.39:$PATH
 
 # get the read1 fastq.gz file and its pair
-fastqFile=$(ls $data_dir/*_R1_001.fastq.gz | sed -n -e "$SGE_TASK_ID p")
+fastqFile=$(ls $data_dir/*_R1.fastq.gz | sed -n -e "$SGE_TASK_ID p")
 
 read1=$fastqFile
 read2=$(echo $read1 | sed 's/R1/R2/g')
 
-coreFile=$(ls $data_dir/*_R1_001.fastq.gz | rev | cut -d '/' -f 1 | cut -c 16- | rev | sed -n -e "$SGE_TASK_ID p")
+coreFile=$(ls $data_dir/*_R1.fastq.gz | rev | cut -d '/' -f 1 | cut -c 16- | rev | sed -n -e "$SGE_TASK_ID p")
 
 # run the trimmomatic command for each pair of fastq files
 java -jar /home/home02/ummz/tools/Trimmomatic-0.39/trimmomatic-0.39.jar PE -threads 4 -phred33 $read1 $read2 $out_dir/processed_fastq/${coreFile}R1_paired.fq $out_dir/processed_fastq/${coreFile}R1_unpaired.fq $out_dir/processed_fastq/${coreFile}R2_paired.fq $out_dir/processed_fastq/${coreFile}R2_unpaired.fq ILLUMINACLIP:/home/home02/ummz/tools/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
