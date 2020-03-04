@@ -5,7 +5,7 @@
 1) Quality control on raw fastq files (using FastQC)
 2) Trimming (using Trimmomatic)
 3) Quality control on trimmed fastq files (using FastQC)
-4) Read alignment (using STAR)
+4) Read alignment (using STAR, bowtie2 can be worth trying out)
 5) BAM manipulation (using samtools) [TO BE IMPLEMENTED]
 6) Obtain read counts (using Cufflinks or featureCounts)
 
