@@ -7,7 +7,9 @@
 3) Quality control on trimmed fastq files (using FastQC)
 4) Read alignment (using STAR)
 5) BAM manipulation (using samtools) [TO BE IMPLEMENTED]
-6) Obtain read counts (using Cufflinks)
+6) Obtain read counts (using Cufflinks or featureCounts)
+
+**NOTICE:** Cufflinks turned out to be dedicatedfor transcript discovery, therefore a new software "featureCounts" was proposed
 
 ## Download
 
@@ -110,13 +112,17 @@ The pipeline is not automated yet. Each step needs to be launched manually.
 ```
  * launch the submission file: `qsub submit-4-align.sh`
 
-**5. Reads quantification (Cufflinks):**
+**5. Reads quantification (2 software):**
+
+**5.A. Cufflinks:**
  * modify the last line in the submission file:
  ```
 /path/to/running/script/run-5-count.sh /path/to/files/bam /path/to/results /nobackup/ummz/reference/annotation/Homo_sapiens.GRCh38.98.gtf ${SGE_TASK_ID} >> /path/to/arc_files/output.$JOB_ID.txt
 ```
  * launch the submission file: `qsub submit-5-count.sh`
 
+**5.B. featureCounts:**
+in R
 
 ## Running example 
 All the steps were ran on a set of 41 samples.
