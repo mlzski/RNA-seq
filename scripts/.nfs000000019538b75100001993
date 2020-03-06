@@ -36,9 +36,10 @@ ann <- getInBuiltAnnotation(annotation = "hg38")
 # create a list with file names to be processed:
 files_list <- list.files(args[1], pattern = ".bam$", full.names = TRUE)
   
-fc_SE <- featureCounts("/nobackup/ummz/analyses/run_I_Nov19/4_alignment/bam/11026_S12_L005_Aligned.sortedByCoord.out.bam", annot.ext=ann, nthreads = 2) 
+  
+fc_SE <- featureCounts(files_list, annot.ext=ann, nthreads = 1)
 
-#fc_SE <- featureCounts(files_list, annot.ext=ann, nthreads = 1)
+str(fc_SE)
 
 # for paired-end (the bam file needs to ogrinate from paired-end mode of alignment)
 # fc_PE <- featureCounts("alignResultsPE.BAM", annot.ext=ann, isPairedEnd=TRUE)
@@ -49,25 +50,7 @@ fc_SE <- featureCounts("/nobackup/ummz/analyses/run_I_Nov19/4_alignment/bam/1102
 # fc_SE$targets     => file name(s) used
 # fc_SE$stat        => a table with statistics (14 metrics)
 
-
-# return fractions of A, T, G and C bases at each base location of reads or in the entire dataset.
-agtc_cont <- atgcContent(c("/nobackup/ummz/analyses/run_I_Nov19/4_alignment/bam/11026_S12_L005_Aligned.sortedByCoord.out.bam", "/nobackup/ummz/analyses/run_I_Nov19/4_alignment/bam/11028_S4_L005_Aligned.sortedByCoord.out.bam"))
-
-dim(agtc_cont)
-class(agtc_cont)
-
-# return the proportion of mapped reads included in a SAM/BAM file. For paired end reads, it can return the proportion of mapped fragments (ie. read pairs).
-prop_mapped <- propmapped(c("/nobackup/ummz/analyses/run_I_Nov19/4_alignment/bam/11026_S12_L005_Aligned.sortedByCoord.out.bam", "/nobackup/ummz/analyses/run_I_Nov19/4_alignment/bam/11028_S4_L005_Aligned.sortedByCoord.out.bam"))
-
-dim(prop_mapped)
-class(prop_mapped)
-
-
-# write output table with counts
-write.csv(fc_SE$counts, file="counts.csv")
-
-write.csv(fc_SE$stat, file="stats.csv")
-
+# concatenate all fc_SE$counts
 
 
 # Extract quality strings and convert them to Phred scores for generating boxplots.
@@ -79,6 +62,14 @@ write.csv(fc_SE$stat, file="stats.csv")
 # input_format = a character string specifying format of the input file. gzFASTQ (gzipped FASTQ) by default. Acceptable formats include gzFASTQ, FASTQ, SAM and BAM. Character string is case insensitive.
 # offset = a numeric value giving the offset added to the base-calling Phred scores. Possible values include 33 and 64. By default, 33 is used.
 # nreads = a numeric value giving the number of reads from which quality scores are extracted. 10000 by default. A value of -1 indicates that quality scores will be extracted from all the reads.
+
+
+# return fractions of A, T, G and C bases at each base location of reads or in the entire dataset.
+# atgcContent("8546_S3_L005_Aligned.sortedByCoord.out.bam")
+
+# return the proportion of mapped reads included in a SAM/BAM file. For paired end reads, it can return the proportion of mapped fragments (ie. read pairs).
+# propmapped("8546_S3_L005_Aligned.sortedByCoord.out.bam")
+
 
 
 
