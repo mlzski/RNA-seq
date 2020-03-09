@@ -125,8 +125,10 @@ The pipeline is not automated yet. Each step needs to be launched manually.
 in R
 
 Before launching:
-**module load anaconda**
-**source activate r36**
+```
+module load anaconda
+source activate r36
+```
 
 **NOTICE:** use 'conda env list' to see all available environments
 
