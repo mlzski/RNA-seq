@@ -124,6 +124,13 @@ The pipeline is not automated yet. Each step needs to be launched manually.
 **5.B. featureCounts:**
 in R
 
+Before launching:
+**module load anaconda**
+**source activate r36**
+
+**NOTICE:** use 'conda env list' to see all available environments
+
+
 ## Running example 
 All the steps were ran on a set of 41 samples.
 
