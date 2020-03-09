@@ -18,8 +18,8 @@ args <- commandArgs(trailingOnly = TRUE)
 # args <- c("/Users/ummz/OneDrive - University of Leeds/ANALYSES/results_run_I_Nov19/4_alignement/bam", 
 #          "/Users/ummz/OneDrive - University of Leeds/ANALYSES/results_run_I_Nov19/5_/postprocessed")
 
-if (length(args)!=3) {
-  stop("3 arguments must be supplied: \n(1 - input) path to directory with data, \n(2 - output) path where output files should be stored and (3) SGE_TASK_ID argument for array jobs", call.=FALSE)
+if (length(args)!=2) {
+  stop("2 arguments must be supplied: \n(1 - input) path to directory with data, \n(2 - output) path where output files should be stored", call.=FALSE)
 }
 
 cat("Directories with data (IN): ")
@@ -29,9 +29,6 @@ cat("Directory for results (OUT): ")
 cat(args[2], sep="\n")
 
 setwd(args[2])
-
-# get task ID
-task_id <- as.integer(Sys.getenv("SGE_TASK_ID"))
 
 
 # retrive built-in annotation file (other genomes available: mm9, mm10, hg19 and hg38 (NCBI RefSeq))
@@ -43,10 +40,8 @@ ann <- getInBuiltAnnotation(annotation = "hg38")
 files_list <- c("/nobackup/ummz/analyses/run_I_Nov19/4_alignment/bam/11026_S12_L005_Aligned.sortedByCoord.out.bam", 
 				"/nobackup/ummz/analyses/run_I_Nov19/4_alignment/bam/11028_S4_L005_Aligned.sortedByCoord.out.bam")
 
-parameter <- files_list[task_id]
 
-
-fc_SE <- featureCounts(parameter, annot.ext=ann, nthreads = 2) 
+fc_SE <- featureCounts(files_list, annot.ext=ann, nthreads = 2) 
 
 #fc_SE <- featureCounts(files_list, annot.ext=ann, nthreads = 1)
 
@@ -68,8 +63,8 @@ fc_SE <- featureCounts(parameter, annot.ext=ann, nthreads = 2)
 # prop_mapped <- propmapped(files_list)
 
 # write output table with counts
-outputName=paste("task-",task_id,".csv",sep="")
-write.csv(fc_SE$counts, file=outputName)
+
+write.csv(fc_SE$counts, file="counts.csv")
 
 #write.csv(fc_SE$counts, file="counts.csv")
 #write.csv(fc_SE$stat, file="stats.csv")
