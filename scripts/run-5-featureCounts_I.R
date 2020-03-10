@@ -21,7 +21,7 @@ args <- commandArgs(trailingOnly = TRUE)
 #          "/Users/ummz/OneDrive - University of Leeds/ANALYSES/results_run_I_Nov19/5_/postprocessed")
 
 if (length(args)!=4) {
-  stop("3 arguments must be supplied: 
+  stop("4 arguments must be supplied: 
 	\n(1) running mode parameter [SE or PE],
 	\n(2 - input) path to directory with data, 
 	\n(3 - output) path where output files should be stored and 
