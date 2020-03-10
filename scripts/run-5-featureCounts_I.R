@@ -1,5 +1,7 @@
 ###################################################################################################### 
 # this script runs featureCounts to count reads from STAR output (name_Aligned.sortedByCoord.out.bam)
+# using the array concept with the 'SGE_TASK_ID' parameter
+# so it launches all files (samples) in parallel and produces one output (.csv) file per each sample 
 ###################################################################################################### 
 
 # INPUT:
