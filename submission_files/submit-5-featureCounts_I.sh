@@ -1,4 +1,4 @@
-# submission script for run-5-featureCounts.R
+# submission script for run-5-featureCounts_I.R
 # Michal Zulcinski 2020-03-06
 
 #$ -cwd -V
