@@ -64,7 +64,7 @@ fc_SE <- featureCounts(files_list, annot.ext=ann, nthreads = 2)
 
 # write output table with counts
 
-write.csv(fc_SE$counts, file="counts.csv")
+write.csv(fc_SE$counts, file="all_ounts.csv")
 
 #write.csv(fc_SE$counts, file="counts.csv")
 #write.csv(fc_SE$stat, file="stats.csv")
