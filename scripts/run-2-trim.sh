@@ -23,6 +23,12 @@ read2=$(echo $read1 | sed 's/R1/R2/g')
 
 coreFile=$(ls $data_dir/*_R1.fastq.gz | rev | cut -d '/' -f 1 | cut -c 16- | rev | sed -n -e "$SGE_TASK_ID p")
 
-# run the trimmomatic command for each pair of fastq files
-java -jar /home/home02/ummz/tools/Trimmomatic-0.39/trimmomatic-0.39.jar PE -threads 4 -phred33 $read1 $read2 $out_dir/processed_fastq/${coreFile}R1_paired.fq $out_dir/processed_fastq/${coreFile}R1_unpaired.fq $out_dir/processed_fastq/${coreFile}R2_paired.fq $out_dir/processed_fastq/${coreFile}R2_unpaired.fq ILLUMINACLIP:/home/home02/ummz/tools/Trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+# run the trimmomatic command [SE or PE] 
+# NOTICE: adjust the parameters for each analysis
+
+# single-end [SE]
+java -jar /home/home02/ummz/tools/Trimmomatic-0.39/trimmomatic-0.39.jar SE -threads 4 -phred33 $read1 $out_dir/processed_fastq/${coreFile}R1_single.fq ILLUMINACLIP:/home/home02/ummz/tools/Trimmomatic-0.39/adapters/TruSeq3-SE.fa:2:30:10 LEADING:20 TRAILING:20 HEADCROP:10 SLIDINGWINDOW:4:15 MINLEN:36
+
+# paired-end [PE]
+java -jar /home/home02/ummz/tools/Trimmomatic-0.39/trimmomatic-0.39.jar PE -threads 4 -phred33 $read1 $read2 $out_dir/processed_fastq/${coreFile}R1_paired.fq $out_dir/processed_fastq/${coreFile}R1_unpaired.fq $out_dir/processed_fastq/${coreFile}R2_paired.fq $out_dir/processed_fastq/${coreFile}R2_unpaired.fq ILLUMINACLIP:/home/home02/ummz/tools/Trimmomatic-0.39/adapters/TruSeq3-PE-2.fa:2:30:10 LEADING:20 TRAILING:20 HEADCROP:10 SLIDINGWINDOW:4:15 MINLEN:36
 
