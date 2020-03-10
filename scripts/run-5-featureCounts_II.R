@@ -20,17 +20,20 @@ args <- commandArgs(trailingOnly = TRUE)
 # args <- c("/Users/ummz/OneDrive - University of Leeds/ANALYSES/results_run_I_Nov19/4_alignement/bam", 
 #          "/Users/ummz/OneDrive - University of Leeds/ANALYSES/results_run_I_Nov19/5_/postprocessed")
 
-if (length(args)!=2) {
-  stop("2 arguments must be supplied: \n(1 - input) path to directory with data, \n(2 - output) path where output files should be stored", call.=FALSE)
+if (length(args)!=3) {
+  stop("3 arguments must be supplied: 
+	\n(1 - input) path to directory with data, 
+	\n(2 - input) path to directory with data, 
+	\n(3 - output) path where output files should be stored", call.=FALSE)
 }
 
 cat("Directories with data (IN): ")
-cat(args[1], sep="\n")
-
-cat("Directory for results (OUT): ")
 cat(args[2], sep="\n")
 
-setwd(args[2])
+cat("Directory for results (OUT): ")
+cat(args[3], sep="\n")
+
+setwd(args[3])
 
 
 # retrive built-in annotation file (other genomes available: mm9, mm10, hg19 and hg38 (NCBI RefSeq))
