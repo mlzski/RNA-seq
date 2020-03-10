@@ -20,47 +20,58 @@ args <- commandArgs(trailingOnly = TRUE)
 # args <- c("/Users/ummz/OneDrive - University of Leeds/ANALYSES/results_run_I_Nov19/4_alignement/bam", 
 #          "/Users/ummz/OneDrive - University of Leeds/ANALYSES/results_run_I_Nov19/5_/postprocessed")
 
-if (length(args)!=3) {
-  stop("3 arguments must be supplied: \n(1 - input) path to directory with data, \n(2 - output) path where output files should be stored and (3) SGE_TASK_ID argument for array jobs", call.=FALSE)
+if (length(args)!=4) {
+  stop("3 arguments must be supplied: 
+	\n(1) running mode parameter [SE or PE],
+	\n(2 - input) path to directory with data, 
+	\n(3 - output) path where output files should be stored and 
+	\n(4) SGE_TASK_ID argument for array jobs", call.=FALSE)
 }
 
 cat("Directories with data (IN): ")
-cat(args[1], sep="\n")
-
-cat("Directory for results (OUT): ")
 cat(args[2], sep="\n")
 
-setwd(args[2])
+cat("Directory for results (OUT): ")
+cat(args[3], sep="\n")
+
+setwd(args[3])
 
 # get task ID
 task_id <- as.integer(Sys.getenv("SGE_TASK_ID"))
-
 
 # retrive built-in annotation file (other genomes available: mm9, mm10, hg19 and hg38 (NCBI RefSeq))
 ann <- getInBuiltAnnotation(annotation = "hg38")
 
 # create a list with file names to be processed:
-#files_list <- list.files(args[1], pattern = ".bam$", full.names = TRUE)
-  
-files_list <- c("/nobackup/ummz/analyses/run_I_Nov19/4_alignment/bam/11026_S12_L005_Aligned.sortedByCoord.out.bam", 
-				"/nobackup/ummz/analyses/run_I_Nov19/4_alignment/bam/11028_S4_L005_Aligned.sortedByCoord.out.bam")
+files_list <- list.files(args[2], pattern = ".bam$", full.names = TRUE)
 
+# create the parameter for running as an array
 parameter <- files_list[task_id]
 
+# run featureCounts() command [SE - single end | PE - paired end]
 
-fc_SE <- featureCounts(parameter, annot.ext=ann, nthreads = 2) 
+if(args[1] == "SE"){
+	fc_SE <- featureCounts(parameter, annot.ext=ann, nthreads = 40)	
+} else if (args[1] == "PE"){
+	fc_PE <- featureCounts(parameter, annot.ext=ann, isPairedEnd=TRUE, nthreads = 40)	
+} else {
+	stop("ERROR: running mode parameter must be defined as either SE or PE", call.=FALSE)	
+}
 
-#fc_SE <- featureCounts(files_list, annot.ext=ann, nthreads = 1)
+# write output table with counts and statistics
+outputName_1 <- paste("counts_",task_id,".csv",sep="")
+write.csv(fc_SE$counts, file=outputName_1)
 
-# for paired-end (the bam file needs to ogrinate from paired-end mode of alignment)
-# fc_PE <- featureCounts("alignResultsPE.BAM", annot.ext=ann, isPairedEnd=TRUE)
+outputName_2 <- paste("stats_",task_id,".csv",sep="")
+write.csv(fc_SE$stat, file=outputName_2)
 
-# OUTPUTS:
+
+######################################################################################################
+# featureCOunts() OUTPUTS:
 # fc_SE$counts      => a very long vector with counts for all genes
 # fc_SE$annotation  => a table with all genes (rows) 6 columns for: "GeneID", "Chr", "Start", "End", "Strand", "Length"
 # fc_SE$targets     => file name(s) used
 # fc_SE$stat        => a table with statistics (14 metrics)
-
 
 # return fractions of A, T, G and C bases at each base location of reads or in the entire dataset.
 # agtc_cont <- atgcContent(files_list)
@@ -68,14 +79,6 @@ fc_SE <- featureCounts(parameter, annot.ext=ann, nthreads = 2)
 # return the proportion of mapped reads included in a SAM/BAM file. 
 # For paired end reads, it can return the proportion of mapped fragments (ie. read pairs).
 # prop_mapped <- propmapped(files_list)
-
-# write output table with counts
-outputName=paste("task-",task_id,".csv",sep="")
-write.csv(fc_SE$counts, file=outputName)
-
-#write.csv(fc_SE$counts, file="counts.csv")
-#write.csv(fc_SE$stat, file="stats.csv")
-
 
 # Extract quality strings and convert them to Phred scores for generating boxplots.
 # Quality scores give the probabilities of read bases being incorrectly called
@@ -86,8 +89,3 @@ write.csv(fc_SE$counts, file=outputName)
 # input_format = a character string specifying format of the input file. gzFASTQ (gzipped FASTQ) by default. Acceptable formats include gzFASTQ, FASTQ, SAM and BAM. Character string is case insensitive.
 # offset = a numeric value giving the offset added to the base-calling Phred scores. Possible values include 33 and 64. By default, 33 is used.
 # nreads = a numeric value giving the number of reads from which quality scores are extracted. 10000 by default. A value of -1 indicates that quality scores will be extracted from all the reads.
-
-
-
-
-
