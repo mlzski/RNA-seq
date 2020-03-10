@@ -129,8 +129,8 @@ source activate r36
 # use 'conda env list' to see all available environments
 ```
 There are two scripts (and two submission files consequently):
- * **run-5-featureCounts_I.R** => WITH the array concept with the 'SGE_TASK_ID' parameter (running in parallel | one output per sample)
- * **run-5-featureCounts_II.R**	=> WITHOUT the array concept with the 'SGE_TASK_ID' parameter (running one at a time | one output for all samples)
+ * **run-5-featureCounts_I.R** => WITH the array concept & the 'SGE_TASK_ID' parameter (running in parallel | one output per sample)
+ * **run-5-featureCounts_II.R**	=> WITHOUT the array concept & the 'SGE_TASK_ID' parameter (running one at a time | one output for all samples)
 
 
 ## Running example 
