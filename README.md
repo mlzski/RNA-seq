@@ -122,15 +122,15 @@ The pipeline is not automated yet. Each step needs to be launched manually.
  * launch the submission file: `qsub submit-5-count.sh`
 
 **5.B. featureCounts:**
-in R
-
-Before launching:
+This step is implemented in R. The Anaconda module must be loaded and the 'r36' environment must be activated before launching step:
 ```
 module load anaconda
 source activate r36
+# use 'conda env list' to see all available environments
 ```
-
-**NOTICE:** use 'conda env list' to see all available environments
+There are two scripts (and two submission files consequently):
+**run-5-featureCounts_I.R** => WITH the array concept with the 'SGE_TASK_ID' parameter (running in parallel | one output per sample)
+**run-5-featureCounts_II.R**	=> WITHOUT the array concept with the 'SGE_TASK_ID' parameter (running one at a time | one output for all samples)
 
 
 ## Running example 
