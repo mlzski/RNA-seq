@@ -70,7 +70,12 @@ tar zxvf cufflinks-2.2.1.tar.gz
 
 The pipeline is not automated yet. Each step needs to be launched manually. 
 
-**Setup:** create 5 new directories (one for each step) and copy in running and submission scripts from /home/home02/ummz/RNA-seq/ (e.g run-1-qc.sh & submit-1-qc.sh for the first step)
+**Setup:** create 5 new directories (one for each step)
+```
+mkdir 1_quality_control 2_trimming 3_quality_control_trimmed 4_alignment 5_featureCounts
+```
+and copy in running and submission scripts from **/home/home02/ummz/RNA-seq/**  
+(e.g run-1-qc.sh & submit-1-qc.sh for the first step)
 
 **1. Quality control (FastQC):**  
   * modify the last line in the submission file: 
