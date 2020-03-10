@@ -48,12 +48,24 @@ files_list <- list.files(args[2], pattern = ".bam$", full.names = TRUE)
 # create the parameter for running as an array
 parameter <- files_list[task_id]
 
-# run featureCounts() command [SE - single end | PE - paired end]
-
+# run featureCounts() command [SE - single end | PE - paired end] AND
+# write output tables with counts and statistics
 if(args[1] == "SE"){
 	fc_SE <- featureCounts(parameter, annot.ext=ann, nthreads = 40)	
+	
+	outputName_1 <- paste("counts_",task_id,"_SE.csv",sep="")
+	write.csv(fc_SE$counts, file=outputName_1)
+	outputName_2 <- paste("stats_",task_id,"_SE.csv",sep="")
+	write.csv(fc_SE$stat, file=outputName_2)
+	
 } else if (args[1] == "PE"){
-	fc_PE <- featureCounts(parameter, annot.ext=ann, isPairedEnd=TRUE, nthreads = 40)	
+	fc_PE <- featureCounts(parameter, annot.ext=ann, isPairedEnd=TRUE, nthreads = 40)
+	
+	outputName_1 <- paste("counts_",task_id,"_PE.csv",sep="")
+	write.csv(fc_PE$counts, file=outputName_1)
+	outputName_2 <- paste("stats_",task_id,"_PE.csv",sep="")
+	write.csv(fc_PE$stat, file=outputName_2)
+	
 } else {
 	stop("ERROR: running mode parameter must be defined as either SE or PE", call.=FALSE)	
 }
@@ -64,7 +76,6 @@ write.csv(fc_SE$counts, file=outputName_1)
 
 outputName_2 <- paste("stats_",task_id,".csv",sep="")
 write.csv(fc_SE$stat, file=outputName_2)
-
 
 ######################################################################################################
 # featureCOunts() OUTPUTS:
