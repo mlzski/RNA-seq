@@ -75,7 +75,11 @@ The pipeline is not automated yet. Each step needs to be launched manually.
 mkdir 1_quality_control 2_trimming 3_quality_control_trimmed 4_alignment 5_featureCounts
 ```
 and copy in running and submission scripts from **/home/home02/ummz/RNA-seq/**  
-(e.g run-1-qc.sh & submit-1-qc.sh for the first step)
+(e.g run-1-qc.sh & submit-1-qc.sh for the first step)   
+
+and create **arc_files** folder in each of these 5 directories.  
+
+**NOTICE:** the *qsub* command should be called from the *arc_files* folder
 
 **1. Quality control (FastQC):**  
   * modify the last line in the submission file: 
