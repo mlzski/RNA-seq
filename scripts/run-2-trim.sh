@@ -21,7 +21,7 @@ fastqFile=$(ls $data_dir/*_R1.fastq.gz | sed -n -e "$SGE_TASK_ID p")
 read1=$fastqFile
 read2=$(echo $read1 | sed 's/R1/R2/g')
 
-coreFile=$(ls $data_dir/*_R1.fastq.gz | rev | cut -d '/' -f 1 | cut -c 16- | rev | sed -n -e "$SGE_TASK_ID p")
+coreFile=$(ls $data_dir/*_R1.fastq.gz | rev | cut -d '/' -f 1 | cut -c 13- | rev | sed -n -e "$SGE_TASK_ID p")
 
 # run the trimmomatic command [SE or PE] 
 # NOTICE: adjust the parameters for each analysis
