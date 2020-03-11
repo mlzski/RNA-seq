@@ -49,6 +49,9 @@ There are 5 steps of the analysis: quality control, trimming, quality control af
   submit-2-trim.sh
 ```
 
+**NOTICE:** there are 41 output files when running Trimmomatics in **SE** mode and 146 when running as **PE**
+
+
 **STEP 3: Quality control after trimming using FastQC**
 ```
 /3_quality_control_trimmed {422 M}
