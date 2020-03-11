@@ -25,6 +25,12 @@ read2=$(echo $read1 | sed 's/R1/R2/g')
 
 bam_name=$(ls $data_dir/*_R1_paired.fq | rev | cut -d '/' -f 1 | cut -c 13- | rev | sed -n -e "$SGE_TASK_ID p")
 
-# run STAR alignment
+# run STAR alignment [SE or PE]
+
+# single-end [SE]
+STAR --runMode alignReads --genomeDir $index_dir --runThreadN 8 --readFilesIn $read1 --outFileNamePrefix $out_dir/bam/${bam_name} --outSAMtype BAM SortedByCoordinate --outSAMattributes All --outSAMstrandField intronMotif
+
+# paired-end [PE]
 STAR --runMode alignReads --genomeDir $index_dir --runThreadN 8 --readFilesIn $read1 $read2 --outFileNamePrefix $out_dir/bam/${bam_name} --outSAMtype BAM SortedByCoordinate --outSAMattributes All --outSAMstrandField intronMotif
+
 
