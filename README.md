@@ -105,7 +105,8 @@ and create **arc_files** folder in each of these 5 directories.
 ```
   * launch the submission file: `qsub submit-3-qc-trim.sh`
   * **NOTICE:** output files need to be moved to *paired* and *unpaired* folders manually once the running is finished
-
+  * *unpaired* files should not be used (TO BE CONFIRMED)
+  
 **4. Alignment (STAR):**
  * NOTICE: when running for the first time, follow the instruction from /home/home02/ummz/reference/README.txt (i.e. generate index first) 
  * modify the last line in the INDEX submission file: (first time running only) 
@@ -113,12 +114,16 @@ and create **arc_files** folder in each of these 5 directories.
 /path/to/running/script/run-4-index.sh /nobackup/ummz/reference/index /nobackup/ummz/reference/genome/Homo_sapiens.GRCh38.dna.primary_assembly.fa /nobackup/ummz/reference/annotation/Homo_sapiens.GRCh38.98.gtf >> /path/to/arc_files/output.$JOB_ID.txt
 ```
  * launch the submission file: `qsub submit-4-index.sh` (first time running only) 
- 
  * create a new directory for results *bam*
  * modify the last line in the ALIGN submission file: 
 ```
 /path/to/running/script/run-4-align.sh /path/to/input/files /path/to/results /nobackup/ummz/reference/index ${SGE_TASK_ID} >> /path/to/arc_files/output.$JOB_ID.txt
 ```
+**NOTICE:** there are 3 ruuning scripts according to: 
+ * single-end output from Trimmomatic: run-4-align_SE.sh 
+ * paired-end (paired) output from Trimmomatic: run-4-align_PE_paired.sh
+ * paired-end (unpaired) output from Trimmomatic: run-4-align_PE_unpaired.sh
+
  * launch the submission file: `qsub submit-4-align.sh`
 
 **5. Reads quantification (2 software):**
