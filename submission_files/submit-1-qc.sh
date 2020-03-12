@@ -9,3 +9,5 @@
 #$ -M ummz-arc-records@outlook.com
 
 /path/to/running/script/run-1-qc.sh /path/to/data /path/to/results/ ${SGE_TASK_ID} >> /path/to/arc_files/output.$JOB_ID.txt
+
+#/nobackup/ummz/analyses/run_IV_Feb20/run-1-qc.sh /nobackup/ummz/analyses/data /nobackup/ummz/analyses/run_IV_Feb20 ${SGE_TASK_ID} >> /nobackup/ummz/analyses/run_IV_Feb20/arc_files/output.$JOB_ID.txt
