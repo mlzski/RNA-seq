@@ -17,5 +17,5 @@
 # for paired-end | paired
 # /nobackup/ummz/analyses/run_IV_Feb20/4_alignment/paired-end/paired/run-4-align_PE_paired.sh /nobackup/ummz/analyses/run_IV_Feb20/2_trimming/paired-end/processed_fastq/paired /nobackup/ummz/analyses/run_IV_Feb20/4_alignment/paired-end/paired /nobackup/ummz/reference/index ${SGE_TASK_ID} >> /nobackup/ummz/analyses/run_IV_Feb20/4_alignment/paired-end/paired/arc_files/output.$JOB_ID.txt
 
-# for paired-end | unpaired
+# for paired-end | unpaired (THERE'S NO POINT OF RUNNING THIS, AS ONE OF THE READS IS EMPTY)
 # /nobackup/ummz/analyses/run_IV_Feb20/4_alignment/paired-end/unpaired/run-4-align_PE_unpaired.sh /nobackup/ummz/analyses/run_IV_Feb20/2_trimming/paired-end/processed_fastq/unpaired /nobackup/ummz/analyses/run_IV_Feb20/4_alignment/paired-end/unpaired /nobackup/ummz/reference/index ${SGE_TASK_ID} >> /nobackup/ummz/analyses/run_IV_Feb20/4_alignment/paired-end/unpaired/arc_files/output.$JOB_ID.txt
