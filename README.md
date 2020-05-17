@@ -54,19 +54,39 @@ cd STAR/source        # needs to be compiled
 make STAR
 ```
 
-- samtools (version ) [source:]
+- samtools (version 1.10) [source: http://www.htslib.org/doc/samtools.html]. 
+NOTE: source for downloading the latest release: http://www.htslib.org/download/
 
 ```
-TBC
+wget https://github.com/samtools/samtools/releases/download/1.10/samtools-1.10.tar.bz2
+tar -xf samtools-1.10.tar.bz2
+cd samtools-1.10
+./configure --prefix=/where/to/install # /where/to/install to be replaced with either the same directory or with another one where the software will be installed 
+make
+make install
 ```
+  
+- Picard Tools (version 2.22.6) [source: https://broadinstitute.github.io/picard/]
 
-- Picard Tools (version ) [source ]
+```
+git clone https://github.com/broadinstitute/picard.git
+cd picard
+./gradlew shadowJar
+# running picard
+java -jar /home/home02/ummz/tools/picard/build/libs/picard.jar -h 
+```
 
 - Cufflinks (version 2.2.1) [source: http://cole-trapnell-lab.github.io/cufflinks/assets/downloads/cufflinks-2.2.1.OSX_x86_64.tar.gz]
 
 ```
 wget http://cole-trapnell-lab.github.io/cufflinks/assets/downloads/cufflinks-2.2.1.Linux_x86_64.tar.gz
 tar zxvf cufflinks-2.2.1.tar.gz
+```
+
+- Rsubread:featureCounts() (version 2.0.1) [source: https://bioconductor.org/packages/release/bioc/html/Rsubread.html]
+
+```
+# to be installed through R or conda
 ```
 
 ## Getting started
@@ -110,7 +130,7 @@ and create **arc_files** folder in each of these 5 directories.
   * **NOTICE:** output files need to be moved to *paired* and *unpaired* folders manually once the running is finished
   * *unpaired* files should not be used (TO BE CONFIRMED)
   
-**4. Alignment (STAR):**
+**4. Alignment (STAR & samtools & Picard tools):**
  * NOTICE: when running for the first time, follow the instruction from /home/home02/ummz/reference/README.txt (i.e. generate index first) 
  * modify the last line in the INDEX submission file: (first time running only) 
 ```
@@ -138,7 +158,7 @@ and create **arc_files** folder in each of these 5 directories.
 ```
  * launch the submission file: `qsub submit-5-count.sh`
 
-**5.B. featureCounts:**  
+**5.B. featureCounts():**  
 This step is implemented in R. The Anaconda module must be loaded and the 'r36' environment must be activated before launching step:
 ```
 module load anaconda
@@ -147,7 +167,7 @@ source activate r36
 ```
 There are two scripts (and two submission files consequently):
  * **run-5-featureCounts_I.R** => WITH the array concept & the 'SGE_TASK_ID' parameter (running in parallel | one output per sample)
- * **run-5-featureCounts_II.R**	=> WITHOUT the array concept & the 'SGE_TASK_ID' parameter (running one at a time | one output for all samples)
+ * **run-5-featureCounts_II.R**	=> WITHOUT the array concept & the 'SGE_TASK_ID' parameter (running one at a time | one output for all samples) | **run-5-featureCounts_FINAL.R** is a copy of this file
 
 
 ## Running example 
@@ -161,7 +181,7 @@ All the steps were ran on a set of 41 samples.
 /5_counting                 =>  15 G
 ```
 
-Files to be backuped:
+Files to be backuped **TO BE UPDATED**:
 
 ```
 => all arc_files folders (from each directory)
