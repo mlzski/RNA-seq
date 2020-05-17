@@ -6,10 +6,11 @@
 2) Trimming (using Trimmomatic)
 3) Quality control on trimmed fastq files (using FastQC)
 4) Read alignment (using STAR, bowtie2 can be worth trying out)
-5) BAM manipulation (using samtools) [TO BE IMPLEMENTED]
-6) Obtain read counts (using Cufflinks or featureCounts)
+5) BAM manipulation [indexing] (using samtools)
+6) TO BE COMPLETED (using Picard Tools) 
+7) Obtain read counts (using Cufflinks or featureCounts)
 
-**NOTICE:** Cufflinks turned out to be dedicatedfor transcript discovery, therefore a new software "featureCounts" was proposed
+**NOTICE:** Cufflinks turned out to be dedicated for transcript discovery, therefore a new software "featureCounts" was proposed
 
 ## Download
 
@@ -58,6 +59,8 @@ make STAR
 ```
 TBC
 ```
+
+- Picard Tools (version ) [source ]
 
 - Cufflinks (version 2.2.1) [source: http://cole-trapnell-lab.github.io/cufflinks/assets/downloads/cufflinks-2.2.1.OSX_x86_64.tar.gz]
 
