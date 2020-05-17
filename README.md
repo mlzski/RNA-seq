@@ -151,10 +151,9 @@ and create **arc_files** folder in each of these 5 directories.
  
 **NOTICE:** samtools is used for indexing and is included in run-4-align
 
-Picard is used to identifie duplicate reads. It locates and tags duplicate reads in a BAM or SAM file, where duplicate reads are defined as originating from a single fragment of DNA.
+Picard is used to identify duplicate reads. It locates and tags duplicate reads in a BAM or SAM file, where duplicate reads are defined as originating from a single fragment of DNA.
 
 **run Picard Tools using run-4-picard.sh**
-
 
 **5. Reads quantification (2 software):**
 
