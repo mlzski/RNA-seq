@@ -1,7 +1,8 @@
 ###################################################################################################### 
 # this script runs featureCounts to count reads from STAR output (name_Aligned.sortedByCoord.out.bam)
-# using the array concept with the 'SGE_TASK_ID' parameter
-# so it launches all files (samples) in parallel and produces one output (.csv) file per each sample 
+# without the array concept with the 'SGE_TASK_ID' parameter
+# so the files (samples) are launched individually (one after another) and it produces only one output (.csv) file  
+# THIS IS JUST A COPY OF run-5-featureCounts_II.R
 ###################################################################################################### 
 
 # INPUT:
@@ -20,12 +21,11 @@ args <- commandArgs(trailingOnly = TRUE)
 # args <- c("/Users/ummz/OneDrive - University of Leeds/ANALYSES/results_run_I_Nov19/4_alignement/bam", 
 #          "/Users/ummz/OneDrive - University of Leeds/ANALYSES/results_run_I_Nov19/5_/postprocessed")
 
-if (length(args)!=4) {
-  stop("4 arguments must be supplied: 
-	\n(1) running mode parameter [SE or PE],
+if (length(args)!=3) {
+  stop("3 arguments must be supplied: 
+	\n(1) running mode parameter [SE or PE], 
 	\n(2 - input) path to directory with data, 
-	\n(3 - output) path where output files should be stored and 
-	\n(4) SGE_TASK_ID argument for array jobs", call.=FALSE)
+	\n(3 - output) path where output files should be stored", call.=FALSE)
 }
 
 cat("Directories with data (IN): ")
@@ -36,49 +36,28 @@ cat(args[3], sep="\n")
 
 setwd(args[3])
 
-# get task ID
-task_id <- as.integer(Sys.getenv("SGE_TASK_ID"))
-
 # retrive built-in annotation file (other genomes available: mm9, mm10, hg19 and hg38 (NCBI RefSeq))
 ann <- getInBuiltAnnotation(annotation = "hg38")
 
 # create a list with file names to be processed:
 files_list <- list.files(args[2], pattern = ".bam$", full.names = TRUE)
 
-# create the parameter for running as an array
-parameter <- files_list[task_id]
-
 # run featureCounts() command [SE - single end | PE - paired end] AND
 # write output tables with counts and statistics
 if(args[1] == "SE"){
-	fc_SE <- featureCounts(parameter, annot.ext=ann, nthreads = 40)	
-	
-	outputName_1 <- paste("counts_",task_id,"_SE.csv",sep="")
-	write.csv(fc_SE$counts, file=outputName_1)
-	outputName_2 <- paste("stats_",task_id,"_SE.csv",sep="")
-	write.csv(fc_SE$stat, file=outputName_2)
-	
+	fc_SE <- featureCounts(files_list, annot.ext=ann, nthreads = 40)
+	write.csv(fc_SE$counts, file="all_counts_SE.csv")
+	write.csv(fc_SE$stat, file="all_stats_SE.csv")
 } else if (args[1] == "PE"){
-	fc_PE <- featureCounts(parameter, annot.ext=ann, isPairedEnd=TRUE, nthreads = 40)
-	
-	outputName_1 <- paste("counts_",task_id,"_PE.csv",sep="")
-	write.csv(fc_PE$counts, file=outputName_1)
-	outputName_2 <- paste("stats_",task_id,"_PE.csv",sep="")
-	write.csv(fc_PE$stat, file=outputName_2)
-	
+	fc_PE <- featureCounts(files_list, annot.ext=ann, isPairedEnd=TRUE, nthreads = 40)
+	write.csv(fc_PE$counts, file="all_counts_PE.csv")
+	write.csv(fc_PE$stat, file="all_stats_PE.csv")
 } else {
 	stop("ERROR: running mode parameter must be defined as either SE or PE", call.=FALSE)	
 }
 
-# write output table with counts and statistics
-outputName_1 <- paste("counts_",task_id,".csv",sep="")
-write.csv(fc_SE$counts, file=outputName_1)
-
-outputName_2 <- paste("stats_",task_id,".csv",sep="")
-write.csv(fc_SE$stat, file=outputName_2)
-
-######################################################################################################
-# featureCOunts() OUTPUTS:
+###################################################################################################### 
+# featureCounts() OUTPUTS:
 # fc_SE$counts      => a very long vector with counts for all genes
 # fc_SE$annotation  => a table with all genes (rows) 6 columns for: "GeneID", "Chr", "Start", "End", "Strand", "Length"
 # fc_SE$targets     => file name(s) used
@@ -100,3 +79,4 @@ write.csv(fc_SE$stat, file=outputName_2)
 # input_format = a character string specifying format of the input file. gzFASTQ (gzipped FASTQ) by default. Acceptable formats include gzFASTQ, FASTQ, SAM and BAM. Character string is case insensitive.
 # offset = a numeric value giving the offset added to the base-calling Phred scores. Possible values include 33 and 64. By default, 33 is used.
 # nreads = a numeric value giving the number of reads from which quality scores are extracted. 10000 by default. A value of -1 indicates that quality scores will be extracted from all the reads.
+
