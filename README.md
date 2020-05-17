@@ -7,7 +7,7 @@
 3) Quality control on trimmed fastq files (using FastQC)
 4) Read alignment (using STAR, bowtie2 can be worth trying out)
 5) BAM manipulation [indexing] (using samtools)
-6) TO BE COMPLETED (using Picard Tools) 
+6) Marking duplicates (using Picard Tools) 
 7) Obtain read counts (using Cufflinks or featureCounts)
 
 **NOTICE:** Cufflinks turned out to be dedicated for transcript discovery, therefore a new software "featureCounts" was proposed
@@ -148,6 +148,13 @@ and create **arc_files** folder in each of these 5 directories.
  * paired-end (unpaired) output from Trimmomatic: run-4-align_PE_unpaired.sh
 
  * launch the submission file: `qsub submit-4-align.sh`
+ 
+**NOTICE:** samtools is used for indexing and is included in run-4-align
+
+Picard is used to identifie duplicate reads. It locates and tags duplicate reads in a BAM or SAM file, where duplicate reads are defined as originating from a single fragment of DNA.
+
+**run Picard Tools using run-4-picard.sh**
+
 
 **5. Reads quantification (2 software):**
 
