@@ -25,6 +25,7 @@ coreFile=$(ls $data_dir/*_R1.fastq.gz | rev | cut -d '/' -f 1 | cut -c 13- | rev
 
 # run the trimmomatic command [SE or PE] 
 # NOTICE: adjust the parameters for each analysis
+# NOTICE: the order of parameters matters; "It is recommended in most cases that adapter clipping, if required, is done as early as possible"
 
 # single-end [SE]
 java -jar /home/home02/ummz/tools/Trimmomatic-0.39/trimmomatic-0.39.jar SE -threads 4 -phred33 $read1 $out_dir/processed_fastq/${coreFile}R1_single.fq ILLUMINACLIP:/home/home02/ummz/tools/Trimmomatic-0.39/adapters/TruSeq3-SE.fa:2:30:10 LEADING:20 TRAILING:20 HEADCROP:10 SLIDINGWINDOW:4:15 MINLEN:36
