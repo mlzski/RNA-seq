@@ -134,11 +134,6 @@ STAR
 
 TBC
 
-6) Obtain read counts (using Cufflinks)
-```
-cufflinks 
--p 8 
--G $anno_file 
--o $out_dir/out_${core_name} 
-$bam_file
-```
+6) featureCounts() 
+
+https://www.rdocumentation.org/packages/Rsubread/versions/1.22.2/topics/featureCounts
