@@ -40,6 +40,8 @@ files_list <- list.files(args[2], pattern = ".bam$", full.names = TRUE)
 # run featureCounts() command [dups - with duplicates | nodups - without duplicates] AND
 # write output tables with counts and statistics
 
+# URL to parameters: https://www.rdocumentation.org/packages/Rsubread/versions/1.22.2/topics/featureCounts 
+
 if(args[1] == "dups"){
 	fc_dups <- featureCounts(files_list, 
 							 annot.ext=ann, 
