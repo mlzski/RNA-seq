@@ -88,29 +88,35 @@ There are 5 steps of the analysis: quality control, trimming, quality control af
   submit-4-index.sh   (NOTICE: to be launched once only for a new reference genome)
 ```
 
-**STEP 5: Reads quantification using Cufflinks**
+**STEP 5: Reads quantification using featureCounts() (Rsubread package)**
 
-**NOTICE:** the cuffmerge command was used to merge together several Cufflinks assemblies
+**NOTICE:** it was written in 2 modes but needs to be merged in just one file
 
 ```
-/5_counting {15 G}
+/5_featureCounts {??? G}
 
   /arc_files
+  
+  /single-end/processed/
+                        /mode_I
+                                counts_1_SE.csv                   (41 files like this)
+                                stats_1_SE.csv                    (41 files like this)
+                        /mode_II
+                                all_counts_SE.csv 
+                                all_stats_SE.csv
     
-  /out_11026_S12_L005 (EXAMPLE) [1 directoriy for each sample (a pair of 2 files)]
-    genes.fpkm_tracking     (EXAMPLE) generic FPKM Tracking Format
-    isoforms.fpkm_tracking  (EXAMPLE) contains the estimated isoform-level expression values in the generic FPKM Tracking Format
-    skipped.gtf             (EXAMPLE) ???
-    transcripts.gtf         (EXAMPLE) contains Cufflinks’ assembled isoforms
-    
-  /results_all_in_one (merged using cuffmerge)
-    genes.fpkm_tracking     (EXAMPLE)
-    isoforms.fpkm_tracking  (EXAMPLE)
-    skipped.gtf             (EXAMPLE)
-    transcripts.gtf         (EXAMPLE)
-   
-  run-5-count.sh
-  submit-5-count.sh
+  /paired-end/processed/
+                        /mode_I
+                                counts_1_PE.csv                   (41 files like this)
+                                stats_1_PE.csv                    (41 files like this)
+                        /mode_II
+                                all_counts_PE.csv 
+                                all_stats_PE.csv
+                                
+  run-5-featureCounts_I.R
+  run-5-featureCounts_II.R
+  submit-5-featureCounts_I.R
+  submit-5-featureCounts_II.R
 ```
   
 
