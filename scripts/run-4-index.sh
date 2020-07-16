@@ -14,7 +14,7 @@ fi
 
 # define arguments
 index_dir=$1            # /path/to/genomeDir
-ref_file=$2             # /path/to/genome/fasta1 /path/to/genome/fasta2 ...
+ref_file=$(cat $2)      # /path/to/genome/fasta1 /path/to/genome/fasta2 ...
 anno_file=$3            # /path/to/annotations.gtf
 
 # export software (STAR)
