@@ -26,7 +26,6 @@ counter=0
 for i in *_Aligned.sortedByCoord.out.bam 
 do
     samtools index $i
-    echo Created $i.bai  
     (( counter++ ))
 done > $out_dir/samtools.log
 
