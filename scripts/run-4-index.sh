@@ -6,7 +6,7 @@
 if [ $# != 3 ] ; then
     echo -e "ERROR: 3 arguments are required: \
     (1) Path to data folder where index file will be placed, \
-    (2) path to genome reference file [.fa] and \
+    (2) path to a .txt file that includes a list of genome reference files [.fa] and \
     (3) path to annotation file [.gtf] \
     ...Exiting"
     exit 1
