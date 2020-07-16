@@ -4,12 +4,12 @@
 ###################################################################################################### 
 
 if [ $# != 5 ] ; then
-    echo -e "ERROR: 5 arguments are required: \
-    (1) running mode (either 'SE', 'PE-paired' or 'PE-unpaired'), \
-    (2) path to data folder, \
-    (3) path to output directory, \
-    (4) path to index file and \
-    (5) SGE_TASK_ID argument for array jobs \
+    echo -e "ERROR: 5 arguments are required: \n
+    (1) running mode (either 'SE', 'PE-paired' or 'PE-unpaired'), \n
+    (2) path to data folder, \n
+    (3) path to output directory, \n
+    (4) path to index file and \n
+    (5) SGE_TASK_ID argument for array jobs \n
     ...Exiting"
     exit 1
 fi    
