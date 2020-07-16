@@ -10,7 +10,7 @@ if [ $# != 1 ] ; then
 fi	
 
 # define arguments
-$data_dir=$1
+data_dir=$1
 
 # export software (SAMtools)
 export PATH=/home/home02/ummz/tools/samtools-1.10/bin:$PATH  
@@ -19,4 +19,8 @@ export PATH=/home/home02/ummz/tools/samtools-1.10/bin:$PATH
 cd $data_dir
 
 # run SAMtools to index bam files
-samtools index *_Aligned.sortedByCoord.out.bam
+for i in *_Aligned.sortedByCoord.out.bam 
+do
+    echo samtools index $i
+done
+
