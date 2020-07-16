@@ -1,5 +1,6 @@
 ######################################################################################################
 # this script runs SAMtools to index bam files from STAR aligner
+# NOTE: to be run LOCALLY (no need for a submission file)
 ######################################################################################################
 
 if [ $# != 1 ] ; then
