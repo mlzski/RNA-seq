@@ -15,8 +15,8 @@ library(Rsubread)
 
 args <- commandArgs(trailingOnly = TRUE)
 
-if (length(args)!=3) {
-  stop("3 arguments must be supplied: 
+if (length(args)!=4) {
+  stop("4 arguments must be supplied: 
 	\n(1) running mode parameter [dups or nodups], 
 	\n(2 - input) path to directory with data, 
 	\n(3 - annotation) path to GTF annotation files
