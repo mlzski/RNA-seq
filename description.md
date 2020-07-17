@@ -132,7 +132,16 @@ STAR
 
 5) BAM manipulation (using samtools)
 
-TBC
+indexing using **run-4-samtools.sh**
+
+```
+bash run-4-samtools.sh /nobackup/ummz/analyses/rerun_FINAL/run_1/alignment_SE/bam /nobackup/ummz/analyses/rerun_FINAL/run_1/samtools_SE.log
+bash run-4-samtools.sh /nobackup/ummz/analyses/rerun_FINAL/run_1/alignment_PE/bam /nobackup/ummz/analyses/rerun_FINAL/run_1/samtools_PE.log
+
+bash run-4-samtools.sh /nobackup/ummz/analyses/rerun_FINAL/run_2/alignment_SE/bam /nobackup/ummz/analyses/rerun_FINAL/run_2/samtools_SE.log
+bash run-4-samtools.sh /nobackup/ummz/analyses/rerun_FINAL/run_2/alignment_PE/bam /nobackup/ummz/analyses/rerun_FINAL/run_2/samtools_PE.log
+
+```
 
 6) featureCounts() 
 
