@@ -68,7 +68,7 @@ fc_res <- featureCounts(files_list,
 			countMultiMappingReads=TRUE, 
 			fraction=TRUE, nthreads=8, 
 			ignoreDup=parDups, 
-			isPairedEnd=TRUE, 
+			isPairedEnd=parMode, 
 			strandSpecific=2)
 
 if(args[1] == "dups"){
