@@ -8,7 +8,8 @@
 #$ -m be
 #$ -M ummz-arc-records@outlook.com
 
-Rscript /nobackup/ummz/analyses/rerun_Ian/rerun_3/scripts/run-5-featureCounts_Ian.R dups /nobackup/ummz/analyses/rerun_Ian/rerun_2/pic /nobackup/ummz/reference/Ian/hg38.gtf /nobackup/ummz/analyses/rerun_Ian/rerun_3/featCounts >> /nobackup/ummz/analyses/rerun_Ian/rerun_3/output.$JOB_ID.txt
+#Rscript /nobackup/ummz/analyses/rerun_FINAL/run_1/run-5-featureCounts_Ian.R dups SE /nobackup/ummz/analyses/rerun_FINAL/run_1/alignment_SE/bam/outputs /nobackup/ummz/reference_genome/NEW/annotation/hg38.refGene.gtf /nobackup/ummz/analyses/rerun_FINAL/run_1/featCounts_SE
+#Rscript /nobackup/ummz/analyses/rerun_FINAL/run_1/run-5-featureCounts_Ian.R nodups SE /nobackup/ummz/analyses/rerun_FINAL/run_1/alignment_SE/bam/outputs /nobackup/ummz/reference_genome/NEW/annotation/hg38.refGene.gtf /nobackup/ummz/analyses/rerun_FINAL/run_1/featCounts_SE
 
-# Rscript /nobackup/ummz/analyses/rerun_Ian/rerun_3/scripts/run-5-featureCounts_Ian.R nodups /nobackup/ummz/analyses/rerun_Ian/rerun_2/pic /nobackup/ummz/reference/Ian/hg38.gtf /nobackup/ummz/analyses/rerun_Ian/rerun_3/featCounts >> /nobackup/ummz/analyses/rerun_Ian/rerun_3/output.$JOB_ID.txt
-
+#Rscript /nobackup/ummz/analyses/rerun_FINAL/run_1/run-5-featureCounts_Ian.R dups SE /nobackup/ummz/analyses/rerun_FINAL/run_2/alignment_SE/bam/outputs /nobackup/ummz/reference_genome/NEW/annotation/hg38.refGene.gtf /nobackup/ummz/analyses/rerun_FINAL/run_2/featCounts_SE
+#Rscript /nobackup/ummz/analyses/rerun_FINAL/run_1/run-5-featureCounts_Ian.R nodups SE /nobackup/ummz/analyses/rerun_FINAL/run_2/alignment_SE/bam/outputs /nobackup/ummz/reference_genome/NEW/annotation/hg38.refGene.gtf /nobackup/ummz/analyses/rerun_FINAL/run_2/featCounts_SE
