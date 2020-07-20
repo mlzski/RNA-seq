@@ -60,55 +60,29 @@ if(args[2] == "SE"){
 	stop("ERROR: running mode must be defined as either SE or PE", call.=FALSE)	
 }
 	
-print(parDups)
-print(parMode)
+fc_res <- featureCounts(files_list, 
+			annot.ext=ann, 
+			isGTFAnnotationFile = 
+			TRUE, useMetaFeatures=TRUE, 
+			allowMultiOverlap=TRUE, 
+			countMultiMappingReads=TRUE, 
+			fraction=TRUE, nthreads=8, 
+			ignoreDup=parDups, 
+			isPairedEnd=TRUE, 
+			strandSpecific=2)
 
-#fc_dups <- featureCounts(files_list, annot.ext=ann, isGTFAnnotationFile = TRUE, useMetaFeatures=TRUE, allowMultiOverlap=TRUE, countMultiMappingReads=TRUE, fraction=TRUE, nthreads=8, ignoreDup=parDups, isPairedEnd=TRUE, strandSpecific=2))
-
-#write.csv(fc_dups$counts, file="all_counts_dups.csv")
-#write.csv(fc_dups$stat, file="all_stats_dups.csv")
-#write.csv(fc_dups$annotation, file="all_annotations_dups.csv")
-
-
-##################################################################
-if(FALSE){
 if(args[1] == "dups"){
-	fc_dups <- featureCounts(files_list, 
-							 annot.ext=ann, 
-							 isGTFAnnotationFile = TRUE, 
-						   	 useMetaFeatures=TRUE, 
-						   	 allowMultiOverlap=TRUE, 
-						   	 countMultiMappingReads=TRUE,
-						   	 fraction=TRUE, 
-						   	 nthreads=8, 
-						   	 ignoreDup=FALSE, 
-						   	 isPairedEnd=TRUE,
-						   	 strandSpecific=2)
-
-	write.csv(fc_dups$counts, file="all_counts_dups.csv")
-	write.csv(fc_dups$stat, file="all_stats_dups.csv")
-	write.csv(fc_dups$annotation, file="all_annotations_dups.csv")
+	write.csv(fc_res$counts, file="all_counts_dups.csv")
+	write.csv(fc_res$stat, file="all_stats_dups.csv")
+	write.csv(fc_res$annotation, file="all_annotations_dups.csv")
 
 } else if (args[1] == "nodups"){
-	fc_nodups <- featureCounts(files_list, 
-							   annot.ext=ann, 
-							   isGTFAnnotationFile = TRUE, 
-						   	   useMetaFeatures=TRUE, 
-						   	   allowMultiOverlap=TRUE, 
-						   	   countMultiMappingReads=TRUE,
-						   	   fraction=TRUE, 
-						   	   nthreads=8, 
-						   	   ignoreDup=TRUE, 
-						   	   isPairedEnd=TRUE,
-						   	   strandSpecific=2)
-
-	write.csv(fc_nodups$counts, file="all_counts_nodups.csv")
-	write.csv(fc_nodups$stat, file="all_stats_nodups.csv")
-	write.csv(fc_nodups$annotation, file="all_annotations_nodups.csv")
-
+	write.csv(fc_res$counts, file="all_counts_nodups.csv")
+	write.csv(fc_res$stat, file="all_stats_nodups.csv")
+	write.csv(fc_res$annotation, file="all_annotations_nodups.csv")
+	
 } else {
-	stop("ERROR: running mode parameter must be defined as either dups or nodups", call.=FALSE)	
-}
+	stop("ERROR: running option must be defined as either dups or nodups", call.=FALSE)	
 }
 
 proc.time()
