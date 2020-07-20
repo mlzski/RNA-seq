@@ -63,9 +63,7 @@ if(args[2] == "SE"){
 print(parDups)
 print(parMode)
 
-message(featureCounts(files_list, annot.ext=ann, isGTFAnnotationFile = TRUE, useMetaFeatures=TRUE, allowMultiOverlap=TRUE, countMultiMappingReads=TRUE, fraction=TRUE, nthreads=8, ignoreDup=parDups, isPairedEnd=TRUE, strandSpecific=2))
-
-# cat(fc_dups <- featureCounts(files_list, annot.ext=ann, isGTFAnnotationFile = TRUE, useMetaFeatures=TRUE, allowMultiOverlap=TRUE, countMultiMappingReads=TRUE, fraction=TRUE, nthreads=8, ignoreDup=parDups, isPairedEnd=TRUE, strandSpecific=2))
+#fc_dups <- featureCounts(files_list, annot.ext=ann, isGTFAnnotationFile = TRUE, useMetaFeatures=TRUE, allowMultiOverlap=TRUE, countMultiMappingReads=TRUE, fraction=TRUE, nthreads=8, ignoreDup=parDups, isPairedEnd=TRUE, strandSpecific=2))
 
 #write.csv(fc_dups$counts, file="all_counts_dups.csv")
 #write.csv(fc_dups$stat, file="all_stats_dups.csv")
