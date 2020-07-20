@@ -15,33 +15,73 @@ library(Rsubread)
 
 args <- commandArgs(trailingOnly = TRUE)
 
-if (length(args)!=4) {
-  stop("4 arguments must be supplied: 
-	\n(1) running mode parameter [dups or nodups], 
-	\n(2 - input) path to directory with data, 
-	\n(3 - annotation) path to GTF annotation files
-	\n(4 - output) path where output files should be stored", call.=FALSE)
+if (length(args)!=5) {
+  stop("5 arguments must be supplied: 
+	\n(1) running option [dups or nodups],
+	\n(2) running mode [SE or PE],
+	\n(3 - input) path to directory with data, 
+	\n(4 - annotation) path to GTF annotation files
+	\n(5 - output) path where output files should be stored", call.=FALSE)
 }
 
 cat("Directories with data (IN): ")
-cat(args[2], sep="\n")
+cat(args[3], sep="\n")
 
 cat("Directory for results (OUT): ")
-cat(args[4], sep="\n")
+cat(args[5], sep="\n")
 
-setwd(args[4])
+setwd(args[5])
 
 # define path to GTF annotation files
-ann <- args[3]
+ann <- args[4]
 
 # create a list with file names to be processed:
-files_list <- list.files(args[2], pattern = ".bam$", full.names = TRUE)
+files_list <- list.files(args[3], pattern = ".bam$", full.names = TRUE)
 
 # run featureCounts() command [dups - with duplicates | nodups - without duplicates] AND
 # write output tables with counts and statistics
 
 # URL to parameters: https://www.rdocumentation.org/packages/Rsubread/versions/1.22.2/topics/featureCounts 
 
+# loops for running modes
+if(args[1] == "dups"){
+	parDups <- as.logical(FALSE)
+} else if (args[1] == "nodups"){
+	parDups <- as.logical(TRUE)
+} else {
+	stop("ERROR: running option must be defined as either dups or nodups", call.=FALSE)	
+}
+
+if(args[2] == "SE"){
+	parMode <- as.logical(FALSE)
+} else if (args[2] == "PE"){
+	parMode <- as.logical(TRUE)
+} else {
+	stop("ERROR: running mode must be defined as either SE or PE", call.=FALSE)	
+}
+	
+print(parDups)
+print(parMode)
+
+cat(fc_dups <- featureCounts(files_list, 
+			 annot.ext=ann, 
+			 isGTFAnnotationFile = TRUE, 
+			 useMetaFeatures=TRUE, 
+			 allowMultiOverlap=TRUE, 
+			 countMultiMappingReads=TRUE,
+			 fraction=TRUE, 
+			 nthreads=8, 
+			 ignoreDup=parDups, 
+			 isPairedEnd=TRUE,
+			 strandSpecific=2))
+
+write.csv(fc_dups$counts, file="all_counts_dups.csv")
+write.csv(fc_dups$stat, file="all_stats_dups.csv")
+write.csv(fc_dups$annotation, file="all_annotations_dups.csv")
+
+
+##################################################################
+if(FALSE){
 if(args[1] == "dups"){
 	fc_dups <- featureCounts(files_list, 
 							 annot.ext=ann, 
@@ -78,6 +118,7 @@ if(args[1] == "dups"){
 
 } else {
 	stop("ERROR: running mode parameter must be defined as either dups or nodups", call.=FALSE)	
+}
 }
 
 proc.time()
