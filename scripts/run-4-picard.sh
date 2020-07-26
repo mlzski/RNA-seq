@@ -47,4 +47,8 @@ java -jar /home/home02/ummz/tools/picard/build/libs/picard.jar MarkDuplicates \
 	CREATE_INDEX=false \
 	CREATE_MD5_FILE=false \
 	GA4GH_CLIENT_SECRETS=client_secrets.json
+	
+# NOTICE: the field 'ESTIMATED_LIBRARY_SIZE' will only be filled for PE data (empty for SE)
+# "The estimated number of unique molecules in the library based on PE duplication."
+
 
