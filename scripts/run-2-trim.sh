@@ -1,6 +1,6 @@
 ### this script runs trimming (on raw fastq files) for all files (pairs) at once
 
-if [ $# != 3 ] ; then
+if [ $# != 4 ] ; then
     echo -e "ERROR: 4 arguments are required: \
     (1) running mode (either 'SE' or 'PE'), \
     (2) Path to data folder, \
