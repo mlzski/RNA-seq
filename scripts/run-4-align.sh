@@ -20,6 +20,7 @@ data_dir=$2
 out_dir=$3
 index_dir=$4
 
+# run STAR mapping job
 if [ $run_mode == 'SE' ] ; then
     # get the read1 fastq.gz file
     fastqFile=$(ls $data_dir/*_R1_single.fq | sed -n -e "$SGE_TASK_ID p")
@@ -70,3 +71,4 @@ fi
 # --outSAMtype BAM SortedByCoordinate               => output sorted by coordinate Aligned.sortedByCoord.out.bam file, similar to samtools sort command.
 # --outSAMattributes All                            => SAM attributes to be used 
 # --outReadsUnmapped Fastx                          => will output unmapped and partially mapped (i.e. mapped only one mate of a paired end read) reads into separate file(s) Unmapped.out.mate1(2), formatted the same way as input read files (i.e. FASTQ or FASTA). 
+# --outSAMstrandField intronMotif                   => ???
