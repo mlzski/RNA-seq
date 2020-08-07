@@ -50,5 +50,3 @@ java -jar /home/home02/ummz/tools/picard/build/libs/picard.jar MarkDuplicates \
 	
 # NOTICE: the field 'ESTIMATED_LIBRARY_SIZE' will only be filled for PE data (empty for SE)
 # "The estimated number of unique molecules in the library based on PE duplication."
-
-
