@@ -1,10 +1,10 @@
-
-###################################################################################################### 
-# this script runs second QC analysis (on trimmed fatsq files) for all files in parallel (using array task)
-######################################################################################################
+### this script runs second QC analysis (on trimmed fatstq files) for all files in parallel (using array task)
 
 if [ $# != 3 ] ; then
-    echo -e "ERROR: 3 arguments are required: (1) Path to data folder, (2) path to output folder and (3) SGE_TASK_ID argument for array jobs ... Exiting"
+    echo -e "ERROR: 3 arguments are required: \
+    (1) Path to data folder, \
+    (2) path to output folder and \
+    (3) SGE_TASK_ID argument for array jobs ... Exiting"
     exit 1
 fi	
 
@@ -26,4 +26,3 @@ fastqFile=$(ls $data_dir/*.fq | sed -n -e "$SGE_TASK_ID p")
 
 # run the fastqc command for each fastq.gz file
 fastqc -o $out_dir/report --threads 4 --dir $out_dir/temp $fastqFile
-
