@@ -34,7 +34,7 @@ then
     SE \
     -threads 4 \
     -phred33 $read1 \
-    $out_dir/processed_fastq/${coreFile}R1_single.fq \
+    $out_dir/processed_fastq/${coreFile}_R1_single.fq \
     ILLUMINACLIP:/home/home02/ummz/tools/Trimmomatic-0.39/adapters/TruSeq3-SE.fa:2:30:10 \
     SLIDINGWINDOW:4:15 \
     LEADING:20 \
@@ -50,8 +50,8 @@ then
     PE \
     -threads 4 \
     -phred33 $read1 $read2 \
-    $out_dir/processed_fastq/${coreFile}R1_paired.fq $out_dir/processed_fastq/${coreFile}R1_unpaired.fq \
-    $out_dir/processed_fastq/${coreFile}R2_paired.fq $out_dir/processed_fastq/${coreFile}R2_unpaired.fq \
+    $out_dir/processed_fastq/${coreFile}_R1_paired.fq $out_dir/processed_fastq/${coreFile}_R1_unpaired.fq \
+    $out_dir/processed_fastq/${coreFile}_R2_paired.fq $out_dir/processed_fastq/${coreFile}_R2_unpaired.fq \
     ILLUMINACLIP:/home/home02/ummz/tools/Trimmomatic-0.39/adapters/TruSeq3-PE-2.fa:2:30:10 \
     SLIDINGWINDOW:4:15 \
     LEADING:20 \
