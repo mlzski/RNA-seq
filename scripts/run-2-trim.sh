@@ -28,7 +28,7 @@ coreFile=$(ls $data_dir/*_R1.fastq.gz | rev | cut -d '/' -f 1 | cut -c 13- | rev
 # run Trimmomatic (parameters guide listed below)
 if [ $run_mode == 'SE' ]     # single-end [SE]
 then
-    echo "Running in sinngle-end (SE) mode"
+    echo "Running in single-end (SE) mode"
     
     java -jar /home/home02/ummz/tools/Trimmomatic-0.39/trimmomatic-0.39.jar \
     SE \
