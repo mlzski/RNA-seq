@@ -1,5 +1,5 @@
 # submission script for run-2-trim.sh
-# Michal Zulcinski 2019-12-11
+# Michal Zulcinski 2020-08-07
 
 #$ -cwd -V
 #$ -l h_rt=1:00:00
@@ -9,10 +9,12 @@
 #$ -m be
 #$ -M ummz-arc-records@outlook.com
 
-/path/to/running/script/run-2-trim.sh /path/to/data /path/to/results ${SGE_TASK_ID} >> /path/to/arc_files/output.$JOB_ID.txt
+/home/home02/ummz/github_dirs/RNA-seq/scripts/run-2-trim.sh PE /nobackup/ummz/analyses/data /nobackup/ummz/analyses/run_NEW/2_trimming/paired-end/ ${SGE_TASK_ID} >> /nobackup/ummz/analyses/run_NEW/2_trimming/paired-end/arc_files/output.$JOB_ID.txt
 
-# for single-end
-# /nobackup/ummz/analyses/run_IV_Feb20/2_trimming/single-end/run-2-trim.sh /nobackup/ummz/analyses/data /nobackup/ummz/analyses/run_IV_Feb20/2_trimming/single-end/ ${SGE_TASK_ID} >> /nobackup/ummz/analyses/run_IV_Feb20/2_trimming/single-end/arc_files/output.$JOB_ID.txt
-
-# for paired-end
-# /nobackup/ummz/analyses/run_IV_Feb20/2_trimming/paired-end/run-2-trim.sh /nobackup/ummz/analyses/data /nobackup/ummz/analyses/run_IV_Feb20/2_trimming/paired-end/ ${SGE_TASK_ID} >> /nobackup/ummz/analyses/run_IV_Feb20/2_trimming/paired-end/arc_files/output.$JOB_ID.txt
+# (0) /home/home02/ummz/github_dirs/RNA-seq/scripts/run-2-trim.sh
+# (1) [either SE or PE]
+# (2) /path/to/data 
+# (3) /path/to/results 
+# (4) ${SGE_TASK_ID} 
+# >> 
+# (OUTPUT) /path/to/arc_files/output.$JOB_ID.txt
