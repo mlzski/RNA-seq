@@ -1,5 +1,5 @@
 # submission script for run-4-align.sh
-# Michal Zulcinski 2020-07-15
+# Michal Zulcinski 2020-08-07
 
 #$ -cwd -V
 #$ -l h_rt=04:00:00
@@ -9,18 +9,14 @@
 #$ -m be
 #$ -M ummz-arc-records@outlook.com
 
-#/path/to/running/script/run-4-align.sh [SE or PE] /path/to/input/files /path/to/results /nobackup/ummz/reference/index ${SGE_TASK_ID} >> /path/to/arc_files/output.$JOB_ID.txt
+/home/home02/ummz/github_dirs/RNA-seq/scripts/run-4-align.sh 'SE' /nobackup/ummz/analyses/run_NEW/2_trimming/single-end/processed_fastq /nobackup/ummz/analyses/run_NEW/4_alignment/single-end /nobackup/ummz/reference/index ${SGE_TASK_ID} >> /nobackup/ummz/analyses/run_NEW/4_alignment/single-end/arc_files/output.$JOB_ID.txt
+/home/home02/ummz/github_dirs/RNA-seq/scripts/run-4-align.sh 'PE' /nobackup/ummz/analyses/run_NEW/2_trimming/paired-end/processed_fastq /nobackup/ummz/analyses/run_NEW/4_alignment/paired-end /nobackup/ummz/reference/index ${SGE_TASK_ID} >> /nobackup/ummz/analyses/run_NEW/4_alignment/paired-end/arc_files/output.$JOB_ID.txt
 
-#    (1) running mode (either 'SE' or 'PE'), \n
-#    (2) path to data folder, \n
-#    (3) path to output directory, \n
-#    (4) path to index file and \n
-#    (5) SGE_TASK_ID argument for array jobs \n
-
-# examples:
-# for single-end
-# /nobackup/ummz/analyses/run_IV_Feb20/4_alignment/single-end/run-4-align.sh 'SE' /nobackup/ummz/analyses/run_IV_Feb20/2_trimming/single-end/processed_fastq /nobackup/ummz/analyses/run_IV_Feb20/4_alignment/single-end /nobackup/ummz/reference/index ${SGE_TASK_ID} >> /nobackup/ummz/analyses/run_IV_Feb20/4_alignment/single-end/arc_files/output.$JOB_ID.txt
-
-# for paired-end 
-# /nobackup/ummz/analyses/run_IV_Feb20/4_alignment/paired-end/paired/run-4-align.sh 'PE' /nobackup/ummz/analyses/run_IV_Feb20/2_trimming/paired-end/processed_fastq/paired /nobackup/ummz/analyses/run_IV_Feb20/4_alignment/paired-end/paired /nobackup/ummz/reference/index ${SGE_TASK_ID} >> /nobackup/ummz/analyses/run_IV_Feb20/4_alignment/paired-end/paired/arc_files/output.$JOB_ID.txt
-
+# (0) /home/home02/ummz/github_dirs/RNA-seq/scripts/run-4-align.sh
+# (1) [either SE or PE]
+# (2) /path/to/data 
+# (3) /path/to/results 
+# (4) /path/to/index
+# (5) ${SGE_TASK_ID} 
+# >> 
+# (OUTPUT) /path/to/arc_files/output.$JOB_ID.txt
