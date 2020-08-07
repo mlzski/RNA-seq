@@ -2,7 +2,7 @@
 
 if [ $# != 3 ] ; then
     echo -e "ERROR: 4 arguments are required: \
-    (1) running mode (either SE or PE), \
+    (1) running mode (either 'SE' or 'PE'), \
     (2) Path to data folder, \
     (3) path to output folder and \
     (4) SGE_TASK_ID argument for array jobs ... Exiting"
@@ -10,7 +10,7 @@ if [ $# != 3 ] ; then
 fi	
 
 # define arguments
-run_mode=$1         # running mode (either SE or PE)
+run_mode=$1         # running mode (either 'SE' or 'PE')
 data_dir=$2			# path to the folder with fastq files
 out_dir=$3			# path the the folder where output will be placed
 
