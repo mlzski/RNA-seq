@@ -26,7 +26,7 @@ read2=$(echo $read1 | sed 's/R1/R2/g')
 coreFile=$(ls $data_dir/*_R1.fastq.gz | rev | cut -d '/' -f 1 | cut -c 13- | rev | sed -n -e "$SGE_TASK_ID p")
 
 # run Trimmomatic (parameters guide listed below)
-if [ $run_mode = 'SE' ]     # single-end [SE]
+if [ $run_mode == 'SE' ]     # single-end [SE]
 then
     echo "Running in sinngle-end (SE) mode"
     
