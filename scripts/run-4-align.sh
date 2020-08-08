@@ -36,8 +36,8 @@ if [ $run_mode == 'SE' ] ; then
     --readFilesIn $read1 \
     --outFileNamePrefix $out_dir/bam/${bam_name} \
     --outSAMtype BAM SortedByCoordinate \
-    --outSAMattributes All \
-    --outSAMstrandField intronMotif
+    --outSAMunmapped Within \
+    --outSAMattributes Standard 
 
 elif [ $run_mode == 'PE' ] ; then
     # get the read1 fastq.gz file and its pair read2
@@ -55,8 +55,8 @@ elif [ $run_mode == 'PE' ] ; then
     --readFilesIn $read1 $read2 \
     --outFileNamePrefix $out_dir/bam/${bam_name} \
     --outSAMtype BAM SortedByCoordinate \
-    --outSAMattributes All \
-    --outSAMstrandField intronMotif
+    --outSAMunmapped Within \
+    --outSAMattributes Standard 
 
 else
     echo "ERROR... run_mode argument must be specified as: 'SE' or 'PE'"
@@ -69,6 +69,5 @@ fi
 # --readFilesIn /path/to/read1 [/path/to/read2]     => name(s) (with path) of the files containing the sequences to be mapped (e.g. RNA-seq FASTQ files); both read1 and read2 files have to be supplied for PE 
 # --readFilesCommand UncompressionCommand           => uncompresses input files, where UncompressionCommand is the un-compression command that takes the file name as input parameter, and sends the uncompressed output to stdout. 
 # --outSAMtype BAM SortedByCoordinate               => output sorted by coordinate Aligned.sortedByCoord.out.bam file, similar to samtools sort command.
-# --outSAMattributes All                            => SAM attributes to be used 
-# --outReadsUnmapped Fastx                          => will output unmapped and partially mapped (i.e. mapped only one mate of a paired end read) reads into separate file(s) Unmapped.out.mate1(2), formatted the same way as input read files (i.e. FASTQ or FASTA). 
-# --outSAMstrandField intronMotif                   => ???
+# --outSAMattributes Standard                       => SAM attributes to be used 
+# --outSAMunmapped Within                           => what to do with unmapped reads
