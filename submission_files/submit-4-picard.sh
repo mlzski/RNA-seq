@@ -9,8 +9,14 @@
 #$ -m be
 #$ -M ummz-arc-records@outlook.com
 
-/home/home02/ummz/github_dirs/RNA-seq/scripts/run-4-picard.sh /nobackup/ummz/analyses/run_NEW/4_alignemnt/single-end/bam/outputs /nobackup/ummz/analyses/run_NEW/4_picard/single-end ${SGE_TASK_ID} >> /nobackup/ummz/analyses/run_NEW/4_picard/single-end/arc_files/output.$JOB_ID.txt
-/home/home02/ummz/github_dirs/RNA-seq/scripts/run-4-picard.sh /nobackup/ummz/analyses/run_NEW/4_alignemnt/paired-end/bam/outputs /nobackup/ummz/analyses/run_NEW/4_picard/paired-end ${SGE_TASK_ID} >> /nobackup/ummz/analyses/run_NEW/4_picard/paired-end/arc_files/output.$JOB_ID.txt
+/home/home02/ummz/github_dirs/RNA-seq/scripts/run-4-picard.sh /nobackup/ummz/analyses/run_12_Aug20/4_alignment_SE_all/bam /nobackup/ummz/analyses/run_12_Aug20/4_picard_SE_all ${SGE_TASK_ID} >> /nobackup/ummz/analyses/run_12_Aug20/4_picard_SE_all/arc_files/output.$JOB_ID.txt
+
+#/home/home02/ummz/github_dirs/RNA-seq/scripts/run-4-picard.sh /nobackup/ummz/analyses/run_12_Aug20/4_alignment_SE_noXY/bam /nobackup/ummz/analyses/run_12_Aug20/4_picard_SE_noXY ${SGE_TASK_ID} >> /nobackup/ummz/analyses/run_12_Aug20/4_picard_SE_noXY/arc_files/output.$JOB_ID.txt
+
+#/home/home02/ummz/github_dirs/RNA-seq/scripts/run-4-picard.sh /nobackup/ummz/analyses/run_12_Aug20/4_alignment_PE_all/bam /nobackup/ummz/analyses/run_12_Aug20/4_picard_PE_all ${SGE_TASK_ID} >> /nobackup/ummz/analyses/run_12_Aug20/4_picard_PE_all/arc_files/output.$JOB_ID.txt
+
+#/home/home02/ummz/github_dirs/RNA-seq/scripts/run-4-picard.sh /nobackup/ummz/analyses/run_12_Aug20/4_alignment_PE_noXY/bam /nobackup/ummz/analyses/run_12_Aug20/4_picard_PE_noXY ${SGE_TASK_ID} >> /nobackup/ummz/analyses/run_12_Aug20/4_picard_PE_noXY/arc_files/output.$JOB_ID.txt
+
 
 # (0) /home/home02/ummz/github_dirs/RNA-seq/scripts/run-4-picard.sh
 # (1) /path/to/data [BAM files]
