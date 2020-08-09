@@ -15,9 +15,9 @@ out_dir=$2    # /nobackup/ummz/analyses/rerun_Ian/rerun_1/pic     | 11026_S12_Al
 
 #core_name=`echo $data_dir | rev | cut -d'/' -f 1 | rev`
 
-bamFile=$(ls $data_dir/* | sed -n -e "$SGE_TASK_ID p")
+bamFile=$(ls $data_dir/*.bam* | sed -n -e "$SGE_TASK_ID p")
 
-core_name=$(ls $data_dir/* | rev | cut -d'/' -f 1 | rev | sed -n -e "$SGE_TASK_ID p")
+core_name=$(ls $data_dir/*.bam* | rev | cut -d'/' -f 1 | rev | sed -n -e "$SGE_TASK_ID p")
 
 java -jar /home/home02/ummz/tools/picard/build/libs/picard.jar MarkDuplicates \
 	INPUT=$bamFile \
