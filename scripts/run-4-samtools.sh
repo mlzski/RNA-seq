@@ -1,7 +1,7 @@
 ### this script runs SAMtools to index bam files from STAR aligner
 # NOTE: to be run LOCALLY (no need for a submission file)
 
-if [ $# != 2 ] ; then
+if [ $# != 3 ] ; then
     echo -e "ERROR: 2 argument are required: \
     (1) Path to data folder where _Aligned.sortedByCoord.out.bam file are stored, \
     (2) path to output directory and 
