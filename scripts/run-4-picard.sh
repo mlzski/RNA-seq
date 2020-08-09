@@ -1,8 +1,4 @@
-######################################################################################################
-# this script runs Picard Tools to locate and tag duplicate reads in a BAM or SAM file
-######################################################################################################
-
-# need to create a new directory within /bam and place there all _Aligned.sortedByCoord.out.bam
+### this script runs Picard Tools to locate and tag duplicate reads in a BAM or SAM file
 
 if [ $# != 3 ] ; then
     echo -e "ERROR: 3 arguments are required: \
