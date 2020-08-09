@@ -3,18 +3,20 @@
 
 if [ $# != 2 ] ; then
     echo -e "ERROR: 2 argument are required: \
-    (1) Path to data folder where _Aligned.sortedByCoord.out.bam file are stored and \
-    (2) path to current running directory and .log file to be created \
+    (1) Path to data folder where _Aligned.sortedByCoord.out.bam file are stored, \
+    (2) path to output directory and 
+    (3) name for the .log file to be created \
     ...Exiting"
     exit 1
 fi	
 
 # USAGE EXAMPLE:
-# bash run-4-samtools.sh /nobackup/ummz/analyses/rerun_FINAL/run_1/alignment_SE/bam /nobackup/ummz/analyses/rerun_FINAL/run_1/samtools_SE.log
+# bash run-4-samtools.sh /nobackup/ummz/analyses/rerun_FINAL/run_1/alignment_SE/bam /nobackup/ummz/analyses/rerun_FINAL/run_1 samtools_SE.log
 
 # define arguments
 data_dir=$1
-log_file=$2
+out_dir=$2
+log_file=$3
 
 # export software (SAMtools)
 export PATH=/home/home02/ummz/tools/samtools-1.10/bin:$PATH  
@@ -27,9 +29,10 @@ counter=0
 for i in *_Aligned.sortedByCoord.out.bam 
 do
     samtools index $i
-    echo Created $i.bai  
+    mv $i.bai $out_dir 
+    echo Created $outdir/$i.bai  
     (( counter++ ))
-done > $log_file
+done > $out_dir/$log_file
 
 echo DONE. Indexed $counter files.
  
