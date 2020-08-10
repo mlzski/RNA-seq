@@ -77,7 +77,7 @@ fc_res <- featureCounts(files_list, 			#
                         nthreads=8, 			#
                         ignoreDup=parDups, 		# logical indicating whether reads marked as duplicates should be ignored. FALSE by default. Read duplicates are identified using bit Ox400 in the FLAG field in SAM/BAM files. The whole fragment (read pair) will be ignored if paired end.
                         isPairedEnd=parMode, 		# logical indicating if counting should be performed on read pairs or reads. FALSE by default. If TRUE, read pairs will be counted instead of individual reads.
-                        useMetaFeatures=TRUE)		# logical indicating whether the read summarization should be performed at the feature level (eg. exons) or meta-feature level (eg. genes). If TRUE, features in the annotation (each row is a feature) will be grouped into meta-features, using the GTF.attrType attribute in the GTF-format annotation file, and then reads will be assiged to the meta-features instead of the features.
+                        useMetaFeatures=FALSE)		# logical indicating whether the read summarization should be performed at the feature level (eg. exons) or meta-feature level (eg. genes). If TRUE, features in the annotation (each row is a feature) will be grouped into meta-features, using the GTF.attrType attribute in the GTF-format annotation file, and then reads will be assiged to the meta-features instead of the features.
 
 # parameters set to default:
 # 			countMultiMappingReads=TRUE, 	# logical indicating if multi-mapping reads/fragments should be counted, TRUE by default. ‘NH’ tag is used to located multi-mapping reads in the input BAM/SAM files.                        
