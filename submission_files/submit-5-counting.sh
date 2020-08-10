@@ -1,5 +1,5 @@
 # submission script for run-5-counting.R
-# Michal Zulcinski 2020-03-06
+# Michal Zulcinski 2020-08-10
 
 #$ -cwd -V
 #$ -l h_rt=04:00:00
@@ -8,23 +8,23 @@
 #$ -m be
 #$ -M ummz-arc-records@outlook.com
 
-Rscript /home/home02/ummz/RNA-seq/scripts/run-5-counting.R dups SE /nobackup/ummz/analyses/run_12_Aug20/4_picard_SE_all /nobackup/ummz/reference_genome/generatedBySTAR_July20/annotation/hg38.ncbiRefSeq.gtf /nobackup/ummz/analyses/run_12_Aug20/5_counting_SE_all >> /nobackup/ummz/analyses/run_12_Aug20/5_counting_SE_all/arc_files/output.$JOB_ID.txt
+Rscript /home/home02/ummz/github_dirs/RNA-seq/scripts/run-5-counting.R dups SE /nobackup/ummz/analyses/run_12_Aug20/4_picard_SE_all /nobackup/ummz/reference_genome/generatedBySTAR_July20/annotation/hg38.ncbiRefSeq.gtf /nobackup/ummz/analyses/run_12_Aug20/5_counting_SE_all >> /nobackup/ummz/analyses/run_12_Aug20/5_counting_SE_all/arc_files/output.$JOB_ID.txt
 
-#Rscript /home/home02/ummz/RNA-seq/scripts/run-5-counting.R nodups SE /nobackup/ummz/analyses/run_12_Aug20/4_picard_SE_all /nobackup/ummz/reference_genome/generatedBySTAR_July20/annotation/hg38.ncbiRefSeq.gtf /nobackup/ummz/analyses/run_12_Aug20/5_counting_SE_all >> /nobackup/ummz/analyses/run_12_Aug20/5_counting_SE_all/arc_files/output.$JOB_ID.txt
+#Rscript /home/home02/ummz/github_dirs/RNA-seq/scripts/run-5-counting.R nodups SE /nobackup/ummz/analyses/run_12_Aug20/4_picard_SE_all /nobackup/ummz/reference_genome/generatedBySTAR_July20/annotation/hg38.ncbiRefSeq.gtf /nobackup/ummz/analyses/run_12_Aug20/5_counting_SE_all >> /nobackup/ummz/analyses/run_12_Aug20/5_counting_SE_all/arc_files/output.$JOB_ID.txt
 
-#Rscript /home/home02/ummz/RNA-seq/scripts/run-5-counting.R dups SE /nobackup/ummz/analyses/run_12_Aug20/4_picard_SE_noXY /nobackup/ummz/reference_genome/generatedBySTAR_July20/annotation/hg38.ncbiRefSeq.gtf /nobackup/ummz/analyses/run_12_Aug20/5_counting_SE_noXY >> /nobackup/ummz/analyses/run_12_Aug20/5_counting_SE_noXY/arc_files/output.$JOB_ID.txt
+#Rscript /home/home02/ummz/github_dirs/RNA-seq/scripts/run-5-counting.R dups SE /nobackup/ummz/analyses/run_12_Aug20/4_picard_SE_noXY /nobackup/ummz/reference_genome/generatedBySTAR_July20/annotation/hg38.ncbiRefSeq.gtf /nobackup/ummz/analyses/run_12_Aug20/5_counting_SE_noXY >> /nobackup/ummz/analyses/run_12_Aug20/5_counting_SE_noXY/arc_files/output.$JOB_ID.txt
 
-#Rscript /home/home02/ummz/RNA-seq/scripts/run-5-counting.R nodups SE /nobackup/ummz/analyses/run_12_Aug20/4_picard_SE_noXY /nobackup/ummz/reference_genome/generatedBySTAR_July20/annotation/hg38.ncbiRefSeq.gtf /nobackup/ummz/analyses/run_12_Aug20/5_counting_SE_noXY >> /nobackup/ummz/analyses/run_12_Aug20/5_counting_SE_noXY/arc_files/output.$JOB_ID.txt
+#Rscript /home/home02/ummz/github_dirs/RNA-seq/scripts/run-5-counting.R nodups SE /nobackup/ummz/analyses/run_12_Aug20/4_picard_SE_noXY /nobackup/ummz/reference_genome/generatedBySTAR_July20/annotation/hg38.ncbiRefSeq.gtf /nobackup/ummz/analyses/run_12_Aug20/5_counting_SE_noXY >> /nobackup/ummz/analyses/run_12_Aug20/5_counting_SE_noXY/arc_files/output.$JOB_ID.txt
 
 #---
 
-#Rscript /home/home02/ummz/RNA-seq/scripts/run-5-counting.R dups PE /nobackup/ummz/analyses/run_12_Aug20/4_picard_PE_all /nobackup/ummz/reference_genome/generatedBySTAR_July20/annotation/hg38.ncbiRefSeq.gtf /nobackup/ummz/analyses/run_12_Aug20/5_counting_PE_all >> /nobackup/ummz/analyses/run_12_Aug20/5_counting_PE_all/arc_files/output.$JOB_ID.txt
+#Rscript /home/home02/ummz/github_dirs/RNA-seq/scripts/run-5-counting.R dups PE /nobackup/ummz/analyses/run_12_Aug20/4_picard_PE_all /nobackup/ummz/reference_genome/generatedBySTAR_July20/annotation/hg38.ncbiRefSeq.gtf /nobackup/ummz/analyses/run_12_Aug20/5_counting_PE_all >> /nobackup/ummz/analyses/run_12_Aug20/5_counting_PE_all/arc_files/output.$JOB_ID.txt
 
-#Rscript /home/home02/ummz/RNA-seq/scripts/run-5-counting.R nodups PE /nobackup/ummz/analyses/run_12_Aug20/4_picard_PE_all /nobackup/ummz/reference_genome/generatedBySTAR_July20/annotation/hg38.ncbiRefSeq.gtf /nobackup/ummz/analyses/run_12_Aug20/5_counting_PE_all >> /nobackup/ummz/analyses/run_12_Aug20/5_counting_PE_all/arc_files/output.$JOB_ID.txt
+#Rscript /home/home02/ummz/github_dirs/RNA-seq/scripts/run-5-counting.R nodups PE /nobackup/ummz/analyses/run_12_Aug20/4_picard_PE_all /nobackup/ummz/reference_genome/generatedBySTAR_July20/annotation/hg38.ncbiRefSeq.gtf /nobackup/ummz/analyses/run_12_Aug20/5_counting_PE_all >> /nobackup/ummz/analyses/run_12_Aug20/5_counting_PE_all/arc_files/output.$JOB_ID.txt
 
-#Rscript /home/home02/ummz/RNA-seq/scripts/run-5-counting.R dups PE /nobackup/ummz/analyses/run_12_Aug20/4_picard_PE_noXY /nobackup/ummz/reference_genome/generatedBySTAR_July20/annotation/hg38.ncbiRefSeq.gtf /nobackup/ummz/analyses/run_12_Aug20/5_counting_PE_noXY >> /nobackup/ummz/analyses/run_12_Aug20/5_counting_PE_noXY/arc_files/output.$JOB_ID.txt
+#Rscript /home/home02/ummz/github_dirs/RNA-seq/scripts/run-5-counting.R dups PE /nobackup/ummz/analyses/run_12_Aug20/4_picard_PE_noXY /nobackup/ummz/reference_genome/generatedBySTAR_July20/annotation/hg38.ncbiRefSeq.gtf /nobackup/ummz/analyses/run_12_Aug20/5_counting_PE_noXY >> /nobackup/ummz/analyses/run_12_Aug20/5_counting_PE_noXY/arc_files/output.$JOB_ID.txt
 
-#Rscript /home/home02/ummz/RNA-seq/scripts/run-5-counting.R nodups PE /nobackup/ummz/analyses/run_12_Aug20/4_picard_PE_noXY /nobackup/ummz/reference_genome/generatedBySTAR_July20/annotation/hg38.ncbiRefSeq.gtf /nobackup/ummz/analyses/run_12_Aug20/5_counting_PE_noXY >> /nobackup/ummz/analyses/run_12_Aug20/5_counting_PE_noXY/arc_files/output.$JOB_ID.txt
+#Rscript /home/home02/ummz/github_dirs/RNA-seq/scripts/run-5-counting.R nodups PE /nobackup/ummz/analyses/run_12_Aug20/4_picard_PE_noXY /nobackup/ummz/reference_genome/generatedBySTAR_July20/annotation/hg38.ncbiRefSeq.gtf /nobackup/ummz/analyses/run_12_Aug20/5_counting_PE_noXY >> /nobackup/ummz/analyses/run_12_Aug20/5_counting_PE_noXY/arc_files/output.$JOB_ID.txt
 
 
 # this line was different in Ian's script:    #$ -l h_rt=04:00:00
