@@ -14,7 +14,7 @@ args <- commandArgs(trailingOnly = TRUE)
 
 if (length(args)!=5) {
   stop("5 arguments must be supplied: 
-  \n(1) running option [dups or nodups],
+  	\n(1) running option [dups or nodups],
 	\n(2) running mode parameter [SE or PE],
 	\n(3 - input) path to directory with data, 
 	\n(4 - annotation) path to GTF annotation files and
@@ -30,7 +30,12 @@ cat(args[5], sep="\n")
 setwd(args[5])
 
 # retrive built-in annotation file (other genomes available: mm9, mm10, hg19 and hg38 (NCBI RefSeq))
-#ann <- getInBuiltAnnotation(annotation = "hg38")
+# ann <- getInBuiltAnnotation(annotation = "hg38")
+# These In-built annotations were downloaded from NCBI RefSeq database and then 
+# => adapted by merging overlapping exons from the same gene to form a set of disjoint exons for each gene. 
+# => Genes with the same Entrez gene identifiers were also merged into one gene.
+# => Each row in the annotation represents an exon of a gene. 
+# => There are five columns in the annotation data including Entrez gene identifier (GeneID), chromosomal name (Chr), chromosomal start position(Start), chromosomal end position (End) and strand (Strand).
 
 # define path to GTF annotation files
 ann <- args[4]
@@ -64,17 +69,20 @@ if(args[2] == "SE"){
 # (2) an annotation file that includes genomic features. (either in SAM and BAM format, which is detected automatically) 
 # NOTICE: Input reads can be name-sorted or location-sorted. 
 
-fc_res <- featureCounts(files_list, 
-                        annot.ext=ann, 
-                        isGTFAnnotationFile = TRUE, 
-                        useMetaFeatures=TRUE, 
-                        allowMultiOverlap=TRUE, 
-                        countMultiMappingReads=TRUE, 
-                        fraction=TRUE, 
-                        nthreads=8, 
-                        ignoreDup=parDups, 
-                        isPairedEnd=parMode, 
-                        strandSpecific=2)
+fc_res <- featureCounts(files_list, 			# 
+                        annot.ext=ann, 			# a character string giving name of a user-provided annotation file, one of these files: hg38.ensGene.gtf, hg38.knownGene.gtf, hg38.ncbiRefSeq.gtf (recommended), hg38.refGene.gtf
+			isGTFAnnotationFile = TRUE, 	# logical indicating whether the annotation provided via the annot.ext argument is in GTF format or not. FALSE by default.
+                        allowMultiOverlap=TRUE, 	# logical indicating if a read is allowed to be assigned to more than one feature (or meta-feature) if it is found to overlap with more than one feature (or meta-feature). FALSE by default.
+                        fraction=TRUE, 			# logical indicating if fractional counts are produced for multi-mapping reads and/or multi-overlapping reads. FALSE by default.
+                        nthreads=8, 			#
+                        ignoreDup=parDups, 		# logical indicating whether reads marked as duplicates should be ignored. FALSE by default. Read duplicates are identified using bit Ox400 in the FLAG field in SAM/BAM files. The whole fragment (read pair) will be ignored if paired end.
+                        isPairedEnd=parMode) 		# logical indicating if counting should be performed on read pairs or reads. FALSE by default. If TRUE, read pairs will be counted instead of individual reads.
+                        
+# parameters set to default:
+# 			countMultiMappingReads=TRUE, 	# logical indicating if multi-mapping reads/fragments should be counted, TRUE by default. ‘NH’ tag is used to located multi-mapping reads in the input BAM/SAM files.                        
+
+# parameters that I'm not sure about
+#			strandSpecific=2		# an integer vector indicating if strand-specific read counting should be performed. Length of the vector should be either 1 (meaning that the value is applied to all input files), or equal to the total number of input files provided. Each vector element should have one of the following three values: 0 (unstranded), 1 (stranded) and 2 (reversely stranded). Default value of this parameter is 0 (ie. unstranded read counting is performed for all input files).
 
 if(args[1] == "dups"){
   write.csv(fc_res$counts, file="all_counts_dups.csv")
