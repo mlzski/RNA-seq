@@ -26,3 +26,11 @@
 # (3) ??? ${SGE_TASK_ID} 
 # >> 
 # (OUTPUT) /path/to/arc_files/output.$JOB_ID.txt
+
+
+
+  	\n(1) running option [dups or nodups],
+	\n(2) running mode parameter [SE or PE],
+	\n(3 - input) path to directory with data, 
+	\n(4 - annotation) path to GTF annotation files and
+	\n(5 - output) path where output files should be stored", call.=FALSE)
