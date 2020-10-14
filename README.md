@@ -197,3 +197,40 @@ Files to be backuped **TO BE UPDATED**:
 => /4_alignment/[sample_name]_Log.final.out (for all samples)
 => /5_counting (all???)
 ```
+
+### COPIED FROM LOCAL README FILE ###
+Files to be transferred from Arc after each analysis:
+
+/1_quality_control/report
+
+/2_trimming [NO FILES TO BE TRANSFERRED]
+
+/3_quality_control_trimmed/report
+
+/4_alignment/bam/[sample_ID]_Log.final.out (for each sample)
+
+/5_featureCounts/processed/all .csv samples
+
+NOTICE: all arc_files should be transferred to arc home directory (/home/home02/ummz/arc_records/analyses/)
+
+Folder sizes of /nobackup/ummz/analyses/run_IV_Feb20 (TOTAL: 671G)
+
+=> 1_quality_control: 				61M
+
+=> /2_trimming:
+	/single-end: 					175G
+	/paired-end: 					344G
+
+=> /3_quality_control_trimmed:
+	/single-end:					35M
+	/paired-end:					144M
+
+=> /4_alignment:
+	/single-end:					50G
+	/paired-end:
+		/paired:					104G
+		/unpaired:					2.7M
+
+=> /5_featureCounts:
+	/single-end:					18M
+	/paired-end:					26M
