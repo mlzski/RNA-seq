@@ -9,7 +9,7 @@ RNA-Seq pipeline incorporating six different programs for sequencing data proces
 
 - Access to a Linux-based HPC service. (Tested on a system based on the CentOS 7 distribution)
 - Reference genome. It can be downloaded from https://genome.ucsc.edu/index.html
-- All programs need to be downloaded and installed prior to running the pipeline. (See wiki for more detail)
+- All programs need to be downloaded and installed prior to running the pipeline. (See 'Software installation' section on wiki for more detail)
 
 ### Download
 
@@ -21,15 +21,11 @@ git clone https://github.com/mihaux/RNA-seq.git
 
 ## Usage: 
 
-**>>>The next section is usage, in which you instruct other people on how to use your project after they’ve installed it. This would also be a good place to include screenshots of your project in action.<<<**
+See 'Usage example' section on wiki for a detailed explanation.
 
 ## Contributing: 
 
-**>>>Larger projects often have sections on contributing to their project, in which contribution instructions are outlined. Sometimes, this is a separate file. If you have specific contribution preferences, explain them so that other developers know how to best contribute to your work. To learn more about how to help others contribute, check out the guide for setting guidelines for repository contributors.<<<**
-
-## Credits:
-
-**>>>Include a section for credits in order to highlight and link to the authors of your project.
+The pipeline has been created and tested on ARC4, part of the High Performance Computing facilities at the University of Leeds, UK.
 
 ## License: 
 
