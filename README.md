@@ -5,13 +5,19 @@ RNA-Seq pipeline incorporating six different programs for sequencing data proces
 
 ## Installation: 
 
+### Requirements
+
+1) Access to a Linux-based HPC service. (Tested on a system based on the CentOS 7 distribution)
+2) Reference genome. It can be downloaded from https://genome.ucsc.edu/index.html
+3) All programs need to be downloaded and installed prior to running the pipeline. (See wiki for more detail)
+
+### Download
+
 Clone this repository to your own directory
 
 ```
 git clone https://github.com/mihaux/RNA-seq.git
 ```
-
-**>>>Installation is the next section in an effective README. Tell other users how to install your project locally. Optionally, include a gif to make the process even more clear for other people.<<<**
 
 ## Usage: 
 
