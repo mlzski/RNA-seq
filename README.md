@@ -1,9 +1,7 @@
 # RNA-Seq pipeline
 
 ## Description: 
-RNA-Seq pipeline for single-end or paired-end data 
-
-**>>>A description of your project follows. A good description is clear, short, and to the point. Describe the importance of your project, and what it does.<<<**
+RNA-Seq pipeline incorporating six different programs for sequence data (FASTQ files) processing. It can be used for single-end or paired-end data. The processing starts from raw FASTQ data with quality control check, using FastQC. The raw data is then trimmed using Trimmomatic, which is followed by another quality control check using FastQC. The trimmed data is then aligned to the reference genome using STAR and indexed by SAMtools, with duplicates marking by Picard Tools. The final step includes read quantification using featureCounts to obtain read counts.
 
 ## Installation: 
 
