@@ -23,7 +23,7 @@ git clone https://github.com/mihaux/RNA-seq.git
 
 See 'Usage example' section on wiki for a detailed explanation.
 
-## Contributing: 
+## Credits:
 
 The pipeline has been created and tested on ARC4, part of the High Performance Computing facilities at the University of Leeds, UK.
 
