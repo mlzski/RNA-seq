@@ -145,4 +145,13 @@ bash run-4-samtools.sh /nobackup/ummz/analyses/rerun_FINAL/run_2/alignment_PE/ba
 
 6) featureCounts() 
 
-https://www.rdocumentation.org/packages/Rsubread/versions/1.22.2/topics/featureCounts
+`https://www.rdocumentation.org/packages/Rsubread/versions/1.22.2/topics/featureCounts`
+
+6.bis) Salmon
+**NOTE:** this is an alternative step for counts quantification on transcripts level, as FeatureCounts() is only suitable for this on gene level 
+
+`https://github.com/COMBINE-lab/salmon`
+
+
+
+
