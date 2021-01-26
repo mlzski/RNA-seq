@@ -1,5 +1,9 @@
-### this script runs featureCounts to count reads from STAR output or Picard output(name_Aligned.sortedByCoord.out.bam) 
+### this script runs Salmon 
+
+#################### TO BE MODIFIED ######################
+# to count reads from STAR output or Picard output(name_Aligned.sortedByCoord.out.bam) 
 # all files (samples) are launched in parallel and produces one output (.csv) file per each sample 
+##########################################################
 
 # install (if necessary) and load packages
 if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocManager",repos = "http://cran.us.r-project.org")
