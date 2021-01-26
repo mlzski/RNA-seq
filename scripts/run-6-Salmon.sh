@@ -44,7 +44,6 @@ elif [ $run_mode == 'PE' ] ; then
     fastqFile=$(ls $data_dir/*_R1_paired.fq | sed -n -e "$SGE_TASK_ID p")
     read1=$fastqFile
     read2=$(echo $read1 | sed 's/R1/R2/g')
-    
     samp_name=$(ls $data_dir/*_R1_paired.fq | rev | cut -d '/' -f 1 | cut -c 13- | rev | sed -n -e "$SGE_TASK_ID p")
 
     # run Salmon in paired-end mode [PE]
