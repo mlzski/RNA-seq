@@ -1,6 +1,8 @@
 ### this script runs Salmon to obtaine reads from fastq files (trimmed) on transcript level
 # NOTICE: prior to launching this command, make sure that the index has been already generated (just with a single command) 
 
+# TODO: finish implementation for single-end data
+
 if [ $# != 5 ] ; then
     echo -e "ERROR: 5 arguments are required: \
     (1) running mode (either 'SE' or 'PE'), \
@@ -47,17 +49,11 @@ elif [ $run_mode == 'PE' ] ; then
     samp_name=$(ls $data_dir/*_R1_paired.fq | rev | cut -d '/' -f 1 | cut -c 13- | rev | sed -n -e "$SGE_TASK_ID p")
 
     # run Salmon in paired-end mode [PE]
-    salmon quant \ 
-	-i $index_dir \
-	-l A \
-	-1 $read1 \
-	-2 $read2 \
-	-p 8 \ 
-	--validateMappings \ 
-	-o $out_dir/${samp_name}_quant
+    salmon quant -i $index_dir -l A -1 $read1 -2 $read2 -p 8 --validateMappings -o $out_dir/${samp_name}_quant
 
 else
     echo "ERROR... run_mode argument must be specified as: 'SE' or 'PE'"
     exit 1
 fi
 
+echo "Finished for " $samp_name 
