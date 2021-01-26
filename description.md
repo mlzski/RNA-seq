@@ -152,6 +152,22 @@ bash run-4-samtools.sh /nobackup/ummz/analyses/rerun_FINAL/run_2/alignment_PE/ba
 
 `https://github.com/COMBINE-lab/salmon`
 
+NOTE: prior to launching the script, make sure that the index has been already generated (just with a single command) 
+
+I. download the transcriptome, which is available under cDNA on the Ensembl website, at 
+ftp://ftp.ensembl.org/pub/release-94/fasta/homo_sapiens/cdna/
+
+```
+wget ftp://ftp.ensembl.org/pub/release-94/fasta/homo_sapiens/cdna/Homo_sapiens.GRCh38.cdna.all.fa.gz
+```
+
+II. run the command to create the index 
+
+```
+export PATH=/home/home02/ummz/tools/salmon-latest_linux_x86_64/bin:$PATH
+salmon index -t Homo_sapiens.GRCh38.cdna.all.fa.gz -i Homo_sapiens.GRCh38_index
+```
+the output of thiscomman is a new directory Homo_sapiens.GRCh38_index with 15 different files in it
 
 
 
