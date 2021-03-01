@@ -49,7 +49,16 @@ elif [ $run_mode == 'PE' ] ; then
     samp_name=$(ls $data_dir/*_R1_paired.fq | rev | cut -d '/' -f 1 | cut -c 13- | rev | sed -n -e "$SGE_TASK_ID p")
 
     # run Salmon in paired-end mode [PE]
-    salmon quant -i $index_dir -l A -1 $read1 -2 $read2 -p 8 --validateMappings -o $out_dir/${samp_name}_quant
+    salmon quant -i $index_dir -l A -1 $read1 -2 $read2 -p 8 -o $out_dir/${samp_name}_quant --numBootstraps 30
+
+#salmon quant -i /n/groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/salmon.ensembl38.idx \
+# -l A \
+# -r $fq \
+# -p 6 \
+# -o $base.salmon \
+# --seqBias \
+# --useVBOpt \
+# --numBootstraps 30
 
 else
     echo "ERROR... run_mode argument must be specified as: 'SE' or 'PE'"
