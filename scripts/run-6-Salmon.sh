@@ -6,8 +6,8 @@
 if [ $# != 5 ] ; then
     echo -e "ERROR: 5 arguments are required: \
     (1) running mode (either 'SE' or 'PE'), \
-    (2) path to data folder, \
-    (3) path to output directory, \
+    (2) path to folder with input data, \
+    (3) path to folder for output directory, \
     (4) path to index file and \
     (5) SGE_TASK_ID argument for array jobs ...Exiting"
     exit 1
@@ -21,6 +21,13 @@ run_mode=$1               # 'SE' or 'PE'
 data_dir=$2
 out_dir=$3
 index_dir=$4
+
+# prepare params.txt filr with information about this run
+me=$(basename "$0")
+echo -ne "Script directory:" `pwd`"/"$me "\n" >> params_${me}_.txt
+
+current_date_time="`date "+%Y-%m-%d %H:%M:%S"`";
+echo -ne "Executed on:" $current_date_time "\n" >> params_${me}_.txt
 
 # run Salmon mapping job
 if [ $run_mode == 'SE' ] ; then
@@ -49,7 +56,10 @@ elif [ $run_mode == 'PE' ] ; then
     samp_name=$(ls $data_dir/*_R1_paired.fq | rev | cut -d '/' -f 1 | cut -c 13- | rev | sed -n -e "$SGE_TASK_ID p")
 
     # run Salmon in paired-end mode [PE]
-    salmon quant -i $index_dir -l A -1 $read1 -2 $read2 -p 8 -o $out_dir/${samp_name}_quant --numBootstraps 30
+    salmon quant -i $index_dir -l A -1 $read1 -2 $read2 -p 8 -o $out_dir/${samp_name}_quant --gcBias --numBootstraps 100
+    
+    # print the main command to params.txt
+    echo "salmon quant -i $index_dir -l A -1 $read1 -2 $read2 -p 8 -o $out_dir/${samp_name}_quant --gcBias --numBootstraps 100" >> params_${me}_.txt
 
 #salmon quant -i /n/groups/hbctraining/ngs-data-analysis-longcourse/rnaseq/salmon.ensembl38.idx \
 # -l A \
