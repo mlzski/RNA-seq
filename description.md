@@ -165,7 +165,7 @@ II. run the command to create the index
 
 ```
 export PATH=/home/home02/ummz/tools/salmon-latest_linux_x86_64/bin:$PATH
-salmon index -t Homo_sapiens.GRCh38.cdna.all.fa.gz -i Homo_sapiens.GRCh38_index
+salmon index -t Homo_sapiens.GRCh38.cdna.all.fa.gz -i Homo_sapiens.GRCh38_index &> indexing.log 
 ```
 the output of thiscomman is a new directory Homo_sapiens.GRCh38_index with 15 different files in it
 
