@@ -5,7 +5,7 @@
 
 # this version is based on this tutorial: https://github.com/crazyhottommy/RNA-seq-analysis/blob/master/salmon_kalliso_STAR_compare.md
 
-if [ $# != 5 ] ; then
+if [ $# != 6 ] ; then
     echo -e "ERROR: 6 arguments are required: \
     (1) running mode (either 'SE' or 'PE'), \
     (2) path to folder with input data, \
@@ -16,8 +16,8 @@ if [ $# != 5 ] ; then
     exit 1
 fi
 
-# export software (STAR)
-export PATH=/home/home02/ummz/tools/salmon-latest_linux_x86_64/bin:$PATH
+# export software (salmon)
+export PATH=/home/home02/ummz/tools/bioinfo/salmon-latest_linux_x86_64/bin:$PATH
 
 # assign variables
 run_mode=$1               # 'transcript-level' or 'gene-level'
@@ -60,7 +60,16 @@ elif [ $run_mode == 'gene-level' ] ; then
     samp_name=$(ls $data_dir/*_R1_paired.fq | rev | cut -d '/' -f 1 | cut -c 13- | rev | sed -n -e "$SGE_TASK_ID p")
 
     # run Salmon in paired-end mode [PE]
-    salmon quant -i $index_dir -l ISR -1 $read1 -2 $read2 -p 8 -o $out_dir/${samp_name}_quant -g $gtf_dir --fldMean 200 --fldSD 20
+    salmon quant \
+	-i $index_dir \
+	-l ISR \
+	-1 $read1 \
+	-2 $read2 \
+	-o $out_dir/ID-${samp_name} \
+	-g $gtf_dir \
+	--seqBias \
+	--validateMappings \
+	-p 8
 
     # NOTE: use either "-l ISR" or "-l A" (automatic); for new data, always "A"
  
@@ -68,8 +77,8 @@ elif [ $run_mode == 'gene-level' ] ; then
     echo " " >> params_${me}_.txt
 
 # NOTES:
-# --fldMean     => specify the fragment length to be 200 bp (default)
-# --fldSD       => specify standard deviation of 20 (default 80)
+# --seqBias 
+# --validateMappings
 
 else
     echo "ERROR... run_mode argument must be specified as: 'transcript-level' or 'gene-level'"
