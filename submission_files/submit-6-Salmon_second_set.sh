@@ -5,7 +5,7 @@
 #$ -l h_rt=08:00:00
 #$ -l h_vmem=9G
 #$ -pe smp 8
-#$ -t 1-12
+#$ -t 1-5
 #$ -m be
 #$ -M ummz-arc-records@outlook.com
 
@@ -14,7 +14,7 @@
 
 
 # paired-end
-/home/home02/ummz/github_dirs/RNA-seq/scripts/run-6-Salmon.sh 'PE' /nobackup/ummz/analyses/run_15_Mar21/second_set_INPUT/ /nobackup/ummz/analyses/run_15_Mar21/quants_second_set /nobackup/ummz/analyses/run_13_Jan21/index/Homo_sapiens.GRCh38_index ${SGE_TASK_ID} >> /nobackup/ummz/analyses/run_15_Mar21/arc_files/output.$JOB_ID.txt
+/home/home02/ummz/github_dirs/RNA-seq/scripts/run-6-Salmon.sh 'PE' /nobackup/ummz/analyses/run_16_Apr21/second_set_INPUT/ /nobackup/ummz/analyses/run_16_Apr21/quants_1-22_second_set /nobackup/ummz/analyses/run_16_Apr21/index_1-22/Homo_sapiens.GRCh38.cdna.ONLY_chr1-22_index ${SGE_TASK_ID} >> /nobackup/ummz/analyses/run_16_Apr21/arc_files/output.$JOB_ID.txt
 
  
 ###################################################################
