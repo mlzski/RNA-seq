@@ -107,15 +107,16 @@ cts_tximeta <- assays(se)[["counts"]]
 
 # save counts matrix as .csv
 write.csv(cts_tximeta, file = file.path(dir_out, run_feat, paste0(args[1], "_tximeta_", run_feat, ".csv")))
-
+cat("Created: ", file.path(dir_out, run_feat, paste0(args[1], "_tximeta_", run_feat, ".csv")), "/n")
+  
 # save SummarizedExperiment object from tximeta
 saveRDS(cts_tximeta, file = file.path(dir_out, run_feat, paste0(args[1], "_tximeta_", run_feat, ".rds")))
+cat("Created: ", file.path(dir_out, run_feat, paste0(args[1], "_tximeta_", run_feat, ".rds")), "/n")
 
 # -------------- tximport --------------
 
 # import quantification data
 obj_tximport <- tximport(coldata$files, type = "salmon", txOut = TRUE)
-#txi.tx <- tximport(coldata$files, type = "salmon", txOut = TRUE).   # TO BE REMOVED
 
 # get counts matrix
 cts_tximport <- obj_tximport$counts
@@ -125,9 +126,11 @@ colnames(cts_tximport) <- coldata$names
 
 # save counts matrix as .csv
 write.csv(cts_tximport, file = file.path(dir_out, run_feat, paste0(args[1], "_level_tximport_", run_feat, ".csv")))
+cat("Created: ", file.path(dir_out, run_feat, paste0(args[1], "_level_tximport_", run_feat, ".csv")), "/n")
 
 # save list object from tximport
 saveRDS(obj_tximport, file = file.path(dir_out, run_feat, paste0(args[1], "_level_tximport_", run_feat, ".rds")))
+cat("Created: ", file.path(dir_out, run_feat, paste0(args[1], "_level_tximport_", run_feat, ".rds")), "/n")
 
 # -------------------- GET SUMMARY TABLE -------------------- #
 # use the addIds function from tximeta to add gene symbols, By specifying gene=TRUE, 
@@ -135,8 +138,10 @@ saveRDS(obj_tximport, file = file.path(dir_out, run_feat, paste0(args[1], "_leve
 se <- addIds(se, "SYMBOL", gene=TRUE)
 
 # save the summary table
-cts_transcript_summary <- rowRanges(y)
+cts_transcript_summary <- rowRanges(se)
 write.table(as.data.frame(cts_transcript_summary), file = file.path(dir_out, run_feat, paste0(args[1], "_level_summary.csv")), sep=";")
+
+cat("Created: ", file.path(dir_out, run_feat, paste0(args[1], "_level_summary.csv")), "/n")
 
 stop("Stopped intentionally")
 
