@@ -35,15 +35,15 @@ if(startsWith(w_dir, "/Users/michal")){
 #args <- commandArgs(trailingOnly = TRUE)
 
 # for testing ONLY
-args <- c("transcript-level",
-         "/nobackup/ummz/analyses/run_17_Jun21/quants_all/transcript-level",
-         "/nobackup/ummz/analyses/run_17_Jun21/swish/transcript-level",
-         "/nobackup/ummz/analyses/run_17_Jun21/swish/samples_all.txt") 
- 
-#args <- c("gene-level",
-#         "/nobackup/ummz/analyses/run_17_Jun21/quants_all/gene-level",
-#         "/nobackup/ummz/analyses/run_17_Jun21/swish/gene-level",
+#args <- c("transcript-level",
+#         "/nobackup/ummz/analyses/run_17_Jun21/quants_all/transcript-level",
+#         "/nobackup/ummz/analyses/run_17_Jun21/swish/transcript-level",
 #         "/nobackup/ummz/analyses/run_17_Jun21/swish/samples_all.txt") 
+ 
+args <- c("gene-level",
+         "/nobackup/ummz/analyses/run_17_Jun21/quants_all/gene-level",
+         "/nobackup/ummz/analyses/run_17_Jun21/swish/gene-level",
+         "/nobackup/ummz/analyses/run_17_Jun21/swish/samples_all.txt") 
 
 if (length(args)!=4) {
          stop("ERROR: 4 arguments must be supplied:
