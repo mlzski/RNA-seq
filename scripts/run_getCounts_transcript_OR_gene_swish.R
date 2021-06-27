@@ -103,13 +103,13 @@ se <- tximeta(coldata)
 #y <- se
 
 # get counts matrix
-cts_transcript_tximeta <- assays(se)[["counts"]]
+cts_tximeta <- assays(se)[["counts"]]
 
 # save counts matrix as .csv
-write.csv(cts_transcript_tximeta, file = file.path(dir_out, run_feat, paste0("transcript_level_tximeta_", run_feat, ".csv")))
+write.csv(cts_tximeta, file = file.path(dir_out, run_feat, args[1], paste0("_tximeta_", run_feat, ".csv")))
 
 # save SummarizedExperiment object from tximeta
-saveRDS(cts_transcript_tximeta, file = file.path(dir_out, run_feat, paste0("transcript_level_tximeta_", run_feat, ".rds")))
+saveRDS(cts_tximeta, file = file.path(dir_out, run_feat, args[1], paste0("_tximeta_", run_feat, ".rds")))
 
 # -------------- tximport --------------
 
@@ -118,16 +118,16 @@ obj_tximport <- tximport(coldata$files, type = "salmon", txOut = TRUE)
 #txi.tx <- tximport(coldata$files, type = "salmon", txOut = TRUE).   # TO BE REMOVED
 
 # get counts matrix
-cts_transcript_tximport <- obj_tximport$counts
+cts_tximport <- obj_tximport$counts
 
 # add column names
-colnames(cts_transcript_tximport) <- coldata$names
+colnames(cts_tximport) <- coldata$names
 
 # save counts matrix as .csv
-write.csv(cts_transcript_tximport, file = file.path(dir_out, run_feat, paste0("transcript_level_tximport_", run_feat, ".csv")))
+write.csv(cts_tximport, file = file.path(dir_out, run_feat, args[1], paste0("_level_tximport_", run_feat, ".csv")))
 
 # save list object from tximport
-saveRDS(obj_tximport, file = file.path(dir_out, run_feat, paste0("transcript_level_tximport_", run_feat, ".rds")))
+saveRDS(obj_tximport, file = file.path(dir_out, run_feat, args[1], paste0("_level_tximport_", run_feat, ".rds")))
 
 # -------------------- GET SUMMARY TABLE -------------------- #
 # use the addIds function from tximeta to add gene symbols, By specifying gene=TRUE, 
@@ -140,24 +140,24 @@ write.table(as.data.frame(cts_transcript_summary), file = file.path(dir_out, run
 
 stop("Stopped intentionally")
 
-# gene-level
+# gene-level [TO BE REMOVED]
 
 # summarize all of the data to the gene level
-gse <- summarizeToGene(se)
+#gse <- summarizeToGene(se)
 
-gy <- gse
+#gy <- gse
 
 # get counts matrix
-cts_gene <- assays(gy)[["counts"]]
+#cts_gene <- assays(gy)[["counts"]]
 
 # save table with results 
-write.csv(cts_gene, file = file.path(dir_out, run_feat, paste0("gene_level_", run_feat, ".csv")))
+#write.csv(cts_gene, file = file.path(dir_out, run_feat, paste0("gene_level_", run_feat, ".csv")))
 
-gy <- addIds(gy, "SYMBOL", gene=TRUE)
+#gy <- addIds(gy, "SYMBOL", gene=TRUE)
 
 # save the summary table
-cts_gene_summary <- rowRanges(gy)
-write.table(as.data.frame(cts_gene_summary), file = file.path(dir_out, run_feat, "gene_level_summary.csv"), sep=";")
+#cts_gene_summary <- rowRanges(gy)
+#write.table(as.data.frame(cts_gene_summary), file = file.path(dir_out, run_feat, "gene_level_summary.csv"), sep=";")
 
-cat("Finished ! ! !")
+#cat("Finished ! ! !")
 
