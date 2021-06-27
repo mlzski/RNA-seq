@@ -106,7 +106,7 @@ cts_transcript_tximeta <- assays(y)[["counts"]]
 write.csv(cts_transcript_tximeta, file = file.path(dir_out, run_feat, paste0("transcript_level_tximeta_", run_feat, ".csv")))
 
 # save SummarizedExperiment object from tximeta
-saveRDS(cts_transcript_tximeta, file = = file.path(dir_out, run_feat, paste0("transcript_level_tximeta_", run_feat, ".rds")))
+saveRDS(cts_transcript_tximeta, file = file.path(dir_out, run_feat, paste0("transcript_level_tximeta_", run_feat, ".rds")))
 
 # import quantification data with -------tximport-------
 txi.tx <- tximport(coldata$files, type = "salmon", txOut = TRUE)
@@ -122,7 +122,7 @@ write.csv(cts_transcript_tximport, file = file.path(dir_out, run_feat, paste0("t
 stop("Stopped intentionally")
 
 # save SummarizedExperiment object from tximport
-saveRDS(txi.tx, file = = file.path(dir_out, run_feat, paste0("transcript_level_tximport_", run_feat, ".rds")))
+saveRDS(txi.tx, file = file.path(dir_out, run_feat, paste0("transcript_level_tximport_", run_feat, ".rds")))
 
 # use the addIds function from tximeta to add gene symbols. 
 # By specifying gene=TRUE, this will use the gene ID to match to gene symbols for all of the transcripts.
