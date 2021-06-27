@@ -24,7 +24,9 @@ if(startsWith(w_dir, "/Users/michal")){
 } else if (startsWith(w_dir, "/Users/ummz")) {    
   main_dir <- "/Users/ummz/Documents/OneDrive - University of Leeds"      # on uni mac    
 } else if (startsWith(w_dir, "/nobackup/ummz")) {
-  main_dir <- "/nobackup/ummz"						  # on ARC4
+  main_dir <- "/nobackup/ummz"						  # on ARC4 (nobackup)
+} else if (startsWith(w_dir, "/home/home02/ummz/")) {
+  main_dir <- "/home/home02/ummz/"					  # on ARC4 (home directory)
 } else {
   print("Unrecognised machine.")
 }
