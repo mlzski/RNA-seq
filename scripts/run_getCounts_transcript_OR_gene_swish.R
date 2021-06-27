@@ -1,6 +1,6 @@
 
-# alternative version of 'run_DEG_swish.R' to be used only for counts generation, on transcript- and gene-level
-# in includes both methods: tximport() and txmeta()
+# alternative version of 'run_DEG_swish.R' to be used only for counts generation
+# it extract counts directrly from quants.sf files, either on transcript- and gene-level
 
 if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocManager")
 if (!requireNamespace("SummarizedExperiment", quietly = TRUE)) BiocManager::install("SummarizedExperiment")
@@ -29,37 +29,40 @@ if(startsWith(w_dir, "/Users/michal")){
   print("Unrecognised machine.")
 }
 
-args <- commandArgs(trailingOnly = TRUE)
+#args <- commandArgs(trailingOnly = TRUE)
 
 # for testing ONLY
-#args <- c("/nobackup/ummz/analyses/run_16_Apr21/quants_1-22",
-#         "/nobackup/ummz/swish_v2/output_1-22",
-#         "/nobackup/ummz/swish_v2/samples.txt") 
-
-#args <- c("/nobackup/ummz/analyses/run_15_Mar21/quants_all", 
-#	  "/nobackup/ummz/swish_v3/test",
-# 	  "/nobackup/ummz/swish_v3/samples_all.txt")
+args <- c("transcript-level",
+         "/nobackup/ummz/analyses/run_17_Jun21/quants_all/transcript-level",
+         "/nobackup/ummz/analyses/run_17_Jun21/swish/transcript-level",
+         "/nobackup/ummz/analyses/run_17_Jun21/swish/samples_all.txt") 
  
-if (length(args)!=3) {
-         stop("ERROR: 3 arguments must be supplied: 
-                 \n(1) INPUT directory,
-                 \n(2) OUTPUT directory,
-                 \n(3) annotation file", call.=FALSE)
+#args <- c("gene-level",
+#         "/nobackup/ummz/analyses/run_17_Jun21/quants_all/gene-level",
+#         "/nobackup/ummz/analyses/run_17_Jun21/swish/gene-level",
+#         "/nobackup/ummz/analyses/run_17_Jun21/swish/samples_all.txt") 
+
+if (length(args)!=4) {
+         stop("ERROR: 4 arguments must be supplied:
+                 \n(1) running mode [either transcript-level or gene-level]
+                 \n(2) INPUT directory,
+                 \n(3) OUTPUT directory,
+                 \n(4) annotation file", call.=FALSE)
 }
 
 # define wheather output files should be saved or not [TRUE / FALSE]
 output_save <- TRUE
 
 # define directory with data (INPUT)
-dir_in <- args[1]
+dir_in <- args[2]
 
 # define directory for results (OUTPUT)
-dir_out <- args[2]
+dir_out <- args[3]
 
 # load table data
-coldata <- read.table(args[3], header = TRUE)
+coldata <- read.table(args[4], header = TRUE)
 
-# define the nem to be used and create a new folder for results of the current run
+# define the nema to be used and create a new folder for results of the current run
 # colnames(coldata)
 run_feat <- "counts"
   
@@ -72,9 +75,23 @@ if(dir.exists(file.path(dir_out, run_feat)) == FALSE){
   cat("Output directory already exists")
 }
 
-# get list of all files and add it to coldata table
-coldata$files <- file.path(dir_in, coldata$names, "quant.sf")
-all(file.exists(coldata$files))
+if ( args[1] == "transcript-level" ){
+  
+  # get list of all files and add it to coldata table
+  coldata$files <- file.path(dir_in, coldata$names, "quant.sf")
+  all(file.exists(coldata$files))
+  
+} else if ( args[1] == "gene-level" ) {
+  
+	# get list of all files and add it to coldata table
+  coldata$files <- file.path(dir_in, coldata$names, "quant.genes.sf")
+  all(file.exists(coldata$files))
+  
+} else {
+  print("Running mode needs to be specify as either 'transcript-level' or 'gene-level'")
+}
+
+stop("Stopped intentionally")
 
 # load in the quantification data with tximeta
 se <- tximeta(coldata)
