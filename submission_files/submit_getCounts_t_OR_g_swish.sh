@@ -9,17 +9,10 @@
 
 Rscript /home/home02/ummz/github_dirs/RNA-seq/scripts/run_getCounts_transcript_OR_gene_swish.R transcript-level /nobackup/ummz/analyses/run_17_Jun21/quants_all/transcript-level /nobackup/ummz/analyses/run_17_Jun21/swish/transcript-level /nobackup/ummz/analyses/run_17_Jun21/swish/samples_all.txt
 
-#args <- c("gene-level",
-#         "/nobackup/ummz/analyses/run_17_Jun21/quants_all/gene-level",
-#         "/nobackup/ummz/analyses/run_17_Jun21/swish/gene-level",
-#         "/nobackup/ummz/analyses/run_17_Jun21/swish/samples_all.txt") 
-
-#Rscript /home/home02/ummz/github_dirs/RNA-seq/scripts/get_counts_swish.R /nobackup/ummz/analyses/run_17_Jun21/quants_all/gene-level /nobackup/ummz/analyses/run_17_Jun21/swish/gene-level /nobackup/ummz/analyses/run_17_Jun21/swish/samples_all.txt
+#Rscript /home/home02/ummz/github_dirs/RNA-seq/scripts/run_getCounts_transcript_OR_gene_swish.R gene-level /nobackup/ummz/analyses/run_17_Jun21/quants_all/gene-level /nobackup/ummz/analyses/run_17_Jun21/swish/gene-level /nobackup/ummz/analyses/run_17_Jun21/swish/samples_all.txt
 
 #############################################################
 # Rscript run_DEG_swish_FINAL.R
 # (1) INPUT directory
 # (2) OUTPUT directory
 # (3) annotation file [samples.txt]
-
-
