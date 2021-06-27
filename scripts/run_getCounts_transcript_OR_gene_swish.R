@@ -4,6 +4,7 @@
 # 2 methods implemented: tximeta (SummarizedExperiment object as output) and tximport (list as output)
 
 # NOTE: doesn't work for gene-level for now
+# stop("Stopped intentionally")
 
 if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocManager")
 if (!requireNamespace("SummarizedExperiment", quietly = TRUE)) BiocManager::install("SummarizedExperiment")
@@ -143,26 +144,5 @@ write.table(as.data.frame(cts_transcript_summary), file = file.path(dir_out, run
 
 cat("Created: ", file.path(dir_out, run_feat, paste0(args[1], "_level_summary.csv")), "\n")
 
-stop("Stopped intentionally")
-
-# gene-level [TO BE REMOVED]
-
-# summarize all of the data to the gene level
-#gse <- summarizeToGene(se)
-
-#gy <- gse
-
-# get counts matrix
-#cts_gene <- assays(gy)[["counts"]]
-
-# save table with results 
-#write.csv(cts_gene, file = file.path(dir_out, run_feat, paste0("gene_level_", run_feat, ".csv")))
-
-#gy <- addIds(gy, "SYMBOL", gene=TRUE)
-
-# save the summary table
-#cts_gene_summary <- rowRanges(gy)
-#write.table(as.data.frame(cts_gene_summary), file = file.path(dir_out, run_feat, "gene_level_summary.csv"), sep=";")
-
-#cat("Finished ! ! !")
+cat("Finished ! ! !")
 
