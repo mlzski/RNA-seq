@@ -3,6 +3,8 @@
 # it extract counts directly from quants.sf / files, either on transcript- and gene-level
 # 2 methods implemented: tximeta (SummarizedExperiment object as output) and tximport (list as output)
 
+# NOTE: doesn't work for gene-level for now
+
 if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocManager")
 if (!requireNamespace("SummarizedExperiment", quietly = TRUE)) BiocManager::install("SummarizedExperiment")
 if (!requireNamespace("fishpond", quietly = TRUE)) BiocManager::install("fishpond")
@@ -32,13 +34,13 @@ if(startsWith(w_dir, "/Users/michal")){
   print("Unrecognised machine.")
 }
 
-#args <- commandArgs(trailingOnly = TRUE)
+args <- commandArgs(trailingOnly = TRUE)
 
 # for testing ONLY
-args <- c("transcript-level",
-         "/nobackup/ummz/analyses/run_17_Jun21/quants_all/transcript-level",
-         "/nobackup/ummz/analyses/run_17_Jun21/swish/transcript-level",
-         "/nobackup/ummz/analyses/run_17_Jun21/swish/samples_all.txt") 
+#args <- c("transcript-level",
+#         "/nobackup/ummz/analyses/run_17_Jun21/quants_all/transcript-level",
+#         "/nobackup/ummz/analyses/run_17_Jun21/swish/transcript-level",
+#         "/nobackup/ummz/analyses/run_17_Jun21/swish/samples_all.txt") 
 
 # DOESN'T WORK FOR GENE-LEVEL
 #args <- c("gene-level",

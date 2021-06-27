@@ -1,6 +1,7 @@
 
-# alternative version of 'run_DEG_swish.R' to be used only for counts generation, on transcript- and gene-level
-# in includes both methods: tximport() and txmeta()
+# alternative version of 'run_DEG_swish.R' to be used only for counts generation
+# it extract counts directly from quants.sf / files, either on transcript- and gene-level
+# 2 methods implemented: tximeta (SummarizedExperiment object as output) and tximport (list as output)
 
 if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocManager")
 if (!requireNamespace("SummarizedExperiment", quietly = TRUE)) BiocManager::install("SummarizedExperiment")
@@ -24,42 +25,48 @@ if(startsWith(w_dir, "/Users/michal")){
 } else if (startsWith(w_dir, "/Users/ummz")) {    
   main_dir <- "/Users/ummz/Documents/OneDrive - University of Leeds"      # on uni mac    
 } else if (startsWith(w_dir, "/nobackup/ummz")) {
-  main_dir <- "/nobackup/ummz"						  # on ARC4
+  main_dir <- "/nobackup/ummz"						  # on ARC4 (nobackup)
+} else if (startsWith(w_dir, "/home/home02/ummz/")) {
+  main_dir <- "/home/home02/ummz/"					  # on ARC4 (home directory)
 } else {
   print("Unrecognised machine.")
 }
 
-args <- commandArgs(trailingOnly = TRUE)
+#args <- commandArgs(trailingOnly = TRUE)
 
 # for testing ONLY
-#args <- c("/nobackup/ummz/analyses/run_16_Apr21/quants_1-22",
-#         "/nobackup/ummz/swish_v2/output_1-22",
-#         "/nobackup/ummz/swish_v2/samples.txt") 
+args <- c("transcript-level",
+         "/nobackup/ummz/analyses/run_17_Jun21/quants_all/transcript-level",
+         "/nobackup/ummz/analyses/run_17_Jun21/swish/transcript-level",
+         "/nobackup/ummz/analyses/run_17_Jun21/swish/samples_all.txt") 
 
-#args <- c("/nobackup/ummz/analyses/run_15_Mar21/quants_all", 
-#	  "/nobackup/ummz/swish_v3/test",
-# 	  "/nobackup/ummz/swish_v3/samples_all.txt")
- 
-if (length(args)!=3) {
-         stop("ERROR: 3 arguments must be supplied: 
-                 \n(1) INPUT directory,
-                 \n(2) OUTPUT directory,
-                 \n(3) annotation file", call.=FALSE)
+# DOESN'T WORK FOR GENE-LEVEL
+#args <- c("gene-level",
+#         "/nobackup/ummz/analyses/run_17_Jun21/quants_all/gene-level",
+#         "/nobackup/ummz/analyses/run_17_Jun21/swish/gene-level",
+#         "/nobackup/ummz/analyses/run_17_Jun21/swish/samples_all.txt") 
+
+if (length(args)!=4) {
+         stop("ERROR: 4 arguments must be supplied:
+                 \n(1) running mode [either transcript-level or gene-level]
+                 \n(2) INPUT directory,
+                 \n(3) OUTPUT directory,
+                 \n(4) annotation file", call.=FALSE)
 }
 
 # define wheather output files should be saved or not [TRUE / FALSE]
 output_save <- TRUE
 
 # define directory with data (INPUT)
-dir_in <- args[1]
+dir_in <- args[2]
 
 # define directory for results (OUTPUT)
-dir_out <- args[2]
+dir_out <- args[3]
 
 # load table data
-coldata <- read.table(args[3], header = TRUE)
+coldata <- read.table(args[4], header = TRUE)
 
-# define the nem to be used and create a new folder for results of the current run
+# define the nema to be used and create a new folder for results of the current run
 # colnames(coldata)
 run_feat <- "counts"
   
@@ -72,59 +79,88 @@ if(dir.exists(file.path(dir_out, run_feat)) == FALSE){
   cat("Output directory already exists")
 }
 
-# get list of all files and add it to coldata table
-coldata$files <- file.path(dir_in, coldata$names, "quant.sf")
-all(file.exists(coldata$files))
+if ( args[1] == "transcript-level" ){
+  
+  # get list of all files and add it to coldata table
+  coldata$files <- file.path(dir_in, coldata$names, "quant.sf")
+  all(file.exists(coldata$files))
+  
+} else if ( args[1] == "gene-level" ) {
+  
+  # get list of all files and add it to coldata table
+  coldata$files <- file.path(dir_in, coldata$names, "quant.genes.sf")
+  all(file.exists(coldata$files))
+  
+} else {
+  print("Running mode needs to be specify as either 'transcript-level' or 'gene-level'")
+}
 
-# load in the quantification data with tximeta
+# -------------- tximeta --------------
+
+# load quantification data 
 se <- tximeta(coldata)
 
-# transcript-level
-y <- se
+# get counts matrix
+cts_tximeta <- assays(se)[["counts"]]
+
+# save counts matrix as .csv
+write.csv(cts_tximeta, file = file.path(dir_out, run_feat, paste0(args[1], "_tximeta_", run_feat, ".csv")))
+cat("Created: ", file.path(dir_out, run_feat, paste0(args[1], "_tximeta_", run_feat, ".csv")), "\n")
+  
+# save SummarizedExperiment object from tximeta
+saveRDS(cts_tximeta, file = file.path(dir_out, run_feat, paste0(args[1], "_tximeta_", run_feat, ".rds")))
+cat("Created: ", file.path(dir_out, run_feat, paste0(args[1], "_tximeta_", run_feat, ".rds")), "\n")
+
+# -------------- tximport --------------
+
+# import quantification data
+obj_tximport <- tximport(coldata$files, type = "salmon", txOut = TRUE)
 
 # get counts matrix
-cts_transcript_tximeta <- assays(y)[["counts"]]
+cts_tximport <- obj_tximport$counts
 
-# save transcript-level matrix as .csv
-write.csv(cts_transcript_tximeta, file = file.path(dir_out, run_feat, paste0("transcript_level_tximeta_", run_feat, ".csv")))
+# add column names
+colnames(cts_tximport) <- coldata$names
 
-# import quantification data with tximport
-txi.tx <- tximport(coldata$files, type = "salmon", txOut = TRUE)
+# save counts matrix as .csv
+write.csv(cts_tximport, file = file.path(dir_out, run_feat, paste0(args[1], "_level_tximport_", run_feat, ".csv")))
+cat("Created: ", file.path(dir_out, run_feat, paste0(args[1], "_level_tximport_", run_feat, ".csv")), "\n")
 
-# get counts matrix
-cts_transcript_tximport <- txi.tx$counts
+# save list object from tximport
+saveRDS(obj_tximport, file = file.path(dir_out, run_feat, paste0(args[1], "_level_tximport_", run_feat, ".rds")))
+cat("Created: ", file.path(dir_out, run_feat, paste0(args[1], "_level_tximport_", run_feat, ".rds")), "\n")
 
-colnames(cts_transcript_tximport) <- coldata$names
-
-# save transcript-level matrix as .csv
-write.csv(cts_transcript_tximport, file = file.path(dir_out, run_feat, paste0("transcript_level_tximport_", run_feat, ".csv")))
- 
-# use the addIds function from tximeta to add gene symbols. 
-# By specifying gene=TRUE, this will use the gene ID to match to gene symbols for all of the transcripts.
-y <- addIds(y, "SYMBOL", gene=TRUE)
+# -------------------- GET SUMMARY TABLE -------------------- #
+# use the addIds function from tximeta to add gene symbols, By specifying gene=TRUE, 
+# this will use the gene ID to match to gene symbols for all of the transcripts.
+se <- addIds(se, "SYMBOL", gene=TRUE)
 
 # save the summary table
-cts_transcript_summary <- rowRanges(y)
-write.table(as.data.frame(cts_transcript_summary), file = file.path(dir_out, run_feat, "transcript_level_summary.csv"), sep=";")
+cts_transcript_summary <- rowRanges(se)
+write.table(as.data.frame(cts_transcript_summary), file = file.path(dir_out, run_feat, paste0(args[1], "_level_summary.csv")), sep=";")
 
-# gene-level
+cat("Created: ", file.path(dir_out, run_feat, paste0(args[1], "_level_summary.csv")), "\n")
+
+stop("Stopped intentionally")
+
+# gene-level [TO BE REMOVED]
 
 # summarize all of the data to the gene level
-gse <- summarizeToGene(se)
+#gse <- summarizeToGene(se)
 
-gy <- gse
+#gy <- gse
 
 # get counts matrix
-cts_gene <- assays(gy)[["counts"]]
+#cts_gene <- assays(gy)[["counts"]]
 
 # save table with results 
-write.csv(cts_gene, file = file.path(dir_out, run_feat, paste0("gene_level_", run_feat, ".csv")))
+#write.csv(cts_gene, file = file.path(dir_out, run_feat, paste0("gene_level_", run_feat, ".csv")))
 
-gy <- addIds(gy, "SYMBOL", gene=TRUE)
+#gy <- addIds(gy, "SYMBOL", gene=TRUE)
 
 # save the summary table
-cts_gene_summary <- rowRanges(gy)
-write.table(as.data.frame(cts_gene_summary), file = file.path(dir_out, run_feat, "gene_level_summary.csv"), sep=";")
+#cts_gene_summary <- rowRanges(gy)
+#write.table(as.data.frame(cts_gene_summary), file = file.path(dir_out, run_feat, "gene_level_summary.csv"), sep=";")
 
-cat("Finished ! ! !")
+#cat("Finished ! ! !")
 

@@ -9,9 +9,9 @@
 #$ -m be
 #$ -M ummz-arc-records@outlook.com
 
-/home/home02/ummz/github_dirs/RNA-seq/scripts/run-6-Salmon_Jun21.sh 'transcript-level' /nobackup/ummz/analyses/run_12_Aug20/2_trimming_PE/processed_fastq/paired/ /nobackup/ummz/analyses/run_17_Jun21/quants_all/transcript-level /nobackup/ummz/analyses/run_17_Jun21/index_all/Homo_sapiens.GRCh38.77/Homo_sapiens.GRCh38.77_quasi_index /nobackup/ummz/analyses/run_17_Jun21/index_all/Homo_sapiens.GRCh38.77/Homo_sapiens.GRCh38.77.gtf ${SGE_TASK_ID} >> /nobackup/ummz/analyses/run_17_Jun21/arc_files/transcript-level/output.$JOB_ID.txt
+#/home/home02/ummz/github_dirs/RNA-seq/scripts/run-6-Salmon_Jun21.sh 'transcript-level' /nobackup/ummz/analyses/run_12_Aug20/2_trimming_PE/processed_fastq/paired/ /nobackup/ummz/analyses/run_17_Jun21/quants_all/transcript-level /nobackup/ummz/analyses/run_17_Jun21/index_all/Homo_sapiens.GRCh38.77/Homo_sapiens.GRCh38.77_quasi_index /nobackup/ummz/analyses/run_17_Jun21/index_all/Homo_sapiens.GRCh38.77/Homo_sapiens.GRCh38.77.gtf ${SGE_TASK_ID} >> /nobackup/ummz/analyses/run_17_Jun21/arc_files/transcript-level/output.$JOB_ID.txt
 
-#/home/home02/ummz/github_dirs/RNA-seq/scripts/run-6-Salmon_Jun21.sh 'gene-level' /nobackup/ummz/analyses/run_12_Aug20/2_trimming_PE/processed_fastq/paired/ /nobackup/ummz/analyses/run_17_Jun21/quants_all/gene-level /nobackup/ummz/analyses/run_17_Jun21/index_all/Homo_sapiens.GRCh38.77/Homo_sapiens.GRCh38.77_quasi_index /nobackup/ummz/analyses/run_17_Jun21/index_all/Homo_sapiens.GRCh38.77/Homo_sapiens.GRCh38.77.gtf ${SGE_TASK_ID} >> /nobackup/ummz/analyses/run_17_Jun21/arc_files/gene-level/output.$JOB_ID.txt
+/home/home02/ummz/github_dirs/RNA-seq/scripts/run-6-Salmon_Jun21.sh 'gene-level' /nobackup/ummz/analyses/run_12_Aug20/2_trimming_PE/processed_fastq/paired/ /nobackup/ummz/analyses/run_17_Jun21/quants_all/gene-level /nobackup/ummz/analyses/run_17_Jun21/index_all/Homo_sapiens.GRCh38.77/Homo_sapiens.GRCh38.77_quasi_index /nobackup/ummz/analyses/run_17_Jun21/index_all/Homo_sapiens.GRCh38.77/Homo_sapiens.GRCh38.77.gtf ${SGE_TASK_ID} >> /nobackup/ummz/analyses/run_17_Jun21/arc_files/gene-level/output.$JOB_ID.txt
  
 ###################################################################
 # (0) /home/home02/ummz/github_dirs/RNA-seq/scripts/run-6-Salmon_Jun21.sh
