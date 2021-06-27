@@ -93,8 +93,6 @@ if ( args[1] == "transcript-level" ){
   print("Running mode needs to be specify as either 'transcript-level' or 'gene-level'")
 }
 
-stop("Stopped intentionally")
-
 # load in the quantification data with tximeta
 se <- tximeta(coldata)
 
@@ -103,6 +101,8 @@ y <- se
 
 # get counts matrix
 cts_transcript_tximeta <- assays(y)[["counts"]]
+
+stop("Stopped intentionally")
 
 # save transcript-level matrix as .csv
 write.csv(cts_transcript_tximeta, file = file.path(dir_out, run_feat, paste0("transcript_level_tximeta_", run_feat, ".csv")))
