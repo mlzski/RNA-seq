@@ -120,9 +120,7 @@ obj_tximport <- tximport(coldata$files, type = "salmon", txOut = TRUE)
 # get counts matrix
 cts_transcript_tximport <- obj_tximport$counts
 
-stop("Stopped intentionally")
-
-# NOT SURE IF THIS LINE IS NEEDED
+# add column names
 colnames(cts_transcript_tximport) <- coldata$names
 
 # save counts matrix as .csv
@@ -140,7 +138,7 @@ se <- addIds(se, "SYMBOL", gene=TRUE)
 cts_transcript_summary <- rowRanges(y)
 write.table(as.data.frame(cts_transcript_summary), file = file.path(dir_out, run_feat, "transcript_level_summary.csv"), sep=";")
 
-
+stop("Stopped intentionally")
 
 # gene-level
 
