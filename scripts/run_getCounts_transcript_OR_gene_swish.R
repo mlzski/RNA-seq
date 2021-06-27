@@ -93,7 +93,7 @@ if ( args[1] == "transcript-level" ){
   print("Running mode needs to be specify as either 'transcript-level' or 'gene-level'")
 }
 
-# load in the quantification data with tximeta
+# load in the quantification data with  -------tximeta-------
 se <- tximeta(coldata)
 
 # transcript-level
@@ -102,12 +102,13 @@ y <- se
 # get counts matrix
 cts_transcript_tximeta <- assays(y)[["counts"]]
 
-stop("Stopped intentionally")
-
-# save transcript-level matrix as .csv
+# save counts matrix as .csv
 write.csv(cts_transcript_tximeta, file = file.path(dir_out, run_feat, paste0("transcript_level_tximeta_", run_feat, ".csv")))
 
-# import quantification data with tximport
+# save SummarizedExperiment object from tximeta
+saveRDS(cts_transcript_tximeta, file = = file.path(dir_out, run_feat, paste0("transcript_level_tximeta_", run_feat, ".rds")))
+
+# import quantification data with -------tximport-------
 txi.tx <- tximport(coldata$files, type = "salmon", txOut = TRUE)
 
 # get counts matrix
@@ -115,9 +116,14 @@ cts_transcript_tximport <- txi.tx$counts
 
 colnames(cts_transcript_tximport) <- coldata$names
 
-# save transcript-level matrix as .csv
+# save counts matrix as .csv
 write.csv(cts_transcript_tximport, file = file.path(dir_out, run_feat, paste0("transcript_level_tximport_", run_feat, ".csv")))
- 
+
+stop("Stopped intentionally")
+
+# save SummarizedExperiment object from tximport
+saveRDS(txi.tx, file = = file.path(dir_out, run_feat, paste0("transcript_level_tximport_", run_feat, ".rds")))
+
 # use the addIds function from tximeta to add gene symbols. 
 # By specifying gene=TRUE, this will use the gene ID to match to gene symbols for all of the transcripts.
 y <- addIds(y, "SYMBOL", gene=TRUE)
@@ -125,6 +131,10 @@ y <- addIds(y, "SYMBOL", gene=TRUE)
 # save the summary table
 cts_transcript_summary <- rowRanges(y)
 write.table(as.data.frame(cts_transcript_summary), file = file.path(dir_out, run_feat, "transcript_level_summary.csv"), sep=";")
+
+
+
+
 
 # gene-level
 
