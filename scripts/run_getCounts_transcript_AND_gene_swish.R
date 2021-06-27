@@ -3,6 +3,8 @@
 # it extract counts directly from quants.sf / files, either on transcript- and gene-level
 # 2 methods implemented: tximeta (SummarizedExperiment object as output) and tximport (list as output)
 
+# stop("Stopped intentionally")
+
 if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocManager")
 if (!requireNamespace("SummarizedExperiment", quietly = TRUE)) BiocManager::install("SummarizedExperiment")
 if (!requireNamespace("fishpond", quietly = TRUE)) BiocManager::install("fishpond")
@@ -40,9 +42,11 @@ args <- c("both-levels",
          "/nobackup/ummz/analyses/run_17_Jun21/swish/transcript-level",
          "/nobackup/ummz/analyses/run_17_Jun21/swish/samples_all.txt") 
 
+# both-levels means starting from transcript and then summarizing to genes
+
 if (length(args)!=4) {
          stop("ERROR: 4 arguments must be supplied:
-                 \n(1) running mode [either transcript-level or gene-level]
+                 \n(1) running mode [always 'both-levels']
                  \n(2) INPUT directory,
                  \n(3) OUTPUT directory,
                  \n(4) annotation file", call.=FALSE)
@@ -73,22 +77,10 @@ if(dir.exists(file.path(dir_out, run_feat)) == FALSE){
   cat("Output directory already exists")
 }
 
-if ( args[1] == "transcript-level" ){
+# get list of all files and add it to coldata table
+coldata$files <- file.path(dir_in, coldata$names, "quant.sf")
+all(file.exists(coldata$files))
   
-  # get list of all files and add it to coldata table
-  coldata$files <- file.path(dir_in, coldata$names, "quant.sf")
-  all(file.exists(coldata$files))
-  
-} else if ( args[1] == "gene-level" ) {
-  
-  # get list of all files and add it to coldata table
-  coldata$files <- file.path(dir_in, coldata$names, "quant.genes.sf")
-  all(file.exists(coldata$files))
-  
-} else {
-  print("Running mode needs to be specify as either 'transcript-level' or 'gene-level'")
-}
-
 # -------------- tximeta --------------
 
 # load quantification data 
@@ -98,11 +90,11 @@ se <- tximeta(coldata)
 cts_tximeta <- assays(se)[["counts"]]
 
 # save counts matrix as .csv
-write.csv(cts_tximeta, file = file.path(dir_out, run_feat, paste0(args[1], "_tximeta_", run_feat, ".csv")))
+write.csv(cts_tximeta, file = file.path(dir_out, run_feat, paste0(args[1], "_transcript_tximeta_", run_feat, ".csv")))
 cat("Created: ", file.path(dir_out, run_feat, paste0(args[1], "_tximeta_", run_feat, ".csv")), "\n")
   
 # save SummarizedExperiment object from tximeta
-saveRDS(cts_tximeta, file = file.path(dir_out, run_feat, paste0(args[1], "_tximeta_", run_feat, ".rds")))
+saveRDS(cts_tximeta, file = file.path(dir_out, run_feat, paste0(args[1], "_transcript_tximeta_", run_feat, ".rds")))
 cat("Created: ", file.path(dir_out, run_feat, paste0(args[1], "_tximeta_", run_feat, ".rds")), "\n")
 
 # -------------- tximport --------------
@@ -117,11 +109,11 @@ cts_tximport <- obj_tximport$counts
 colnames(cts_tximport) <- coldata$names
 
 # save counts matrix as .csv
-write.csv(cts_tximport, file = file.path(dir_out, run_feat, paste0(args[1], "_level_tximport_", run_feat, ".csv")))
+write.csv(cts_tximport, file = file.path(dir_out, run_feat, paste0(args[1], "_transcript_tximport_", run_feat, ".csv")))
 cat("Created: ", file.path(dir_out, run_feat, paste0(args[1], "_level_tximport_", run_feat, ".csv")), "\n")
 
 # save list object from tximport
-saveRDS(obj_tximport, file = file.path(dir_out, run_feat, paste0(args[1], "_level_tximport_", run_feat, ".rds")))
+saveRDS(obj_tximport, file = file.path(dir_out, run_feat, paste0(args[1], "_transcript_tximport_", run_feat, ".rds")))
 cat("Created: ", file.path(dir_out, run_feat, paste0(args[1], "_level_tximport_", run_feat, ".rds")), "\n")
 
 # -------------------- GET SUMMARY TABLE -------------------- #
@@ -131,30 +123,25 @@ se <- addIds(se, "SYMBOL", gene=TRUE)
 
 # save the summary table
 cts_transcript_summary <- rowRanges(se)
-write.table(as.data.frame(cts_transcript_summary), file = file.path(dir_out, run_feat, paste0(args[1], "_level_summary.csv")), sep=";")
+write.table(as.data.frame(cts_transcript_summary), file = file.path(dir_out, run_feat, paste0(args[1], "_transcript_summary.csv")), sep=";")
 
-cat("Created: ", file.path(dir_out, run_feat, paste0(args[1], "_level_summary.csv")), "\n")
+cat("Created: ", file.path(dir_out, run_feat, paste0(args[1], "_transcript_summary.csv")), "\n")
 
-stop("Stopped intentionally")
-
-# gene-level [TO BE REMOVED]
+# gene-level
 
 # summarize all of the data to the gene level
-#gse <- summarizeToGene(se)
-
-#gy <- gse
+gse <- summarizeToGene(se)
 
 # get counts matrix
-#cts_gene <- assays(gy)[["counts"]]
+cts_gene <- assays(gse)[["counts"]]
 
 # save table with results 
-#write.csv(cts_gene, file = file.path(dir_out, run_feat, paste0("gene_level_", run_feat, ".csv")))
+write.csv(cts_gene, file = file.path(dir_out, run_feat, paste0(args[1], "gene_level_", run_feat, ".csv")))
 
-#gy <- addIds(gy, "SYMBOL", gene=TRUE)
+gse <- addIds(gse, "SYMBOL", gene=TRUE)
 
 # save the summary table
-#cts_gene_summary <- rowRanges(gy)
-#write.table(as.data.frame(cts_gene_summary), file = file.path(dir_out, run_feat, "gene_level_summary.csv"), sep=";")
+cts_gene_summary <- rowRanges(gse)
+write.table(as.data.frame(cts_gene_summary), file = file.path(dir_out, run_feat, paste0(args[1], "_gene_level_summary.csv")), sep=";")
 
-#cat("Finished ! ! !")
-
+cat("Finished ! ! !")
