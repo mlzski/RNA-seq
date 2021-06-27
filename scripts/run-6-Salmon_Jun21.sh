@@ -43,7 +43,13 @@ if [ $run_mode == 'transcript-level' ] ; then
     samp_name=$(ls $data_dir/*_R1_paired.fq | rev | cut -d '/' -f 1 | cut -c 13- | rev | sed -n -e "$SGE_TASK_ID p")
 
     # run Salmon in paired-end mode [PE]
-    salmon quant -i $index_dir -l ISR -1 $read1 -2 $read2 -p 8 -o $out_dir/${samp_name}_quant 
+    salmon quant \
+    	-i $index_dir \
+	-l ISR \
+	-1 $read1 \
+	-2 $read2 \
+	-o $out_dir/ID-${samp_name} \
+	-p 8
     
     # NOTE: use either "-l ISR" or "-l A" (automatic); for new data, always "A"
  
@@ -74,7 +80,8 @@ elif [ $run_mode == 'gene-level' ] ; then
     # NOTE: use either "-l ISR" or "-l A" (automatic); for new data, always "A"
  
     # print the main command to params.txt
-    echo " " >> params_${me}_.txt
+    echo "salmon quant -i $index_dir -l ISR -1 $read1 -2 $read2 -o $out_dir/ID-${samp_name} -g $gtf_dir --seqBias --validateMappings -p 8" >> params_${me}_.txt
+      
 
 # NOTES:
 # --seqBias 
