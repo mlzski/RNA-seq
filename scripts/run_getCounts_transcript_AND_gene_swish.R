@@ -34,13 +34,13 @@ if(startsWith(w_dir, "/Users/michal")){
   print("Unrecognised machine.")
 }
 
-#args <- commandArgs(trailingOnly = TRUE)
+args <- commandArgs(trailingOnly = TRUE)
 
 # for testing ONLY
-args <- c("both-levels",
-         "/nobackup/ummz/analyses/run_17_Jun21/quants_all/transcript-level",
-         "/nobackup/ummz/analyses/run_17_Jun21/swish/both-levels",
-         "/nobackup/ummz/analyses/run_17_Jun21/swish/samples_all.txt") 
+#args <- c("both-levels",
+#         "/nobackup/ummz/analyses/run_17_Jun21/quants_all/transcript-level",
+#         "/nobackup/ummz/analyses/run_17_Jun21/swish/both-levels",
+#         "/nobackup/ummz/analyses/run_17_Jun21/swish/samples_all.txt") 
 
 # both-levels means starting from transcript-level and then summarizing to gene-level
 
