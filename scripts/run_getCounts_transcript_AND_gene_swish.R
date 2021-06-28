@@ -39,10 +39,10 @@ if(startsWith(w_dir, "/Users/michal")){
 # for testing ONLY
 args <- c("both-levels",
          "/nobackup/ummz/analyses/run_17_Jun21/quants_all/transcript-level",
-         "/nobackup/ummz/analyses/run_17_Jun21/swish/transcript-level",
+         "/nobackup/ummz/analyses/run_17_Jun21/swish/both-levels",
          "/nobackup/ummz/analyses/run_17_Jun21/swish/samples_all.txt") 
 
-# both-levels means starting from transcript and then summarizing to genes
+# both-levels means starting from transcript-level and then summarizing to gene-level
 
 if (length(args)!=4) {
          stop("ERROR: 4 arguments must be supplied:
@@ -136,12 +136,12 @@ gse <- summarizeToGene(se)
 cts_gene <- assays(gse)[["counts"]]
 
 # save table with results 
-write.csv(cts_gene, file = file.path(dir_out, run_feat, paste0(args[1], "gene_level_", run_feat, ".csv")))
+write.csv(cts_gene, file = file.path(dir_out, run_feat, paste0(args[1], "_gene_", run_feat, ".csv")))
 
 gse <- addIds(gse, "SYMBOL", gene=TRUE)
 
 # save the summary table
 cts_gene_summary <- rowRanges(gse)
-write.table(as.data.frame(cts_gene_summary), file = file.path(dir_out, run_feat, paste0(args[1], "_gene_level_summary.csv")), sep=";")
+write.table(as.data.frame(cts_gene_summary), file = file.path(dir_out, run_feat, paste0(args[1], "_gene_summary.csv")), sep=";")
 
 cat("Finished ! ! !")
