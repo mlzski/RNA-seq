@@ -126,12 +126,12 @@ cts_tximport <- obj_tximport$counts
 colnames(cts_tximport) <- coldata$names
 
 # save counts matrix as .csv
-write.csv(cts_tximport, file = file.path(dir_out, run_feat, paste0(args[1], "_level_tximport_", run_feat, ".csv")))
-cat("Created: ", file.path(dir_out, run_feat, paste0(args[1], "_level_tximport_", run_feat, ".csv")), "\n")
+write.csv(cts_tximport, file = file.path(dir_out, run_feat, paste0(args[1], "_tximport_", run_feat, ".csv")))
+cat("Created: ", file.path(dir_out, run_feat, paste0(args[1], "_tximport_", run_feat, ".csv")), "\n")
 
 # save list object from tximport
-saveRDS(obj_tximport, file = file.path(dir_out, run_feat, paste0(args[1], "_level_tximport_", run_feat, ".rds")))
-cat("Created: ", file.path(dir_out, run_feat, paste0(args[1], "_level_tximport_", run_feat, ".rds")), "\n")
+saveRDS(obj_tximport, file = file.path(dir_out, run_feat, paste0(args[1], "_tximport_", run_feat, ".rds")))
+cat("Created: ", file.path(dir_out, run_feat, paste0(args[1], "_tximport_", run_feat, ".rds")), "\n")
 
 # -------------------- GET SUMMARY TABLE -------------------- #
 # use the addIds function from tximeta to add gene symbols, By specifying gene=TRUE, 
@@ -140,9 +140,9 @@ se <- addIds(se, "SYMBOL", gene=TRUE)
 
 # save the summary table
 cts_transcript_summary <- rowRanges(se)
-write.table(as.data.frame(cts_transcript_summary), file = file.path(dir_out, run_feat, paste0(args[1], "_level_summary.csv")), sep=";")
+write.table(as.data.frame(cts_transcript_summary), file = file.path(dir_out, run_feat, paste0(args[1], "_summary.csv")), sep=";")
 
-cat("Created: ", file.path(dir_out, run_feat, paste0(args[1], "_level_summary.csv")), "\n")
+cat("Created: ", file.path(dir_out, run_feat, paste0(args[1], "_summary.csv")), "\n")
 
 cat("Finished ! ! !")
 
