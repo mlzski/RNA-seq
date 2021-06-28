@@ -7,8 +7,8 @@
 #$ -m be
 #$ -M ummz-arc-records@outlook.com
 
-Rscript /home/home02/ummz/github_dirs/RNA-seq/scripts/run_getCounts_t_AND_g_swish.sh "both-levels" /nobackup/ummz/analyses/run_17_Jun21/quants_all/transcript-level /nobackup/ummz/analyses/run_17_Jun21/swish/both-levels /nobackup/ummz/analyses/run_17_Jun21/swish/samples_all.txt
-         
+Rscript /home/home02/ummz/github_dirs/RNA-seq/scripts/run_getCounts_transcript_AND_gene_swish.sh "both-levels" /nobackup/ummz/analyses/run_17_Jun21/quants_all/transcript-level /nobackup/ummz/analyses/run_17_Jun21/swish/both-levels /nobackup/ummz/analyses/run_17_Jun21/swish/samples_all.txt
+
 #############################################################
 # Rscript run_DEG_swish_FINAL.R
 # (1) INPUT directory
