@@ -17,7 +17,8 @@ if [ $# != 6 ] ; then
 fi
 
 # export software (salmon)
-export PATH=/home/home02/ummz/tools/bioinfo/salmon-latest_linux_x86_64/bin:$PATH
+#export PATH=/home/home02/ummz/tools/bioinfo/salmon-latest_linux_x86_64/bin:$PATH
+export PATH=/nobackup/ummz/tools/bioinfo/salmon-1.6.0_linux_x86_64/bin:$PATH
 
 # assign variables
 run_mode=$1               # 'transcript-level' or 'gene-level'

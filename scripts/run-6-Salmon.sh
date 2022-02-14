@@ -14,7 +14,7 @@ if [ $# != 5 ] ; then
 fi
 
 # export software (STAR)
-export PATH=/home/home02/ummz/tools/salmon-latest_linux_x86_64/bin:$PATH
+export PATH=/nobackup/ummz/tools/bioinfo/salmon-latest_linux_x86_64/bin:$PATH
 
 # assign variables
 run_mode=$1               # 'SE' or 'PE'

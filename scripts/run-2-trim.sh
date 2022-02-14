@@ -15,7 +15,7 @@ data_dir=$2			# path to the folder with fastq files
 out_dir=$3			# path the the folder where output will be placed
 
 # export software (Trimmomatic)
-export PATH=/home/home02/ummz/tools/Trimmomatic-0.39:$PATH
+export PATH=/nobackup/ummz/tools/bioinfo/Trimmomatic-0.39:$PATH
 
 # get the read1 fastq.gz file and its pair
 fastqFile=$(ls $data_dir/*_R1.fastq.gz | sed -n -e "$SGE_TASK_ID p")
@@ -30,12 +30,12 @@ if [ $run_mode == 'SE' ]     # single-end [SE]
 then
     echo "Running in single-end (SE) mode"
     
-    java -jar /home/home02/ummz/tools/Trimmomatic-0.39/trimmomatic-0.39.jar \
+    java -jar /nobackup/ummz/tools/bioinfo/Trimmomatic-0.39/trimmomatic-0.39.jar \
     SE \
     -threads 4 \
     -phred33 $read1 \
     $out_dir/processed_fastq/${coreFile}_R1_single.fq \
-    ILLUMINACLIP:/home/home02/ummz/tools/Trimmomatic-0.39/adapters/TruSeq3-SE.fa:2:30:10 \
+    ILLUMINACLIP:/nobackup/ummz/tools/bioinfo/Trimmomatic-0.39/adapters/TruSeq3-SE.fa:2:30:10 \
     SLIDINGWINDOW:4:15 \
     LEADING:20 \
     TRAILING:20 \
@@ -46,13 +46,13 @@ elif [ $run_mode == 'PE' ]  # paired-end [PE]
 then
     echo "Running in paired-end (PE) mode"
     
-    java -jar /home/home02/ummz/tools/Trimmomatic-0.39/trimmomatic-0.39.jar \
+    java -jar /nobackup/ummz/tools/bioinfo/Trimmomatic-0.39/trimmomatic-0.39.jar \
     PE \
     -threads 4 \
     -phred33 $read1 $read2 \
     $out_dir/processed_fastq/${coreFile}_R1_paired.fq $out_dir/processed_fastq/${coreFile}_R1_unpaired.fq \
     $out_dir/processed_fastq/${coreFile}_R2_paired.fq $out_dir/processed_fastq/${coreFile}_R2_unpaired.fq \
-    ILLUMINACLIP:/home/home02/ummz/tools/Trimmomatic-0.39/adapters/TruSeq3-PE-2.fa:2:30:10 \
+    ILLUMINACLIP:/nobackup/ummz/tools/bioinfo/Trimmomatic-0.39/adapters/TruSeq3-PE-2.fa:2:30:10 \
     SLIDINGWINDOW:4:15 \
     LEADING:20 \
     TRAILING:20 \
