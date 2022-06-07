@@ -1,16 +1,19 @@
-### this script runs trimming (on raw fastq files) for all files (pairs) at once
+######################################################################################################
+# this script runs trimming (on raw fastq files) for all files (pairs) at once
+######################################################################################################
 
 if [ $# != 4 ] ; then
-    echo -e "ERROR: 4 arguments are required: \
-    (1) running mode (either 'SE' or 'PE'), \
-    (2) Path to data folder, \
-    (3) path to output folder and \
-    (4) SGE_TASK_ID argument for array jobs ... Exiting"
+    echo -e "ERROR: 4 arguments are required: \n
+    (1) running mode (either 'SE' or 'PE'), \n
+    (2) Path to data folder, \n
+    (3) path to output folder and \n
+    (4) SGE_TASK_ID argument for array jobs \n
+    ... Exiting"
     exit 1
 fi	
 
 # define arguments
-run_mode=$1         # running mode (either 'SE' or 'PE')
+run_mode=$1         		# running mode (either 'SE' or 'PE')
 data_dir=$2			# path to the folder with fastq files
 out_dir=$3			# path the the folder where output will be placed
 
