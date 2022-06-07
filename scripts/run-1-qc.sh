@@ -4,7 +4,11 @@
 ######################################################################################################
 
 if [ $# != 3 ] ; then
-    echo -e "ERROR: 3 arguments are required: (1) Path to data folder, (2) path to output folder and (3) SGE_TASK_ID argument for array jobs ... Exiting"
+    echo -e "ERROR: 3 arguments are required: \n
+	(1) Path to data folder, \n
+	(2) path to output folder and \n
+	(3) SGE_TASK_ID argument for array jobs \n
+	... Exiting"
     exit 1
 fi	
 
