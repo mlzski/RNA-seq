@@ -14,6 +14,8 @@
 #$ -m be
 #$ -M ummz-arc-records@outlook.com
 
+
+# USAGE:
 #/path/to/running/script/run-1-qc.sh /path/to/data /path/to/results/ ${SGE_TASK_ID} >> /path/to/arc_files/output.$JOB_ID.txt
 
 /nobackup/ummz/analysis-May-22/1-qc/run-1-qc.sh /nobackup/ummz/analysis-May-22/data /nobackup/ummz/analysis-May-22/1-qc ${SGE_TASK_ID} >> /nobackup/ummz/analysis-May-22/1-qc/arc_files/output.$JOB_ID.txt
