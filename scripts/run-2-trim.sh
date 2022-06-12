@@ -32,12 +32,15 @@ coreFile=$(ls $data_dir/*_R1.fastq.gz | rev | cut -d '/' -f 1 | cut -c 13- | rev
 if [ $run_mode == 'SE' ]     # single-end [SE]
 then
     echo "Running in single-end (SE) mode"
+
+    mkdir -p $out_dir/trimmed/single-end
+    echo "Created new folder for output '$out_dir/trimmed/single-end'"
     
     java -jar /nobackup/ummz/tools/bioinfo/Trimmomatic-0.39/trimmomatic-0.39.jar \
     SE \
     -threads 4 \
     -phred33 $read1 \
-    $out_dir/processed_fastq/${coreFile}_R1_single.fq \
+    $out_dir/trimmed/single-end/${coreFile}_R1_single.fq \
     ILLUMINACLIP:/nobackup/ummz/tools/bioinfo/Trimmomatic-0.39/adapters/TruSeq3-SE.fa:2:30:10 \
     SLIDINGWINDOW:4:15 \
     LEADING:20 \
@@ -45,16 +48,21 @@ then
     HEADCROP:10 \
     MINLEN:36
 
+    echo "Trimming completed"
+
 elif [ $run_mode == 'PE' ]  # paired-end [PE]
 then
     echo "Running in paired-end (PE) mode"
     
+    mkdir -p $out_dir/trimmed/paired-end
+    echo "Created new folder for output '$out_dir/trimmed/paired-end'"
+
     java -jar /nobackup/ummz/tools/bioinfo/Trimmomatic-0.39/trimmomatic-0.39.jar \
     PE \
     -threads 4 \
     -phred33 $read1 $read2 \
-    $out_dir/processed_fastq/${coreFile}_R1_paired.fq $out_dir/processed_fastq/${coreFile}_R1_unpaired.fq \
-    $out_dir/processed_fastq/${coreFile}_R2_paired.fq $out_dir/processed_fastq/${coreFile}_R2_unpaired.fq \
+    $out_dir/trimmed/paired-end/${coreFile}_R1_paired.fq $out_dir/trimmed/paired-end/${coreFile}_R1_unpaired.fq \
+    $out_dir/trimmed/paired-end/${coreFile}_R2_paired.fq $out_dir/trimmed/paired-end/${coreFile}_R2_unpaired.fq \
     ILLUMINACLIP:/nobackup/ummz/tools/bioinfo/Trimmomatic-0.39/adapters/TruSeq3-PE-2.fa:2:30:10 \
     SLIDINGWINDOW:4:15 \
     LEADING:20 \
@@ -62,6 +70,8 @@ then
     HEADCROP:10 \
     MINLEN:36
     
+    echo "Trimming completed"
+
 else
     echo "ERROR: running mode argument incorrect! Exiting..."
     exit 1
