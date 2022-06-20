@@ -40,7 +40,7 @@ then
     SE \
     -threads 4 \
     -phred33 $read1 \
-    $out_dir/trimmed/single-end/${coreFile}_R1_single.fq \
+    $out_dir/trimmed/single-end/${coreFile}_R1_trim_single.fastq.gz \
     ILLUMINACLIP:/nobackup/ummz/tools/bioinfo/Trimmomatic-0.39/adapters/TruSeq3-SE.fa:2:30:10 \
     SLIDINGWINDOW:4:15 \
     LEADING:20 \
@@ -61,8 +61,8 @@ then
     PE \
     -threads 4 \
     -phred33 $read1 $read2 \
-    $out_dir/trimmed/paired-end/${coreFile}_R1_paired.fq $out_dir/trimmed/paired-end/${coreFile}_R1_unpaired.fq \
-    $out_dir/trimmed/paired-end/${coreFile}_R2_paired.fq $out_dir/trimmed/paired-end/${coreFile}_R2_unpaired.fq \
+    $out_dir/trimmed/paired-end/${coreFile}_R1_trim_paired.fastq.gz $out_dir/trimmed/paired-end/${coreFile}_R1_trim_unpaired.fastq.gz \
+    $out_dir/trimmed/paired-end/${coreFile}_R2_trim_paired.fastq.gz $out_dir/trimmed/paired-end/${coreFile}_R2_trim_unpaired.fastq.gz \
     ILLUMINACLIP:/nobackup/ummz/tools/bioinfo/Trimmomatic-0.39/adapters/TruSeq3-PE-2.fa:2:30:10 \
     SLIDINGWINDOW:4:15 \
     LEADING:20 \
