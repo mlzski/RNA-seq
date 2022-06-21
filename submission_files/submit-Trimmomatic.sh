@@ -1,4 +1,4 @@
-# submission script for run-2-trim.sh
+# submission script for run-Trimmomatic.sh
 # Michal Zulcinski 2020-06-07
 
 # NOTES:

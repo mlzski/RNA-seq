@@ -1,4 +1,4 @@
-# submission script for run-1-qc.sh
+# submission script for run-FastQC.sh
 # Michal Zulcinski 2022-05-25
 
 # NOTES: 
