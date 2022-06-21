@@ -1,6 +1,6 @@
 
 ###################################################################################################### 
-# this script runs first QC analysis (on raw fatsq files) for all files in parallel (using array task)
+# this script runs FastQC for all files in a directory in parallel (using array task)
 ######################################################################################################
 
 if [ $# != 3 ] ; then
