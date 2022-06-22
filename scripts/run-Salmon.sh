@@ -16,9 +16,8 @@ if [ $# != 6 ] ; then
     exit 1
 fi
 
-# export software (salmon)
-#export PATH=/home/home02/ummz/tools/bioinfo/salmon-latest_linux_x86_64/bin:$PATH
-export PATH=/nobackup/ummz/tools/bioinfo/salmon-1.6.0_linux_x86_64/bin:$PATH
+# export software (Salmon)
+export PATH=/nobackup/ummz/tools/bioinfo/salmon-1.8.0_linux_x86_64/bin:$PATH
 
 # assign variables
 run_mode=$1               # 'transcript-level' or 'gene-level'
@@ -27,7 +26,7 @@ out_dir=$3
 index_dir=$4
 gtf_dir=$5
 
-# prepare params.txt filr with information about this run
+# prepare params.txt file with information about the current run
 me=$(basename "$0")
 echo -ne "Script directory:" `pwd`"/"$me "\n" >> params_${me}_.txt
 
@@ -36,12 +35,12 @@ echo -ne "Executed on:" $current_date_time "\n" >> params_${me}_.txt
 
 # run Salmon mapping job
 if [ $run_mode == 'transcript-level' ] ; then
-   
-   # get the read1 fastq.gz file and its pair read2
-    fastqFile=$(ls $data_dir/*_R1_paired.fq | sed -n -e "$SGE_TASK_ID p")
+
+    # get read1 fastq.gz file and its pair read2
+    fastqFile=$(ls $data_dir/*_R1_trim_paired.fastq.gz | sed -n -e "$SGE_TASK_ID p")
     read1=$fastqFile
     read2=$(echo $read1 | sed 's/R1/R2/g')
-    samp_name=$(ls $data_dir/*_R1_paired.fq | rev | cut -d '/' -f 1 | cut -c 13- | rev | sed -n -e "$SGE_TASK_ID p")
+    samp_name=$(ls $data_dir/*_R1_trim_paired.fastq.gz | rev | cut -d '/' -f 1 | cut -c 10- | rev | sed -n -e "$SGE_TASK_ID p")
 
     # run Salmon in paired-end mode [PE]
     salmon quant \
@@ -60,11 +59,11 @@ if [ $run_mode == 'transcript-level' ] ; then
 
 elif [ $run_mode == 'gene-level' ] ; then
 
-    # get the read1 fastq.gz file and its pair read2
-    fastqFile=$(ls $data_dir/*_R1_paired.fq | sed -n -e "$SGE_TASK_ID p")
+    # get read1 fastq.gz file and its pair read2
+    fastqFile=$(ls $data_dir/*_R1_trim_paired.fastq.gz | sed -n -e "$SGE_TASK_ID p")
     read1=$fastqFile
     read2=$(echo $read1 | sed 's/R1/R2/g')
-    samp_name=$(ls $data_dir/*_R1_paired.fq | rev | cut -d '/' -f 1 | cut -c 13- | rev | sed -n -e "$SGE_TASK_ID p")
+    samp_name=$(ls $data_dir/*_R1_trim_paired.fastq.gz | rev | cut -d '/' -f 1 | cut -c 10- | rev | sed -n -e "$SGE_TASK_ID p")
 
     # run Salmon in paired-end mode [PE]
     salmon quant \
