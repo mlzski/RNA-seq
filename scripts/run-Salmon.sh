@@ -7,7 +7,7 @@
 
 if [ $# != 6 ] ; then
     echo -e "ERROR: 6 arguments are required: \
-    (1) running mode (either 'SE' or 'PE'), \
+    (1) running level (either 'transcript-level' or 'gene-level'), \
     (2) path to folder with input data, \
     (3) path to folder for output directory, \
     (4) path to index file \
@@ -80,7 +80,7 @@ elif [ $run_mode == 'gene-level' ] ; then
     # NOTE: use either "-l ISR" or "-l A" (automatic); for new data, always "A"
  
     # print the main command to params.txt
-    echo "salmon quant -i $index_dir -l ISR -1 $read1 -2 $read2 -o $out_dir/ID-${samp_name} -g $gtf_dir --seqBias --validateMappings -p 8" >> params_${me}_.txt
+    echo "salmon quant -i $index_dir -l ISR -1 $read1 -2 $read2 -o $out_dir/ID-${samp_name} -g $gtf_dir --seqBias --validateMappings -p 8" >> params_${me}.txt
       
 
 # NOTES:
