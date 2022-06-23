@@ -1,4 +1,4 @@
-### this script runs Salmon to obtaine reads from fastq files (trimmed) on transcript level
+### this script run:wqs Salmon to obtaine reads from fastq files (trimmed) on transcript level
 # NOTICE: prior to launching this command, make sure that the index has been already generated (just with a single command) 
 
 # TODO: finish implementation for single-end data
@@ -28,10 +28,10 @@ gtf_dir=$5
 
 # prepare params.txt file with information about the current run
 me=$(basename "$0")
-echo -ne "Script directory:" `pwd`"/"$me "\n" >> params_${me}_.txt
+echo -ne "Script directory:" `pwd`"/"$me "\n" >> params_${me}.txt
 
 current_date_time="`date "+%Y-%m-%d %H:%M:%S"`";
-echo -ne "Executed on:" $current_date_time "\n" >> params_${me}_.txt
+echo -ne "Executed on:" $current_date_time "\n" >> params_${me}.txt
 
 # run Salmon mapping job
 if [ $run_mode == 'transcript-level' ] ; then
@@ -40,7 +40,7 @@ if [ $run_mode == 'transcript-level' ] ; then
     fastqFile=$(ls $data_dir/*_R1_trim_paired.fastq.gz | sed -n -e "$SGE_TASK_ID p")
     read1=$fastqFile
     read2=$(echo $read1 | sed 's/R1/R2/g')
-    samp_name=$(ls $data_dir/*_R1_trim_paired.fastq.gz | rev | cut -d '/' -f 1 | cut -c 10- | rev | sed -n -e "$SGE_TASK_ID p")
+    samp_name=$(ls $data_dir/*_R1_trim_paired.fastq.gz | rev | cut -d '/' -f 1 | cut -c 25- | rev | sed -n -e "$SGE_TASK_ID p")
 
     # run Salmon in paired-end mode [PE]
     salmon quant \
@@ -54,7 +54,7 @@ if [ $run_mode == 'transcript-level' ] ; then
     # NOTE: use either "-l ISR" or "-l A" (automatic); for new data, always "A"
  
     # print the main command to params.txt
-    echo "salmon quant -i $index_dir -l ISR -1 $read1 -2 $read2 -p 8 -o $out_dir/${samp_name}_quant" >> params_${me}_.txt
+    echo "salmon quant -i $index_dir -l ISR -1 $read1 -2 $read2 -p 8 -o $out_dir/${samp_name}_quant" >> params_${me}.txt
 
 
 elif [ $run_mode == 'gene-level' ] ; then
@@ -63,7 +63,7 @@ elif [ $run_mode == 'gene-level' ] ; then
     fastqFile=$(ls $data_dir/*_R1_trim_paired.fastq.gz | sed -n -e "$SGE_TASK_ID p")
     read1=$fastqFile
     read2=$(echo $read1 | sed 's/R1/R2/g')
-    samp_name=$(ls $data_dir/*_R1_trim_paired.fastq.gz | rev | cut -d '/' -f 1 | cut -c 10- | rev | sed -n -e "$SGE_TASK_ID p")
+    samp_name=$(ls $data_dir/*_R1_trim_paired.fastq.gz | rev | cut -d '/' -f 1 | cut -c 25- | rev | sed -n -e "$SGE_TASK_ID p")
 
     # run Salmon in paired-end mode [PE]
     salmon quant \
@@ -81,11 +81,6 @@ elif [ $run_mode == 'gene-level' ] ; then
  
     # print the main command to params.txt
     echo "salmon quant -i $index_dir -l ISR -1 $read1 -2 $read2 -o $out_dir/ID-${samp_name} -g $gtf_dir --seqBias --validateMappings -p 8" >> params_${me}.txt
-      
-
-# NOTES:
-# --seqBias 
-# --validateMappings
 
 else
     echo "ERROR... run_mode argument must be specified as: 'transcript-level' or 'gene-level'"
