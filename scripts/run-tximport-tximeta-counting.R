@@ -22,7 +22,7 @@ args <- commandArgs(trailingOnly = TRUE)
 #         "/nobackup/ummz/analysis-May-22/counts/coh-1",
 #         "/nobackup/ummz/analysis-May-22/counts/samples-info-coh-1.txt") 
 
-args <- c("/nobackup/ummz/analysis-May-22/read-quantification/output-quantif/both", "/nobackup/ummz/analysis-May-22/counts-both-lvl", "/nobackup/ummz/analysis-May-22/read-quantification/output-quantif/samples-both.txt") 
+#args <- c("/nobackup/ummz/analysis-May-22/read-quantification/output-quantif/both", "/nobackup/ummz/analysis-May-22/counts-both-lvl", "/nobackup/ummz/analysis-May-22/read-quantification/output-quantif/samples-both.txt") 
 
 # NOTE: both-levels means starting from transcript-level and then summarizing to gene-level
 
@@ -49,9 +49,6 @@ coldata <- read.table(args[3], header=TRUE)
 coldata$files <- file.path(dir_in, coldata$names, "quant.sf")
 all(file.exists(coldata$files))
 
-########################## to be removed ##########################
-
-if(FALSE){
 # -------------- tximeta --------------
 
 # load quantification data 
@@ -67,9 +64,6 @@ cat("Created: ",  file.path(args[2], "counts_transcript-level-tximeta.csv"), "\n
 # save SummarizedExperiment object from tximeta
 saveRDS(cts_tximeta, file = file.path(args[2], "obj_tximport_transcript-level-tximeta.rds"))
 cat("Created: ", file.path(args[2], "obj_tximport_transcript-level-tximeta.rds"), "\n")
-
-####################################################################
-}
 
 ### transcript-level ###
   
