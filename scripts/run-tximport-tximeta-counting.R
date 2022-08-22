@@ -13,6 +13,7 @@ suppressMessages(library(tximeta))
 suppressMessages(library(SummarizedExperiment))
 suppressMessages(library(org.Hs.eg.db))
 suppressMessages(library(TxDb.Hsapiens.UCSC.hg38.knownGene))
+suppressMessages(library(data.table))
 
 args <- commandArgs(trailingOnly = TRUE)
 
@@ -21,7 +22,7 @@ args <- commandArgs(trailingOnly = TRUE)
 #         "/nobackup/ummz/analysis-May-22/counts/coh-1",
 #         "/nobackup/ummz/analysis-May-22/counts/samples-info-coh-1.txt") 
 
-# args <- c("/nobackup/ummz/analysis-May-22/read-quantification/output-quantif/both", "/nobackup/ummz/analysis-May-22/counts-both-lvl", "/nobackup/ummz/analysis-May-22/read-quantification/output-quantif/samples-both.txt") 
+args <- c("/nobackup/ummz/analysis-May-22/read-quantification/output-quantif/both", "/nobackup/ummz/analysis-May-22/counts-both-lvl", "/nobackup/ummz/analysis-May-22/read-quantification/output-quantif/samples-both.txt") 
 
 # NOTE: both-levels means starting from transcript-level and then summarizing to gene-level
 
@@ -42,14 +43,15 @@ dir_in <- args[1]
 dir_out <- args[2]
 
 # load table data
-coldata <- read.table(args[3])
+coldata <- read.table(args[3], header=TRUE)
 
 # get list of all files and add it to coldata table
-coldata$files <- file.path(dir_in, coldata$V1, "quant.sf")
+coldata$files <- file.path(dir_in, coldata$names, "quant.sf")
 all(file.exists(coldata$files))
 
 ########################## to be removed ##########################
 
+if(FALSE){
 # -------------- tximeta --------------
 
 # load quantification data 
@@ -67,6 +69,7 @@ saveRDS(cts_tximeta, file = file.path(args[2], "obj_tximport_transcript-level-tx
 cat("Created: ", file.path(args[2], "obj_tximport_transcript-level-tximeta.rds"), "\n")
 
 ####################################################################
+}
 
 ### transcript-level ###
   
@@ -80,8 +83,8 @@ cts_tximport <- obj_tximport$counts
 colnames(cts_tximport) <- coldata$IDs
 
 # save counts matrix as .csv
-write.csv(cts_tximport, file = file.path(args[2], "counts_transcript-level.csv"))
-cat("Created: ", file.path(args[2], "counts_transcript-level.csv"), "\n")
+write.csv(cts_tximport, file = file.path(args[2], "counts_transcript-level-tximport.csv"))
+cat("Created: ", file.path(args[2], "counts_transcript-level-tximport.csv"), "\n")
 
 # save list object from tximport
 saveRDS(obj_tximport, file = file.path(args[2], "obj_tximport_transcript-level.rds"))
@@ -103,8 +106,7 @@ se <- addIds(se, "SYMBOL", gene=TRUE)
 
 # save the summary table
 cts_transcript_summary <- rowRanges(se)
-write.table(as.data.frame(cts_transcript_summary), file = file.path(args[2], "transcript_summary.csv"), sep=";")
-
+fwrite(as.data.frame(cts_transcript_summary), file = file.path(args[2], "transcript_summary.csv"))
 cat("Created: ", file.path(args[2], "transcript_summary.csv"), "\n")
 
 # gene-level
@@ -116,12 +118,15 @@ gse <- summarizeToGene(se)
 cts_gene <- assays(gse)[["counts"]]
 
 # save table with results 
-write.csv(cts_gene, file = file.path(args[2], "genes_counts.csv"))
+write.csv(cts_gene, file = file.path(args[2], "counts_gene-level-tximeta.csv"))
+cat("Created: ", file.path(args[2], "counts_gene-level-tximeta.csv"), "\n")
+
 
 gse <- addIds(gse, "SYMBOL", gene=TRUE)
 
 # save the summary table
 cts_gene_summary <- rowRanges(gse)
-write.table(as.data.frame(cts_gene_summary), file = file.path(args[2], "gene_summary.csv"), sep=";")
+fwrite(as.data.frame(cts_gene_summary), file = file.path(args[2], "gene_summary.csv"))
+cat("Created: ", file.path(args[2], "gene_summary.csv"), "\n")
 
 cat("Finished ! ! !")
