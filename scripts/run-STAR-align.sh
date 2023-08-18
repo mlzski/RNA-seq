@@ -12,7 +12,7 @@ if [ $# != 5 ] ; then
 fi
 
 # export software (STAR)
-export PATH=/home/home02/ummz/tools/STAR-2.7.3a/bin/Linux_x86_64_static:$PATH
+export PATH=/nobackup/ummz/tools/bioinfo/STAR-2.7.10b/bin/Linux_x86_64_static:$PATH
 
 # assign variables
 run_mode=$1               # 'SE' or 'PE'
@@ -20,13 +20,16 @@ data_dir=$2
 out_dir=$3
 index_dir=$4
 
-# run STAR mapping job
+# run STAR alignment job
 if [ $run_mode == 'SE' ] ; then
-    # get the read1 fastq.gz file
-    fastqFile=$(ls $data_dir/*_R1_single.fq | sed -n -e "$SGE_TASK_ID p")
+
+    # get READ1 .fastq or .fq files
+    
+    fastqFile=$(ls $data_dir/*_R1.{fastq,fq} | sed -n -e "$SGE_TASK_ID p")
+    
     read1=$fastqFile
     
-    bam_name=$(ls $data_dir/*_R1_single.fq | rev | cut -d '/' -f 1 | cut -c 13- | rev | sed -n -e "$SGE_TASK_ID p")
+    bam_name=$(ls $data_dir/*_R1.{fastq,fq} | rev | cut -d '/' -f 1 | cut -c 13- | rev | sed -n -e "$SGE_TASK_ID p")
 
     # run STAR alignment in single-end mode [SE]
     STAR \
@@ -40,12 +43,14 @@ if [ $run_mode == 'SE' ] ; then
     --outSAMattributes Standard 
 
 elif [ $run_mode == 'PE' ] ; then
-    # get the read1 fastq.gz file and its pair read2
-    fastqFile=$(ls $data_dir/*_R1_paired.fq | sed -n -e "$SGE_TASK_ID p")
+    
+    # get READ1 .fastq or .fq file and its READ2 pair
+    
+    fastqFile=$(ls $data_dir/*_R1.{fastq,fq} | sed -n -e "$SGE_TASK_ID p")
     read1=$fastqFile
     read2=$(echo $read1 | sed 's/R1/R2/g')
     
-    bam_name=$(ls $data_dir/*_R1_paired.fq | rev | cut -d '/' -f 1 | cut -c 13- | rev | sed -n -e "$SGE_TASK_ID p")
+    bam_name=$(ls $data_dir/*_R1.{fastq,fq} | rev | cut -d '/' -f 1 | cut -c 13- | rev | sed -n -e "$SGE_TASK_ID p")
 
     # run STAR alignment in paired-end mode [PE]
     STAR \

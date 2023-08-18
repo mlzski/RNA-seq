@@ -5,7 +5,7 @@
 if [ $# != 4 ] ; then
     echo -e "ERROR: 4 arguments are required: \n
     (1) running mode (either 'SE' or 'PE'), \n
-    (2) Path to data folder, \n
+    (2) path to input data folder, \n
     (3) path to output folder and \n
     (4) SGE_TASK_ID argument for array jobs \n
     ... Exiting"
@@ -28,19 +28,19 @@ read2=$(echo $read1 | sed 's/R1/R2/g')
 
 coreFile=$(ls $data_dir/*_R1.fastq.gz | rev | cut -d '/' -f 1 | cut -c 13- | rev | sed -n -e "$SGE_TASK_ID p")
 
-# run Trimmomatic (parameters guide listed below)
+# run Trimmomatic
 if [ $run_mode == 'SE' ]     # single-end [SE]
 then
     echo "Running in single-end (SE) mode"
-
-    mkdir -p $out_dir/trimmed/single-end
-    echo "Created new folder for output '$out_dir/trimmed/single-end'"
-    
+ 
     java -jar /nobackup/ummz/tools/bioinfo/Trimmomatic-0.39/trimmomatic-0.39.jar \
     SE \
     -threads 4 \
-    -phred33 $read1 \
-    $out_dir/trimmed/single-end/${coreFile}_R1_trim_single.fastq.gz \
+    -phred33 \
+    -trimlog ${coreFile}_trim_${run_mode}.log \
+    -summary ${coreFile}_trim_${run_mode}_summary.txt \
+    $read1 \
+    $out_dir/${coreFile}_trim_${run_mode}_R1.fastq.gz \
     ILLUMINACLIP:/nobackup/ummz/tools/bioinfo/Trimmomatic-0.39/adapters/TruSeq3-SE.fa:2:30:10 \
     SLIDINGWINDOW:4:15 \
     LEADING:20 \
@@ -54,15 +54,14 @@ elif [ $run_mode == 'PE' ]  # paired-end [PE]
 then
     echo "Running in paired-end (PE) mode"
     
-    mkdir -p $out_dir/trimmed/paired-end
-    echo "Created new folder for output '$out_dir/trimmed/paired-end'"
-
     java -jar /nobackup/ummz/tools/bioinfo/Trimmomatic-0.39/trimmomatic-0.39.jar \
     PE \
     -threads 4 \
-    -phred33 $read1 $read2 \
-    $out_dir/trimmed/paired-end/${coreFile}_R1_trim_paired.fastq.gz $out_dir/trimmed/paired-end/${coreFile}_R1_trim_unpaired.fastq.gz \
-    $out_dir/trimmed/paired-end/${coreFile}_R2_trim_paired.fastq.gz $out_dir/trimmed/paired-end/${coreFile}_R2_trim_unpaired.fastq.gz \
+    -phred33 -trimlog ${coreFile}_trim_${run_mode}.log -summary ${coreFile}_trim_${run_mode}_summary.txt \
+    -validatePairs \
+    $read1 $read2 \
+    $out_dir/${coreFile}_trim_paired_R1.fastq.gz $out_dir/${coreFile}_trim_unpaired_R1.fastq.gz \
+    $out_dir/${coreFile}_trim_paired_R2.fastq.gz $out_dir/${coreFile}_trim_unpaired_R2.fastq.gz \
     ILLUMINACLIP:/nobackup/ummz/tools/bioinfo/Trimmomatic-0.39/adapters/TruSeq3-PE-2.fa:2:30:10 \
     SLIDINGWINDOW:4:15 \
     LEADING:20 \
@@ -76,18 +75,3 @@ else
     echo "ERROR: running mode argument incorrect! Exiting..."
     exit 1
 fi
-
-# NOTICE: "It is recommended in most cases that adapter clipping, if required, is done as early as possible"
-
-# parameters meanings (the order matters): 
-# ILLUMINACLIP:         Cut adapter and other illumina-specific sequences from the read. 
-# SLIDINGWINDOW:        Performs a sliding window trimming approach. It starts scanning at the 5‟ end and clips the read once the average quality within the window falls below a threshold.
-# MAXINFO:  (not used)  An adaptive quality trimmer which balances read length and error rate to maximise the value of each read
-# LEADING:              Cut bases off the start of a read, if below a threshold quality
-# TRAILING:             Cut bases off the end of a read, if below a threshold quality
-# CROP:     (not used)  Cut the read to a specified length by removing bases from the end 
-# HEADCROP:             Cut the specified number of bases from the start of the read 
-# MINLEN:               Drop the read if it is below a specified length
-# AVGQUAL:  (not used)  Drop the read if the average quality is below the specified level 
-# TOPHRED33:(not used)  Convert quality scores to Phred-33
-# TOPHRED64:(not used)  Convert quality scores to Phred-64

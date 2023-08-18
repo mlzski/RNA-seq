@@ -22,7 +22,7 @@ export PATH=/nobackup/ummz/tools/bioinfo/FastQC:$PATH
 # check if output folders exist and create them if needed
 if [ ! -d "$out_dir/report" ]; then
     echo -ne "\nCreating directories..."
-    mkdir $out_dir/report $out_dir/temp
+    mkdir $out_dir/report $out_dir/temp $out_dir/arc_files
 fi
  
 # get the fastq.gz files names (no need to get read1 and read2 separately)

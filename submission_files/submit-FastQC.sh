@@ -1,5 +1,5 @@
 # submission script for run-FastQC.sh
-# Michal Zulcinski 2022-05-25
+# Last updated: 2023-08-14
 
 # NOTES: 
 # - argument "-t" needs te be specified as the total number of files to be processed
@@ -8,14 +8,13 @@
 #$ -cwd -V
 #$ -l h_rt=01:00:00
 #$ -l h_vmem=1G
-#$ -t 1-182
+#$ -t 1-24
 #$ -j y
-#$ -N QC
+#$ -N QC_before_trim_concat
 #$ -m be
 #$ -M ummz-arc-records@outlook.com
 
-
 # USAGE:
-#/path/to/running/script/run-1-qc.sh /path/to/data /path/to/results/ ${SGE_TASK_ID} >> /path/to/arc_files/output.$JOB_ID.txt
+#/path/to/running/script/run-1-qc.sh /path/to/data/folder /path/to/results/folder ${SGE_TASK_ID}
 
-/nobackup/ummz/analysis-May-22/1-qc/run-1-qc.sh /nobackup/ummz/analysis-May-22/data /nobackup/ummz/analysis-May-22/1-qc ${SGE_TASK_ID} >> /nobackup/ummz/analysis-May-22/1-qc/arc_files/output.$JOB_ID.txt
+/home/home02/ummz/github_dirs/RNA-seq/scripts/run-FastQC.sh /nobackup/ummz/NEW/transcriptomics/data/bulk_GCA/other_data_files/concatenated_samples /nobackup/ummz/NEW/transcriptomics/results/bulk_GCA/QC_before_trim/concatenated_samples ${SGE_TASK_ID}
