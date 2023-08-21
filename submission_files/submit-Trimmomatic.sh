@@ -22,7 +22,7 @@
 
 #################################################################
 # USAGE:
-# (0) /home/home02/ummz/github_dirs/RNA-seq/scripts/run-2-trim.sh
+# (0) /home/home02/ummz/github_dirs/RNA-seq/scripts/run-Trimmomatic.sh
 # (1) [either 'SE' or 'PE']
 # (2) /path/to/input/data 
 # (3) /path/to/results 

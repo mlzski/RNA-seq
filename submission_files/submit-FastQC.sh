@@ -14,7 +14,11 @@
 #$ -m be
 #$ -M ummz-arc-records@outlook.com
 
-# USAGE:
-#/path/to/running/script/run-1-qc.sh /path/to/data/folder /path/to/results/folder ${SGE_TASK_ID}
-
 /home/home02/ummz/github_dirs/RNA-seq/scripts/run-FastQC.sh /nobackup/ummz/NEW/transcriptomics/data/bulk_GCA/other_data_files/concatenated_samples /nobackup/ummz/NEW/transcriptomics/results/bulk_GCA/QC_before_trim/concatenated_samples ${SGE_TASK_ID}
+
+#################################################################
+# USAGE: 
+# (0) /path/to/running/script/run-FastQC.sh 
+# (1) /path/to/data/folder 
+# (2) /path/to/results/folder 
+# (3) ${SGE_TASK_ID}
