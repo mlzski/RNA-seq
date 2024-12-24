@@ -1,90 +1,56 @@
 ### this script run:wqs Salmon to obtaine reads from fastq files (trimmed) on transcript level
 # NOTICE: prior to launching this command, make sure that the index has been already generated (just with a single command) 
 
-# TODO: finish implementation for single-end data
+# TODO: need to be tested for single-end data 
 
 # this version is based on this tutorial: https://github.com/crazyhottommy/RNA-seq-analysis/blob/master/salmon_kalliso_STAR_compare.md
 
-if [ $# != 6 ] ; then
-    echo -e "ERROR: 6 arguments are required: \
-    (1) running level (either 'transcript-level' or 'gene-level'), \
-    (2) path to folder with input data, \
-    (3) path to folder for output directory, \
-    (4) path to index file \
-    (5) path to .gtf file and \
-    (6) SGE_TASK_ID argument for array jobs ...Exiting"
+# NOTE: make sure "Salmon" conda environment is activated !!!
+
+if [ $# != 4 ] ; then
+    echo -e "ERROR: 4 arguments are required: \
+    (1) path to folder with input data, \
+    (2) path to folder for output directory, \
+    (3) path to index file \
+    (4) SGE_TASK_ID argument for array jobs ...Exiting"
     exit 1
 fi
 
-# export software (Salmon)
-export PATH=/nobackup/ummz/tools/bioinfo/salmon-1.8.0_linux_x86_64/bin:$PATH
-
 # assign variables
-run_mode=$1               # 'transcript-level' or 'gene-level'
-data_dir=$2
-out_dir=$3
-index_dir=$4
-gtf_dir=$5
+data_dir=$1
+out_dir=$2
+index_dir=$3
 
 # prepare params.txt file with information about the current run
 me=$(basename "$0")
-echo -ne "Script directory:" `pwd`"/"$me "\n" >> params_${me}.txt
+echo -ne "The same parameters were used for all samples." "\n" > params_${me}.txt
+echo -ne "Script directory:" `pwd`"/"$me "\n" > params_${me}.txt
 
 current_date_time="`date "+%Y-%m-%d %H:%M:%S"`";
-echo -ne "Executed on:" $current_date_time "\n" >> params_${me}.txt
+echo -ne "Executed on:" $current_date_time "\n" > params_${me}.txt
+
+# get read1 fastq.gz file and its pair read2
+
+fastqFile=$(ls $data_dir/*_R1.fastq.gz | sed -n -e "$SGE_TASK_ID p")
+read1=$fastqFile
+read2=$(echo $read1 | sed 's/R1/R2/g')
+
+samp_name=$(ls $data_dir/*_R1.fastq.gz | rev | cut -d '/' -f 1 | cut -c 25- | rev | sed -n -e "$SGE_TASK_ID p")
 
 # run Salmon mapping job
-if [ $run_mode == 'transcript-level' ] ; then
-
-    # get read1 fastq.gz file and its pair read2
-    fastqFile=$(ls $data_dir/*_R1_trim_paired.fastq.gz | sed -n -e "$SGE_TASK_ID p")
-    read1=$fastqFile
-    read2=$(echo $read1 | sed 's/R1/R2/g')
-    samp_name=$(ls $data_dir/*_R1_trim_paired.fastq.gz | rev | cut -d '/' -f 1 | cut -c 25- | rev | sed -n -e "$SGE_TASK_ID p")
-
-    # run Salmon in paired-end mode [PE]
-    salmon quant \
-    	-i $index_dir \
-	-l ISR \
-	-1 $read1 \
-	-2 $read2 \
-	-o $out_dir/ID-${samp_name} \
-	-p 8
-    
-    # NOTE: use either "-l ISR" or "-l A" (automatic); for new data, always "A"
- 
-    # print the main command to params.txt
-    echo "salmon quant -i $index_dir -l ISR -1 $read1 -2 $read2 -p 8 -o $out_dir/${samp_name}_quant" >> params_${me}.txt
-
-
-elif [ $run_mode == 'gene-level' ] ; then
-
-    # get read1 fastq.gz file and its pair read2
-    fastqFile=$(ls $data_dir/*_R1_trim_paired.fastq.gz | sed -n -e "$SGE_TASK_ID p")
-    read1=$fastqFile
-    read2=$(echo $read1 | sed 's/R1/R2/g')
-    samp_name=$(ls $data_dir/*_R1_trim_paired.fastq.gz | rev | cut -d '/' -f 1 | cut -c 25- | rev | sed -n -e "$SGE_TASK_ID p")
-
-    # run Salmon in paired-end mode [PE]
-    salmon quant \
+salmon quant \
 	-i $index_dir \
-	-l ISR \
+	-l A \
 	-1 $read1 \
 	-2 $read2 \
-	-o $out_dir/ID-${samp_name} \
-	-g $gtf_dir \
-	--seqBias \
+	-p 8 \
+	--gcBias \
 	--validateMappings \
-	-p 8
-
-    # NOTE: use either "-l ISR" or "-l A" (automatic); for new data, always "A"
+	--writeUnmappedNames \
+	--writeMappings \
+	-o $out_dir/${samp_name}
  
-    # print the main command to params.txt
-    echo "salmon quant -i $index_dir -l ISR -1 $read1 -2 $read2 -o $out_dir/ID-${samp_name} -g $gtf_dir --seqBias --validateMappings -p 8" >> params_${me}.txt
-
-else
-    echo "ERROR... run_mode argument must be specified as: 'transcript-level' or 'gene-level'"
-    exit 1
-fi
+# print the main command to params.txtSalmon_quantif_cc_c1_c2_transcript_lvl.o5169250.1
+echo "salmon quant -i $index_dir -l A -1 $read1 -2 $read2 -p 8 --seqBias --gcBias --validateMappings --writeUnmappedNames --writeMappings -o $out_dir/${samp_name}" > params_${me}.txt
 
 echo "Finished for " $samp_name 

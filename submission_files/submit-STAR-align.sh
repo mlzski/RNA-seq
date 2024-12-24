@@ -15,14 +15,14 @@
 #$ -M ummz-arc-records@outlook.com
 
 # for single-end
-#/home/home02/ummz/github_dirs/RNA-seq/scripts/run-STAR-align.sh 'SE' /nobackup/ummz/NEW/transcriptomics/results/bulk_GCA/trimming/single_end/concatenated_samples/v1 /nobackup/ummz/NEW/transcriptomics/results/bulk_GCA/STAR_alignment_trimmed/alignment/single_end/concatenated_samples/v1 /nobackup/ummz/NEW/transcriptomics/results/bulk_GCA/STAR_alignment_trimmed/indexing/index ${SGE_TASK_ID}
+#/home/home02/ummz/GitHubRepos/RNA-seq/scripts/run-STAR-align.sh 'SE' /nobackup/ummz/NEW/transcriptomics/results/bulk_GCA/trimming/single_end/concatenated_samples/v1 /nobackup/ummz/NEW/transcriptomics/results/bulk_GCA/STAR_alignment_trimmed/alignment/single_end/concatenated_samples/v1 /nobackup/ummz/NEW/transcriptomics/results/bulk_GCA/STAR_alignment_trimmed/indexing/index ${SGE_TASK_ID}
  
 # for paired-end
-/home/home02/ummz/github_dirs/RNA-seq/scripts/run-STAR-align.sh 'PE' /nobackup/ummz/NEW/transcriptomics/results/bulk_GCA/trimming/paired_end/concatenated_samples/v1 /nobackup/ummz/NEW/transcriptomics/results/bulk_GCA/STAR_alignment_trimmed/alignment/paired_end/concatenated_samples/v1 /nobackup/ummz/NEW/transcriptomics/results/bulk_GCA/STAR_alignment_trimmed/indexing/index ${SGE_TASK_ID}
+/home/home02/ummz/GitHubRepos/RNA-seq/scripts/run-STAR-align.sh 'PE' /nobackup/ummz/NEW/transcriptomics/results/bulk_GCA/trimming/paired_end/concatenated_samples/v1 /nobackup/ummz/NEW/transcriptomics/results/bulk_GCA/STAR_alignment_trimmed/alignment/paired_end/concatenated_samples/v1 /nobackup/ummz/NEW/transcriptomics/results/bulk_GCA/STAR_alignment_trimmed/indexing/index ${SGE_TASK_ID}
 
 #################################################################
 # USAGE:
-# (0) /home/home02/ummz/github_dirs/RNA-seq/scripts/run-STAR-align.sh
+# (0) /home/home02/ummz/GitHubRepos/RNA-seq/scripts/run-STAR-align.sh
 # (1) [either SE or PE]
 # (2) /path/to/data 
 # (3) /path/to/results 

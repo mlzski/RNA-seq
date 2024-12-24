@@ -9,32 +9,26 @@
 #$ -l h_rt=08:00:00
 #$ -l h_vmem=9G
 #$ -pe smp 8
-#$ -t 1-91
+#$ -t 1-80
 #$ -j y
-#$ -N read-quantif
+#$ -N Salmon_quantif_coh_1_and_2
 #$ -m be
 #$ -M ummz-arc-records@outlook.com
 
 # define arguments to be passed
-script=/nobackup/ummz/analysis-May-22/read-quantification/run-Salmon.sh
-infile=/nobackup/ummz/analysis-May-22/2-trim-compressed/trimmed/paired-end/paired
-outfile=/nobackup/ummz/analysis-May-22/read-quantification/output-quantif
-index=/nobackup/ummz/analysis-May-22/reference-genome/salmon_index
-gtf=/nobackup/ummz/analysis-May-22/reference-genome/gencode.v40.annotation.gtf.gz
+script=/home/home02/ummz/GitHubRepos/RNA-seq/scripts/run-Salmon.sh
+infile=/nobackup/ummz/NEW/transcriptomics/results/bulk_GCA/Salmon_quantification_trimmed/concat_c1_c2/input_files
+outfile=//nobackup/ummz/NEW/transcriptomics/results/bulk_GCA/Salmon_quantification_trimmed/concat_c1_c2/
+index=/nobackup/ummz/NEW/transcriptomics/results/bulk_GCA/Salmon_quantification_trimmed/concat_c1_c2/salmon_index
 
-# running on transcript level (gtf file is not used)
-$script 'transcript-level' $infile $outfile $index $gtf ${SGE_TASK_ID} >> /nobackup/ummz/analysis-May-22/read-quantification/arc_files/output-transcript-level.$JOB_ID.txt
-
-# running on gene level
-### $script 'gene-level' $infile $outfile $index $gtf ${SGE_TASK_ID} >> /nobackup/ummz/analysis-May-22/read-quantification/arc_files/output-gene-level.$JOB_ID.txt
+# running on transcript level
+$script $infile $outfile $index ${SGE_TASK_ID}
 
 ###################################################################
-# (0) /home/home02/ummz/github_dirs/RNA-seq/scripts/run-Salmon.sh
-# (1) [transcript-level or gene-level]
-# (2) /path/to/input-data 
-# (3) /path/to/output-directory 
-# (4) /path/to/index/dir
-# (5) /path/to/gtf_file (only used for 'gene-level')
-# (6) ${SGE_TASK_ID} 
+# (0) /home/home02/ummz/GitHubRepos/RNA-seq/scripts/run-Salmon.sh
+# (1) /path/to/input-data 
+# (2) /path/to/output-directory 
+# (3) /path/to/index/dir
+# (4) ${SGE_TASK_ID} 
 # >> 
 # (OUTPUT) /path/to/arc_files/output.$JOB_ID.txt

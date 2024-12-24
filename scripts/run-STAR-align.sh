@@ -2,13 +2,14 @@
 
 # NOTE run 'index' separately | samtools is not included here
 
-if [ $# != 5 ] ; then
-    echo -e "ERROR: 5 arguments are required: \
+if [ $# != 6 ] ; then
+    echo -e "ERROR: 6 arguments are required: \
     (1) running mode (either 'SE' or 'PE'), \
-    (2) path to data folder, \
-    (3) path to output directory, \
-    (4) path to index file and \
-    (5) SGE_TASK_ID argument for array jobs ...Exiting"
+    (2) trimmed data? (yes/no), \
+    (3) path to data folder, \
+    (4) path to output directory, \
+    (5) path to index file and \
+    (6) SGE_TASK_ID argument for array jobs ...Exiting"
     exit 1
 fi
 
@@ -17,9 +18,10 @@ export PATH=/nobackup/ummz/tools/bioinfo/STAR-2.7.11a/bin/Linux_x86_64_static:$P
 
 # assign variables
 run_mode=$1               # 'SE' or 'PE'
-data_dir=$2
-out_dir=$3
-index_dir=$4
+trimmed=$2		  # 'yes' or 'no'
+data_dir=$3
+out_dir=$4
+index_dir=$5
 
 # run STAR alignment job
 if [ $run_mode == 'SE' ] ; then
@@ -29,10 +31,15 @@ if [ $run_mode == 'SE' ] ; then
     fastqFile=$(ls $data_dir/*_R1.fastq.gz | sed -n -e "$SGE_TASK_ID p")
     read1=$fastqFile
     
-    bam_name=$(ls $data_dir/*_R1.fastq.gz | rev | cut -d '/' -f 1 | cut -c 13- | rev | sed -n -e "$SGE_TASK_ID p")
-    core_name=$(ls $data_dir/*_R1.fastq.gz | rev | cut -d '/' -f 1 | cut -c 21- | rev | sed -n -e "$SGE_TASK_ID p")
-
-    mkdir -p $out_dir/bam/${core_name}_SE_aligned
+    core_name=$(ls $data_dir/*_R1.fastq.gz | rev | cut -d '/' -f 1 | cut -d '.' -f 3 | rev | sed 's/...$//' | sed -n -e "$SGE_TASK_ID p")
+ 
+    if [ $trimmed == 'yes' ] ; then    
+	bam_name=${core_name}
+    elif [ $trimmed == 'no' ] ; then
+	bam_name=${core_name}_no_trim
+    fi
+ 
+    mkdir -p $out_dir/bam/${core_name}_aligned
 
     # run STAR alignment in single-end mode [SE]
     STAR \
@@ -41,11 +48,12 @@ if [ $run_mode == 'SE' ] ; then
     --runThreadN 8 \
     --readFilesCommand gunzip -c \
     --readFilesIn $read1 \
-    --outFileNamePrefix $out_dir/bam/${core_name}_SE_aligned/${bam_name}_ \
+    --outFileNamePrefix $out_dir/bam/${core_name}_aligned/${bam_name}_ \
     --outSAMtype BAM Unsorted SortedByCoordinate \
     --outSAMunmapped Within \
     --outSAMattributes All  
 #    --outReadsUnmapped Fastx     # only for paired end
+ 
 
 elif [ $run_mode == 'PE' ] ; then
     
@@ -54,11 +62,16 @@ elif [ $run_mode == 'PE' ] ; then
     fastqFile=$(ls $data_dir/*_R1.fastq.gz | sed -n -e "$SGE_TASK_ID p")
     read1=$fastqFile
     read2=$(echo $read1 | sed 's/R1/R2/g')
+   
+    core_name=$(ls $data_dir/*_R1.fastq.gz | rev | cut -d '/' -f 1 | cut -d '.' -f 3 | rev | sed 's/...$//' | sed -n -e "$SGE_TASK_ID p") 
     
-    bam_name=$(ls $data_dir/*_R1.fastq.gz | rev | cut -d '/' -f 1 | cut -c 13- | rev | sed -n -e "$SGE_TASK_ID p")
-    core_name=$(ls $data_dir/*_R1.fastq.gz | rev | cut -d '/' -f 1 | cut -c 25- | rev | sed -n -e "$SGE_TASK_ID p")
-    
-    mkdir -p $out_dir/bam/${core_name}_PE_aligned
+    if [ $trimmed == 'yes' ] ; then
+	bam_name=${core_name}
+    elif [ $trimmed == 'no' ] ; then
+	bam_name=${core_name}_no_trim
+    fi
+
+    mkdir -p $out_dir/bam/${core_name}_aligned
 
     # run STAR alignment in paired-end mode [PE]
     STAR \
@@ -67,7 +80,7 @@ elif [ $run_mode == 'PE' ] ; then
     --runThreadN 8 \
     --readFilesCommand gunzip -c \
     --readFilesIn $read1 $read2 \
-    --outFileNamePrefix $out_dir/bam/${core_name}_PE_aligned/${bam_name}_ \
+    --outFileNamePrefix $out_dir/bam/${core_name}_aligned/${bam_name}_ \
     --outSAMtype BAM Unsorted SortedByCoordinate \
     --outSAMunmapped Within \
     --outSAMattributes All \
